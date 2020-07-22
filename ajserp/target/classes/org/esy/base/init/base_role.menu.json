@@ -1,0 +1,86 @@
+{
+    "execute": [
+	    {
+            "summary": "删除base_role菜单",
+            "hql": "delete Menu m where m.mid = 'base_role'"
+        },
+        {
+            "summary": "删除base_role下的子菜单",
+            "hql": "delete Menu m where m.mid like 'base_role%'"
+        }
+        
+    ],
+    "import": [
+         {
+            "summary": "角色信息",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "base_role",
+                "pid": "base",
+                "mid": "base_role",
+                "order": 300,
+                "name": "角色信息",
+                "tag": "base_role",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-wrench",
+                "tip": "角色信息",
+                "url": "#/base/role",
+                "memo": "角色信息",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-info"
+            }
+
+        }
+        ,
+         {
+            "summary": "角色账号",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "base_rolemember",
+                "pid": "base",
+                "mid": "base_rolemember",
+                "order": 400,
+                "name": "角色账号",
+                "tag": "base_rolemember",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-wrench",
+                "tip": "角色账号",
+                "url": "#/base/rolemember",
+                "memo": "角色账号",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-pink"
+            }
+
+        }
+        ,
+         {
+            "summary": "角色菜单",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "base_rolemenu",
+                "pid": "base",
+                "mid": "base_rolemenu",
+                "order": 500,
+                "name": "角色菜单",
+                "tag": "base_rolemenu",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-wrench",
+                "tip": "角色菜单",
+                "url": "#/base/rolemenu",
+                "memo": "角色菜单",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-pink"
+            }
+
+        }
+    ]
+}

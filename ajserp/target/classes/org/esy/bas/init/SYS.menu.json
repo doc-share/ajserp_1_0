@@ -1,0 +1,2242 @@
+{
+    "execute": [
+	    {
+            "summary": "所有菜单",
+            "hql": "delete Menu m "
+        }
+        
+    ],
+    "import": [
+         {
+            "summary": "採購登錄",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "pur_form21",
+                "pid": "pur",
+                "mid": "pur_form21",
+                "order": 0,
+                "name": "採購登錄",
+                "tag": "form21",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "採購登錄",
+                "url": "#/pur/form21",
+                "memo": "採購登錄",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-warning"
+            }
+
+        }
+        ,
+         {
+            "summary": "採購跟催作業",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "pur_form26",
+                "pid": "pur",
+                "mid": "pur_form26",
+                "order": 0,
+                "name": "採購跟催作業",
+                "tag": "form26",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "採購跟催作業",
+                "url": "#/pur/form26",
+                "memo": "採購跟催作業",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-warning"
+            }
+
+        }
+        ,
+         {
+            "summary": "採購收料狀況表",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "pur_form22c",
+                "pid": "pur",
+                "mid": "pur_form22c",
+                "order": 0,
+                "name": "採購收料狀況表",
+                "tag": "form22c",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "採購收料狀況表",
+                "url": "#/pur/form22c",
+                "memo": "採購收料狀況表",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-warning"
+            }
+
+        }
+        ,
+         {
+            "summary": "採購彙總表",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "pur_form23a",
+                "pid": "pur",
+                "mid": "pur_form23a",
+                "order": 0,
+                "name": "採購彙總表",
+                "tag": "form23a",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "採購彙總表",
+                "url": "#/pur/form23a",
+                "memo": "採購彙總表",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-warning"
+            }
+
+        }
+        ,
+         {
+            "summary": "採購明細表",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "pur_form24a",
+                "pid": "pur",
+                "mid": "pur_form24a",
+                "order": 0,
+                "name": "採購明細表",
+                "tag": "form24a",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "採購明細表",
+                "url": "#/pur/form24a",
+                "memo": "採購明細表",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-warning"
+            }
+
+        }
+        ,
+         {
+            "summary": "基本資料",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bas",
+                "pid": "",
+                "mid": "bas",
+                "order": 10000000,
+                "name": "基本資料",
+                "tag": "bas",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "基本資料",
+                "url": "#",
+                "memo": "基本資料",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-info"
+            }
+
+        }
+        ,
+         {
+            "summary": "客戶維護",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bas_cuscus",
+                "pid": "bas",
+                "mid": "bas_cuscus",
+                "order": 10001000,
+                "name": "客戶維護",
+                "tag": "cuscus",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "客戶維護",
+                "url": "#/bas/cuscus",
+                "memo": "客戶維護",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-success"
+            }
+
+        }
+        ,
+         {
+            "summary": "廠商維護",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bas_purven",
+                "pid": "bas",
+                "mid": "bas_purven",
+                "order": 10002000,
+                "name": "廠商維護",
+                "tag": "purven",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "廠商維護",
+                "url": "#/bas/purven",
+                "memo": "廠商維護",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-success"
+            }
+
+        }
+        ,
+         {
+            "summary": "產品維護",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bas_invitem",
+                "pid": "bas",
+                "mid": "bas_invitem",
+                "order": 10003000,
+                "name": "產品維護",
+                "tag": "invitem",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "產品維護",
+                "url": "#/bas/invitem",
+                "memo": "產品維護",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-success"
+            }
+
+        }
+        ,
+         {
+            "summary": "單位建檔",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bas_basun",
+                "pid": "bas",
+                "mid": "bas_basun",
+                "order": 10004000,
+                "name": "單位建檔",
+                "tag": "basun",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "單位建檔",
+                "url": "#/bas/basun",
+                "memo": "單位建檔",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-success"
+            }
+
+        }
+        ,
+         {
+            "summary": "部門管理",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bas_accdept",
+                "pid": "bas",
+                "mid": "bas_accdept",
+                "order": 10005000,
+                "name": "部門管理",
+                "tag": "accdept",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "部門管理",
+                "url": "#/bas/accdept",
+                "memo": "部門管理",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-success"
+            }
+
+        }
+        ,
+         {
+            "summary": "業務員維護",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bas_bassal",
+                "pid": "bas",
+                "mid": "bas_bassal",
+                "order": 10006000,
+                "name": "業務員維護",
+                "tag": "bassal",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "業務員維護",
+                "url": "#/bas/bassal",
+                "memo": "業務員維護",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-success"
+            }
+
+        }
+        ,
+         {
+            "summary": "類別維護",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bas_bastype",
+                "pid": "bas",
+                "mid": "bas_bastype",
+                "order": 10007000,
+                "name": "類別維護",
+                "tag": "bastype",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "類別維護",
+                "url": "#/bas/bastype",
+                "memo": "類別維護",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-success"
+            }
+
+        }
+        ,
+         {
+            "summary": "原因碼維護",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bas_bascode",
+                "pid": "bas",
+                "mid": "bas_bascode",
+                "order": 10008000,
+                "name": "原因碼維護",
+                "tag": "bascode",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "原因碼維護",
+                "url": "#/bas/bascode",
+                "memo": "原因碼維護",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-success"
+            }
+
+        }
+        ,
+         {
+            "summary": "常用備註維護",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bas_typerem",
+                "pid": "bas",
+                "mid": "bas_typerem",
+                "order": 10009000,
+                "name": "常用備註維護",
+                "tag": "typerem",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "常用備註維護",
+                "url": "#/bas/typerem",
+                "memo": "常用備註維護",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-success"
+            }
+
+        }
+        ,
+         {
+            "summary": "模具維護",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bas_basmj",
+                "pid": "bas",
+                "mid": "bas_basmj",
+                "order": 10010000,
+                "name": "模具維護",
+                "tag": "basmj",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "模具維護",
+                "url": "#/bas/basmj",
+                "memo": "模具維護",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-success"
+            }
+
+        }
+        ,
+         {
+            "summary": "模具維修",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bas_mjrep",
+                "pid": "bas",
+                "mid": "bas_mjrep",
+                "order": 10011000,
+                "name": "模具維修",
+                "tag": "mjrep",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "模具維修",
+                "url": "#/bas/mjrep",
+                "memo": "模具維修",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-success"
+            }
+
+        }
+        ,
+         {
+            "summary": "地區碼維護",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bas_basare",
+                "pid": "bas",
+                "mid": "bas_basare",
+                "order": 10012000,
+                "name": "地區碼維護",
+                "tag": "basare",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "地區碼維護",
+                "url": "#/bas/basare",
+                "memo": "地區碼維護",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-success"
+            }
+
+        }
+        ,
+         {
+            "summary": "倉庫維護",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bas_baswar",
+                "pid": "bas",
+                "mid": "bas_baswar",
+                "order": 10013000,
+                "name": "倉庫維護",
+                "tag": "baswar",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "倉庫維護",
+                "url": "#/bas/baswar",
+                "memo": "倉庫維護",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-success"
+            }
+
+        }
+        ,
+         {
+            "summary": "稅別維護",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bas_bastax",
+                "pid": "bas",
+                "mid": "bas_bastax",
+                "order": 10014000,
+                "name": "稅別維護",
+                "tag": "bastax",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "稅別維護",
+                "url": "#/bas/bastax",
+                "memo": "稅別維護",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-success"
+            }
+
+        }
+        ,
+         {
+            "summary": "幣別維護",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bas_bascoin",
+                "pid": "bas",
+                "mid": "bas_bascoin",
+                "order": 10015000,
+                "name": "幣別維護",
+                "tag": "bascoin",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "幣別維護",
+                "url": "#/bas/bascoin",
+                "memo": "幣別維護",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-success"
+            }
+
+        }
+        ,
+         {
+            "summary": "員工維護",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bas_staff",
+                "pid": "bas",
+                "mid": "bas_staff",
+                "order": 10016000,
+                "name": "員工維護",
+                "tag": "staff",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "員工維護",
+                "url": "#/bas/staff",
+                "memo": "員工維護",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-success"
+            }
+
+        }
+        ,
+         {
+            "summary": "業務性質維護",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bas_basword",
+                "pid": "bas",
+                "mid": "bas_basword",
+                "order": 10017000,
+                "name": "業務性質維護",
+                "tag": "basword",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "業務性質維護",
+                "url": "#/bas/basword",
+                "memo": "業務性質維護",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-success"
+            }
+
+        }
+        ,
+         {
+            "summary": "產品調價",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bas_form14b",
+                "pid": "bas",
+                "mid": "bas_form14b",
+                "order": 10018000,
+                "name": "產品調價",
+                "tag": "form14b",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "產品調價",
+                "url": "#/bas/form14b",
+                "memo": "產品調價",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-success"
+            }
+
+        }
+        ,
+         {
+            "summary": "料品標準成本調整",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bas_form1h",
+                "pid": "bas",
+                "mid": "bas_form1h",
+                "order": 10019000,
+                "name": "料品標準成本調整",
+                "tag": "form1h",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "料品標準成本調整",
+                "url": "#/bas/form1h",
+                "memo": "料品標準成本調整",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-success"
+            }
+
+        }
+        ,
+         {
+            "summary": "客戶廠商清冊列印",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bas_inventory",
+                "pid": "bas",
+                "mid": "bas_inventory",
+                "order": 10020000,
+                "name": "客戶廠商清冊列印",
+                "tag": "inventory",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "客戶廠商清冊列印",
+                "url": "#/bas/inventory",
+                "memo": "客戶廠商清冊列印",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-success"
+            }
+
+        }
+        ,
+         {
+            "summary": "客戶清冊",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bas_inventory_formrep1",
+                "pid": "bas_inventory",
+                "mid": "bas_inventory_formrep1",
+                "order": 10020010,
+                "name": "客戶清冊",
+                "tag": "formrep1",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "客戶清冊",
+                "url": "#bas/inventory/formrep1",
+                "memo": "客戶清冊",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-success"
+            }
+
+        }
+        ,
+         {
+            "summary": "廠商清冊",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bas_inventory_formrep2",
+                "pid": "bas_inventory",
+                "mid": "bas_inventory_formrep2",
+                "order": 10020020,
+                "name": "廠商清冊",
+                "tag": "formrep2",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "廠商清冊",
+                "url": "#bas/inventory/formrep2",
+                "memo": "廠商清冊",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-success"
+            }
+
+        }
+        ,
+         {
+            "summary": "產品清冊列印",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bas_product",
+                "pid": "bas",
+                "mid": "bas_product",
+                "order": 10021000,
+                "name": "產品清冊列印",
+                "tag": "product",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "產品清冊列印",
+                "url": "#/bas/product",
+                "memo": "產品清冊列印",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-success"
+            }
+
+        }
+        ,
+         {
+            "summary": "業務",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bas_product_fromrep4",
+                "pid": "bas_product",
+                "mid": "bas_product_fromrep4",
+                "order": 10021010,
+                "name": "業務",
+                "tag": "fromrep4",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "業務",
+                "url": "#bas/product/fromrep4",
+                "memo": "業務",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-success"
+            }
+
+        }
+        ,
+         {
+            "summary": "採購",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bas_product_formrep41",
+                "pid": "bas_product",
+                "mid": "bas_product_formrep41",
+                "order": 10021020,
+                "name": "採購",
+                "tag": "formrep41",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "採購",
+                "url": "#bas/product/formrep41",
+                "memo": "採購",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-success"
+            }
+
+        }
+        ,
+         {
+            "summary": "庫存",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bas_product_formrep",
+                "pid": "bas_product",
+                "mid": "bas_product_formrep",
+                "order": 10021030,
+                "name": "庫存",
+                "tag": "formrep",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "庫存",
+                "url": "#bas/product/formrep",
+                "memo": "庫存",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-success"
+            }
+
+        }
+        ,
+         {
+            "summary": "外銷",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bas_product_formrep43",
+                "pid": "bas_product",
+                "mid": "bas_product_formrep43",
+                "order": 10021040,
+                "name": "外銷",
+                "tag": "formrep43",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "外銷",
+                "url": "#bas/product/formrep43",
+                "memo": "外銷",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-success"
+            }
+
+        }
+        ,
+         {
+            "summary": "成本",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bas_product_formrep44",
+                "pid": "bas_product",
+                "mid": "bas_product_formrep44",
+                "order": 10021050,
+                "name": "成本",
+                "tag": "formrep44",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "成本",
+                "url": "#bas/product/formrep44",
+                "memo": "成本",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-success"
+            }
+
+        }
+        ,
+         {
+            "summary": "客戶廠商料品標籤列印",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bas_label",
+                "pid": "bas",
+                "mid": "bas_label",
+                "order": 10022000,
+                "name": "客戶廠商料品標籤列印",
+                "tag": "label",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "客戶廠商料品標籤列印",
+                "url": "#/bas/label",
+                "memo": "客戶廠商料品標籤列印",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-success"
+            }
+
+        }
+        ,
+         {
+            "summary": "客戶標籤",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bas_label_formlbl1",
+                "pid": "bas_label",
+                "mid": "bas_label_formlbl1",
+                "order": 10022010,
+                "name": "客戶標籤",
+                "tag": "formlbl1",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "客戶標籤",
+                "url": "#bas/label/formlbl1",
+                "memo": "客戶標籤",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-success"
+            }
+
+        }
+        ,
+         {
+            "summary": "廠商標籤",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bas_label_formlbl2",
+                "pid": "bas_label",
+                "mid": "bas_label_formlbl2",
+                "order": 10022020,
+                "name": "廠商標籤",
+                "tag": "formlbl2",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "廠商標籤",
+                "url": "#bas/label/formlbl2",
+                "memo": "廠商標籤",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-success"
+            }
+
+        }
+        ,
+         {
+            "summary": "料品標籤",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bas_label_formlbl4",
+                "pid": "bas_label",
+                "mid": "bas_label_formlbl4",
+                "order": 10022030,
+                "name": "料品標籤",
+                "tag": "formlbl4",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "料品標籤",
+                "url": "#bas/label/formlbl4",
+                "memo": "料品標籤",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-success"
+            }
+
+        }
+        ,
+         {
+            "summary": "客戶廠商信封列印",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bas_envelope",
+                "pid": "bas",
+                "mid": "bas_envelope",
+                "order": 10023000,
+                "name": "客戶廠商信封列印",
+                "tag": "envelope",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "客戶廠商信封列印",
+                "url": "#/bas/envelope",
+                "memo": "客戶廠商信封列印",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-success"
+            }
+
+        }
+        ,
+         {
+            "summary": "客戶信封",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bas_envelope_formlet1",
+                "pid": "bas_envelope",
+                "mid": "bas_envelope_formlet1",
+                "order": 10023010,
+                "name": "客戶信封",
+                "tag": "formlet1",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "客戶信封",
+                "url": "#bas/envelope/formlet1",
+                "memo": "客戶信封",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-success"
+            }
+
+        }
+        ,
+         {
+            "summary": "廠商信封",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bas_envelope_formlet2",
+                "pid": "bas_envelope",
+                "mid": "bas_envelope_formlet2",
+                "order": 10023020,
+                "name": "廠商信封",
+                "tag": "formlet2",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "廠商信封",
+                "url": "#bas/envelope/formlet2",
+                "memo": "廠商信封",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-success"
+            }
+
+        }
+        ,
+         {
+            "summary": "報價資料",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "ord",
+                "pid": "",
+                "mid": "ord",
+                "order": 10100000,
+                "name": "報價資料",
+                "tag": "ord",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "報價資料",
+                "url": "#",
+                "memo": "報價資料",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-danger"
+            }
+
+        }
+        ,
+         {
+            "summary": "報價單維護",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "ord_quobah",
+                "pid": "ord",
+                "mid": "ord_quobah",
+                "order": 10101000,
+                "name": "報價單維護",
+                "tag": "quobah",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "報價單維護",
+                "url": "#/ord/quobah",
+                "memo": "報價單維護",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-danger"
+            }
+
+        }
+        ,
+         {
+            "summary": "產品報價查詢",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "ord_quobat",
+                "pid": "ord",
+                "mid": "ord_quobat",
+                "order": 10102000,
+                "name": "產品報價查詢",
+                "tag": "quobat",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "產品報價查詢",
+                "url": "#/ord/quobat",
+                "memo": "產品報價查詢",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-danger"
+            }
+
+        }
+        ,
+         {
+            "summary": "訂單資料",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "ord2",
+                "pid": "",
+                "mid": "ord2",
+                "order": 10200000,
+                "name": "訂單資料",
+                "tag": "ord2",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "訂單資料",
+                "url": "#",
+                "memo": "訂單資料",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-pink"
+            }
+
+        }
+        ,
+         {
+            "summary": "訂單登錄",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "ord2_form31",
+                "pid": "ord2",
+                "mid": "ord2_form31",
+                "order": 10201000,
+                "name": "訂單登錄",
+                "tag": "form31",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "訂單登錄",
+                "url": "#/ord2/form31",
+                "memo": "訂單登錄",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-pink"
+            }
+
+        }
+        ,
+         {
+            "summary": "訂單跟催作業",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "ord2_form39",
+                "pid": "ord2",
+                "mid": "ord2_form39",
+                "order": 10202000,
+                "name": "訂單跟催作業",
+                "tag": "form39",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "訂單跟催作業",
+                "url": "#/ord2/form39",
+                "memo": "訂單跟催作業",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-pink"
+            }
+
+        }
+        ,
+         {
+            "summary": "訂單彙總表",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "ord2_summary",
+                "pid": "ord2",
+                "mid": "ord2_summary",
+                "order": 10203000,
+                "name": "訂單彙總表",
+                "tag": "summary",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "訂單彙總表",
+                "url": "#/ord2/summary",
+                "memo": "訂單彙總表",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-pink"
+            }
+
+        }
+        ,
+         {
+            "summary": "客戶彙總排序",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "ord2_summary_form33a",
+                "pid": "ord2_summary",
+                "mid": "ord2_summary_form33a",
+                "order": 10203010,
+                "name": "客戶彙總排序",
+                "tag": "form33a",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "客戶彙總排序",
+                "url": "#ord2summaryform33a",
+                "memo": "客戶彙總排序",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-pink"
+            }
+
+        }
+        ,
+         {
+            "summary": "單據彙總排序",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "ord2_summary_form33b",
+                "pid": "ord2_summary",
+                "mid": "ord2_summary_form33b",
+                "order": 10203020,
+                "name": "單據彙總排序",
+                "tag": "form33b",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "單據彙總排序",
+                "url": "#ord2/summary/form33b",
+                "memo": "單據彙總排序",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-pink"
+            }
+
+        }
+        ,
+         {
+            "summary": "日期彙總排序",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "ord2_summary_form33c",
+                "pid": "ord2_summary",
+                "mid": "ord2_summary_form33c",
+                "order": 10203030,
+                "name": "日期彙總排序",
+                "tag": "form33c",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "日期彙總排序",
+                "url": "#ord2/summary/form33c",
+                "memo": "日期彙總排序",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-pink"
+            }
+
+        }
+        ,
+         {
+            "summary": "訂單明細表",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "ord2_statement",
+                "pid": "ord2",
+                "mid": "ord2_statement",
+                "order": 10204000,
+                "name": "訂單明細表",
+                "tag": "statement",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "訂單明細表",
+                "url": "#/ord2/statement",
+                "memo": "訂單明細表",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-pink"
+            }
+
+        }
+        ,
+         {
+            "summary": "客戶訂單排序",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "ord2_statement_form34a",
+                "pid": "ord2_statement",
+                "mid": "ord2_statement_form34a",
+                "order": 10204010,
+                "name": "客戶訂單排序",
+                "tag": "form34a",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "客戶訂單排序",
+                "url": "#ord2/statement/form34a",
+                "memo": "客戶訂單排序",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-pink"
+            }
+
+        }
+        ,
+         {
+            "summary": "單據訂單排序",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "ord2_statement_form34b",
+                "pid": "ord2_statement",
+                "mid": "ord2_statement_form34b",
+                "order": 10204020,
+                "name": "單據訂單排序",
+                "tag": "form34b",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "單據訂單排序",
+                "url": "#ord2/statement/form34b",
+                "memo": "單據訂單排序",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-pink"
+            }
+
+        }
+        ,
+         {
+            "summary": "日期訂單排序",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "ord2_statement_form34c",
+                "pid": "ord2_statement",
+                "mid": "ord2_statement_form34c",
+                "order": 10204030,
+                "name": "日期訂單排序",
+                "tag": "form34c",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "日期訂單排序",
+                "url": "#ord2/statement/form34c",
+                "memo": "日期訂單排序",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-pink"
+            }
+
+        }
+        ,
+         {
+            "summary": "採購建議單",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "ord2_formm2a",
+                "pid": "ord2",
+                "mid": "ord2_formm2a",
+                "order": 10205000,
+                "name": "採購建議單",
+                "tag": "formm2a",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "採購建議單",
+                "url": "#/ord2/formm2a",
+                "memo": "採購建議單",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-pink"
+            }
+
+        }
+        ,
+         {
+            "summary": "委外建議單",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "ord2_form3c",
+                "pid": "ord2",
+                "mid": "ord2_form3c",
+                "order": 10206000,
+                "name": "委外建議單",
+                "tag": "form3c",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "委外建議單",
+                "url": "#/ord2/form3c",
+                "memo": "委外建議單",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-pink"
+            }
+
+        }
+        ,
+         {
+            "summary": "出貨資料",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "ord3",
+                "pid": "",
+                "mid": "ord3",
+                "order": 10300000,
+                "name": "出貨資料",
+                "tag": "ord3",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "出貨資料",
+                "url": "#",
+                "memo": "出貨資料",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-info"
+            }
+
+        }
+        ,
+         {
+            "summary": "出/退貨登錄",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "ord3_form44",
+                "pid": "ord3",
+                "mid": "ord3_form44",
+                "order": 10301000,
+                "name": "出/退貨登錄",
+                "tag": "form44",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "出/退貨登錄",
+                "url": "#/ord3/form44",
+                "memo": "出/退貨登錄",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-info"
+            }
+
+        }
+        ,
+         {
+            "summary": "出貨彙總表",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "ord3_form47a",
+                "pid": "ord3",
+                "mid": "ord3_form47a",
+                "order": 10302000,
+                "name": "出貨彙總表",
+                "tag": "form47a",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "出貨彙總表",
+                "url": "#/ord3/form47a",
+                "memo": "出貨彙總表",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-info"
+            }
+
+        }
+        ,
+         {
+            "summary": "出貨明細查詢",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "ord3_form48aa",
+                "pid": "ord3",
+                "mid": "ord3_form48aa",
+                "order": 10303000,
+                "name": "出貨明細查詢",
+                "tag": "form48aa",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "出貨明細查詢",
+                "url": "#/ord3/form48aa",
+                "memo": "出貨明細查詢",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-info"
+            }
+
+        }
+        ,
+         {
+            "summary": "客戶產品調價",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "ord3_form4a",
+                "pid": "ord3",
+                "mid": "ord3_form4a",
+                "order": 10304000,
+                "name": "客戶產品調價",
+                "tag": "form4a",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "客戶產品調價",
+                "url": "#/ord3/form4a",
+                "memo": "客戶產品調價",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-info"
+            }
+
+        }
+        ,
+         {
+            "summary": "採購資料",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "pur",
+                "pid": "",
+                "mid": "pur",
+                "order": 10400000,
+                "name": "採購資料",
+                "tag": "pur",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "採購資料",
+                "url": "#",
+                "memo": "採購資料",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-warning"
+            }
+
+        }
+        ,
+         {
+            "summary": "帳款管理",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "acr",
+                "pid": "",
+                "mid": "acr",
+                "order": 10500000,
+                "name": "帳款管理",
+                "tag": "acr",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "帳款管理",
+                "url": "#",
+                "memo": "帳款管理",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-primary"
+            }
+
+        }
+        ,
+         {
+            "summary": "代墊款登入",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "acr_tempbat",
+                "pid": "acr",
+                "mid": "acr_tempbat",
+                "order": 10501000,
+                "name": "代墊款登入",
+                "tag": "tempbat",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "代墊款登入",
+                "url": "#/acr/tempbat",
+                "memo": "代墊款登入",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-primary"
+            }
+
+        }
+        ,
+         {
+            "summary": "客戶帳單列印",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "acr_aprnbah",
+                "pid": "acr",
+                "mid": "acr_aprnbah",
+                "order": 10502000,
+                "name": "客戶帳單列印",
+                "tag": "aprnbah",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "客戶帳單列印",
+                "url": "#/acr/aprnbah",
+                "memo": "客戶帳單列印",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-primary"
+            }
+
+        }
+        ,
+         {
+            "summary": "應收帳款查詢",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "acr_accounts",
+                "pid": "acr",
+                "mid": "acr_accounts",
+                "order": 10503000,
+                "name": "應收帳款查詢",
+                "tag": "accounts",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "應收帳款查詢",
+                "url": "#/acr/accounts",
+                "memo": "應收帳款查詢",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-primary"
+            }
+
+        }
+        ,
+         {
+            "summary": "收款單登入",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "acr_acrbah",
+                "pid": "acr",
+                "mid": "acr_acrbah",
+                "order": 10504000,
+                "name": "收款單登入",
+                "tag": "acrbah",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "收款單登入",
+                "url": "#/acr/acrbah",
+                "memo": "收款單登入",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-primary"
+            }
+
+        }
+        ,
+         {
+            "summary": "會計系統",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "acc",
+                "pid": "",
+                "mid": "acc",
+                "order": 10600000,
+                "name": "會計系統",
+                "tag": "acc",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "會計系統",
+                "url": "#",
+                "memo": "會計系統",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-success"
+            }
+
+        }
+        ,
+         {
+            "summary": "分類建立",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "acc_acc_cd",
+                "pid": "acc",
+                "mid": "acc_acccd",
+                "order": 10601000,
+                "name": "分類建立",
+                "tag": "acccd",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "分類建立",
+                "url": "#/acc/acccd",
+                "memo": "分類建立",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-pink"
+            }
+
+        }
+        ,
+         {
+            "summary": "科目建立",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "acc_accmst",
+                "pid": "acc",
+                "mid": "acc_accmst",
+                "order": 10602000,
+                "name": "科目建立",
+                "tag": "accmst",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "科目建立",
+                "url": "#/acc/accmst",
+                "memo": "科目建立",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-pink"
+            }
+
+        }
+        ,
+         {
+            "summary": "會計介面設定",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "acc_basfac",
+                "pid": "acc",
+                "mid": "acc_basfac",
+                "order": 10603000,
+                "name": "會計介面設定",
+                "tag": "basfac",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "會計介面設定",
+                "url": "#/acc/basfac",
+                "memo": "會計介面設定",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-pink"
+            }
+
+        }
+        ,
+         {
+            "summary": "收款單轉傳票",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "acc_accbat",
+                "pid": "acc",
+                "mid": "acc_accbat",
+                "order": 10604000,
+                "name": "收款單轉傳票",
+                "tag": "accbat",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "收款單轉傳票",
+                "url": "#/acc/accbat",
+                "memo": "收款單轉傳票",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-pink"
+            }
+
+        }
+        ,
+         {
+            "summary": "傳票登錄作業",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "acc_mapacc21",
+                "pid": "acc",
+                "mid": "acc_mapacc21",
+                "order": 10605000,
+                "name": "傳票登錄作業",
+                "tag": "mapacc21",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "傳票登錄作業",
+                "url": "#/acc/mapacc21",
+                "memo": "傳票登錄作業",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-pink"
+            }
+
+        }
+        ,
+         {
+            "summary": "系统管理",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "base",
+                "pid": "",
+                "mid": "base",
+                "order": 10700000,
+                "name": "系统管理",
+                "tag": "base",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-desktop",
+                "tip": "系统管理",
+                "url": "#",
+                "memo": "系统管理",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-pink"
+            }
+
+        }
+        ,
+         {
+            "summary": "帳號管理",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "base_account",
+                "pid": "base",
+                "mid": "base_account",
+                "order": 10701000,
+                "name": "帳號管理",
+                "tag": "base_account",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-user",
+                "tip": "帳號管理",
+                "url": "#/base/account",
+                "memo": "帳號管理",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-primary"
+            }
+
+        }
+        ,
+         {
+            "summary": "角色訊息",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "base_role",
+                "pid": "base",
+                "mid": "base_role",
+                "order": 10702000,
+                "name": "角色訊息",
+                "tag": "base_role",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-wrench",
+                "tip": "角色訊息",
+                "url": "#/base/role",
+                "memo": "角色訊息",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-primary"
+            }
+
+        }
+        ,
+         {
+            "summary": "角色帳號",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "base_rolemember",
+                "pid": "base",
+                "mid": "base_rolemember",
+                "order": 10703000,
+                "name": "角色帳號",
+                "tag": "base_rolemember",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-wrench",
+                "tip": "角色帳號",
+                "url": "#/base/rolemember",
+                "memo": "角色帳號",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-primary"
+            }
+
+        }
+        ,
+         {
+            "summary": "角色選單",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "base_rolemenu",
+                "pid": "base",
+                "mid": "base_rolemenu",
+                "order": 10704000,
+                "name": "角色選單",
+                "tag": "base_rolemenu",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-wrench",
+                "tip": "角色選單",
+                "url": "#/base/rolemenu",
+                "memo": "角色選單",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-primary"
+            }
+
+        }
+        ,
+         {
+            "summary": "選單配置",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "base_config_menu",
+                "pid": "base",
+                "mid": "base_config_menu",
+                "order": 10705000,
+                "name": "選單配置",
+                "tag": "base_config_menu",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-cogs",
+                "tip": "選單配置",
+                "url": "#base/menu",
+                "memo": "選單配置",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-primary"
+            }
+
+        }
+        ,
+         {
+            "summary": "企業管理",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "base_enterprise",
+                "pid": "base",
+                "mid": "base_enterprise",
+                "order": 10706000,
+                "name": "企業管理",
+                "tag": "base_enterprise",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-gavel",
+                "tip": "企業管理",
+                "url": "#/base/enterprise",
+                "memo": "企業管理",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-primary"
+            }
+
+        }
+        ,
+         {
+            "summary": "系統日誌",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "base_log",
+                "pid": "base",
+                "mid": "base_log",
+                "order": 10707000,
+                "name": "系統日誌",
+                "tag": "base_log",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-list",
+                "tip": "系統日誌",
+                "url": "#/base/log",
+                "memo": "系統日誌",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-primary"
+            }
+
+        }
+        ,
+         {
+            "summary": "數據字典",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "base_dictionary",
+                "pid": "base",
+                "mid": "base_dictionary",
+                "order": 10708000,
+                "name": "數據字典",
+                "tag": "base_dictionary",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "數據字典",
+                "url": "#/base/dictionary",
+                "memo": "數據字典",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-primary"
+            }
+
+        }
+        ,
+         {
+            "summary": "開發平台",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bean",
+                "pid": "",
+                "mid": "bean",
+                "order": 10800000,
+                "name": "開發平台",
+                "tag": "bean",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-car",
+                "tip": "開發平台",
+                "url": "#",
+                "memo": "開發平台",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-warning"
+            }
+
+        }
+        ,
+         {
+            "summary": "開發者維護",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bean_annotation",
+                "pid": "bean",
+                "mid": "bean_annotation",
+                "order": 10801000,
+                "name": "開發者維護",
+                "tag": "bean_annotation",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-file",
+                "tip": "開發者維護",
+                "url": "#/bean/annotation",
+                "memo": "開發者維護",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-warning"
+            }
+
+        }
+        ,
+         {
+            "summary": "模塊管理",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bean_tableBeans",
+                "pid": "bean",
+                "mid": "bean_tableBeans",
+                "order": 10802000,
+                "name": "模塊管理",
+                "tag": "bean_tableBeans",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-file",
+                "tip": "模塊管理",
+                "url": "#/bean/tableBeans",
+                "memo": "模塊管理",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-warning"
+            }
+
+        }
+        ,
+         {
+            "summary": "選單配置",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bean_menuconfigure",
+                "pid": "bean",
+                "mid": "bean_menuconfigure",
+                "order": 10803000,
+                "name": "選單配置",
+                "tag": "bean_menuconfigure",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-file",
+                "tip": "選單配置",
+                "url": "#/bean/menuconfigure",
+                "memo": "選單配置",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-warning"
+            }
+
+        }
+        ,
+         {
+            "summary": "欄位類別維護",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bean_fieldtypes",
+                "pid": "bean",
+                "mid": "bean_fieldtypes",
+                "order": 10804000,
+                "name": "欄位類別維護",
+                "tag": "bean_fieldtypes",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-file",
+                "tip": "欄位類別維護",
+                "url": "#/bean/fieldtypes",
+                "memo": "欄位類別維護",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-warning"
+            }
+
+        }
+        ,
+         {
+            "summary": "表結構管理",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bean_tableInfos",
+                "pid": "bean",
+                "mid": "bean_tableInfos",
+                "order": 10805000,
+                "name": "表結構管理",
+                "tag": "bean_tableInfos",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-file",
+                "tip": "表結構管理",
+                "url": "#/bean/tableInfos",
+                "memo": "表結構管理",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-warning"
+            }
+
+        }
+        ,
+         {
+            "summary": "表單組件管理",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bean_discreteness",
+                "pid": "bean",
+                "mid": "bean_discreteness",
+                "order": 10806000,
+                "name": "表單組件管理",
+                "tag": "bean_discreteness",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-file",
+                "tip": "表單組件管理",
+                "url": "#/bean/discreteness",
+                "memo": "表單組件管理",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-warning"
+            }
+
+        }
+        ,
+         {
+            "summary": "查詢組件管理",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bean_fdiscreteness",
+                "pid": "bean",
+                "mid": "bean_fdiscreteness",
+                "order": 10807000,
+                "name": "查詢組件管理",
+                "tag": "bean_fdiscreteness",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-file",
+                "tip": "查詢組件管理",
+                "url": "#/bean/fdiscreteness",
+                "memo": "查詢組件管理",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-warning"
+            }
+
+        }
+        ,
+         {
+            "summary": "LOV類別管理",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bean_lovtype",
+                "pid": "bean",
+                "mid": "bean_lovtype",
+                "order": 10808000,
+                "name": "LOV類別管理",
+                "tag": "bean_lovtype",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-file",
+                "tip": "LOV類別管理",
+                "url": "#/bean/lovtype",
+                "memo": "LOV類別管理",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-warning"
+            }
+
+        }
+        ,
+         {
+            "summary": "功能配置",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "bean_stencilconfigure",
+                "pid": "bean",
+                "mid": "bean_stencilconfigure",
+                "order": 10809000,
+                "name": "功能配置",
+                "tag": "bean_stencilconfigure",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-file",
+                "tip": "功能配置",
+                "url": "#/bean/stencilconfigure",
+                "memo": "功能配置",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-warning"
+            }
+
+        }
+    ]
+}

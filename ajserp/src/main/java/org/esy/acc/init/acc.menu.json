@@ -1,0 +1,62 @@
+{
+    "execute": [
+	    {
+            "summary": "删除acc菜单",
+            "hql": "delete Menu m where m.mid = 'acc'"
+        },
+        {
+            "summary": "删除acc下的子菜单",
+            "hql": "delete Menu m where m.mid like 'acc%'"
+        }
+        
+    ],
+    "import": [
+         {
+            "summary": "分類建立",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "acc_acc_cd",
+                "pid": "acc",
+                "mid": "acc_acccd",
+                "order": 0,
+                "name": "分類建立",
+                "tag": "acccd",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "分類建立",
+                "url": "#/acc/acccd",
+                "memo": "分類建立",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-pink"
+            }
+
+        }
+        ,
+         {
+            "summary": "會計系統",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "acc",
+                "pid": "",
+                "mid": "acc",
+                "order": 10300000,
+                "name": "會計系統",
+                "tag": "acc",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "會計系統",
+                "url": "#",
+                "memo": "會計系統",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-primary"
+            }
+
+        }
+    ]
+}

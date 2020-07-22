@@ -1,0 +1,288 @@
+package org.esy.acr.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Index;
+import javax.persistence.Table;
+import org.esy.base.annotation.EntityInfo;
+import org.esy.base.annotation.FieldInfo;
+import org.esy.base.core.BaseProperties;
+import org.esy.base.annotation.FilterInfo;
+
+
+
+/**
+ *  实体类
+ * 
+ * @author <a href="mailto:ardui@163.com"ardui</a
+ *  @date Tue Jun 23 11:01:13 CST 2020
+ */
+@Entity
+@Table(name = "acr_dis" ,indexes = { @Index(name = "created", columnList = "created"), 
+@Index(name = "updated", columnList = "updated")})
+@EntityInfo("沖款單")
+public class Acrdis extends BaseProperties {
+
+	private static final long serialVersionUID = 1L;
+
+	@FieldInfo("收款單代號")
+	@FilterInfo(ListValue = "")
+	@Column(name = "nbr", length =32  )
+	private String nbr ;
+
+	@FieldInfo("沖款之單據檔名")
+	@FilterInfo(ListValue = "")
+	@Column(name = "s_dbf", length =32  )
+	private String s_dbf ;
+
+	@FieldInfo("沖款之單據號碼")
+	@FilterInfo(ListValue = "")
+	@Column(name = "s_nbr", length =32  )
+	private String s_nbr ;
+
+	@FieldInfo("交易序")
+	@FilterInfo(ListValue = "")
+	@Column(name = "ioseq", length =32  )
+	private String ioseq ;
+
+	@FieldInfo("客戶編號")
+	@FilterInfo(ListValue = "")
+	@Column(name = "cus_nbr", length =32  )
+	private String cus_nbr ;
+
+	@FieldInfo("內容")
+	@FilterInfo(ListValue = "")
+	@Column(name = "items_desc", length =32  )
+	private String items_desc ;
+
+	@FieldInfo("結帳月份")
+	@FilterInfo(ListValue = "")
+	@Column(name = "acr_mon", length =32  )
+	private String acr_mon ;
+
+	@FieldInfo("未收金額")
+	@FilterInfo(ListValue = "")
+	@Column(name = "acr_amt")
+	private Double acr_amt;
+
+	@FieldInfo("收款金額")
+	@FilterInfo(ListValue = "")
+	@Column(name = "rec_amt")
+	private Double rec_amt;
+
+	@FieldInfo("單據狀態")
+	@FilterInfo(ListValue = "")
+	@Column(name = "status", length =32  )
+	private String status ;
+
+
+     /**
+	 *
+	 * 构造函数
+	 *
+	 */
+	public Acrdis() {
+		super();
+	}
+	
+	/**
+	 *
+	 * 构造函数
+	 *
+	 	 * @param nbr
+	 *		  收款單代號
+	 * 
+	 	 * @param s_dbf
+	 *		  沖款之單據檔名
+	 * 
+	 	 * @param s_nbr
+	 *		  沖款之單據號碼
+	 * 
+	 	 * @param ioseq
+	 *		  交易序
+	 * 
+	 	 * @param cus_nbr
+	 *		  客戶編號
+	 * 
+	 	 * @param items_desc
+	 *		  內容
+	 * 
+	 	 * @param acr_mon
+	 *		  結帳月份
+	 * 
+	 	 * @param acr_amt
+	 *		  未收金額
+	 * 
+	 	 * @param rec_amt
+	 *		  收款金額
+	 * 
+	 	 * @param status
+	 *		  單據狀態
+	 * 
+	 	 */
+    	public Acrdis( String nbr, String s_dbf, String s_nbr, String ioseq, String cus_nbr, String items_desc, String acr_mon, Double acr_amt, Double rec_amt, String status ) {
+		super();
+				this.nbr = nbr;
+				this.s_dbf = s_dbf;
+				this.s_nbr = s_nbr;
+				this.ioseq = ioseq;
+				this.cus_nbr = cus_nbr;
+				this.items_desc = items_desc;
+				this.acr_mon = acr_mon;
+				this.acr_amt = acr_amt;
+				this.rec_amt = rec_amt;
+				this.status = status;
+			}
+
+		/**
+	 * @return nbr
+	 *			收款單代號
+	 */
+	public String getNbr() {
+		return nbr;
+	}
+
+	/**
+	 * @param nbr
+	 *			收款單代號
+	 */
+	public void setNbr(String Nbr) {
+		this.nbr = Nbr;
+	}
+		/**
+	 * @return s_dbf
+	 *			沖款之單據檔名
+	 */
+	public String getS_dbf() {
+		return s_dbf;
+	}
+
+	/**
+	 * @param s_dbf
+	 *			沖款之單據檔名
+	 */
+	public void setS_dbf(String S_dbf) {
+		this.s_dbf = S_dbf;
+	}
+		/**
+	 * @return s_nbr
+	 *			沖款之單據號碼
+	 */
+	public String getS_nbr() {
+		return s_nbr;
+	}
+
+	/**
+	 * @param s_nbr
+	 *			沖款之單據號碼
+	 */
+	public void setS_nbr(String S_nbr) {
+		this.s_nbr = S_nbr;
+	}
+		/**
+	 * @return ioseq
+	 *			交易序
+	 */
+	public String getIoseq() {
+		return ioseq;
+	}
+
+	/**
+	 * @param ioseq
+	 *			交易序
+	 */
+	public void setIoseq(String Ioseq) {
+		this.ioseq = Ioseq;
+	}
+		/**
+	 * @return cus_nbr
+	 *			客戶編號
+	 */
+	public String getCus_nbr() {
+		return cus_nbr;
+	}
+
+	/**
+	 * @param cus_nbr
+	 *			客戶編號
+	 */
+	public void setCus_nbr(String Cus_nbr) {
+		this.cus_nbr = Cus_nbr;
+	}
+		/**
+	 * @return items_desc
+	 *			內容
+	 */
+	public String getItems_desc() {
+		return items_desc;
+	}
+
+	/**
+	 * @param items_desc
+	 *			內容
+	 */
+	public void setItems_desc(String Items_desc) {
+		this.items_desc = Items_desc;
+	}
+		/**
+	 * @return acr_mon
+	 *			結帳月份
+	 */
+	public String getAcr_mon() {
+		return acr_mon;
+	}
+
+	/**
+	 * @param acr_mon
+	 *			結帳月份
+	 */
+	public void setAcr_mon(String Acr_mon) {
+		this.acr_mon = Acr_mon;
+	}
+		/**
+	 * @return acr_amt
+	 *			未收金額
+	 */
+	public Double getAcr_amt() {
+		return acr_amt;
+	}
+
+	/**
+	 * @param acr_amt
+	 *			未收金額
+	 */
+	public void setAcr_amt(Double Acr_amt) {
+		this.acr_amt = Acr_amt;
+	}
+		/**
+	 * @return rec_amt
+	 *			收款金額
+	 */
+	public Double getRec_amt() {
+		return rec_amt;
+	}
+
+	/**
+	 * @param rec_amt
+	 *			收款金額
+	 */
+	public void setRec_amt(Double Rec_amt) {
+		this.rec_amt = Rec_amt;
+	}
+		/**
+	 * @return status
+	 *			單據狀態
+	 */
+	public String getStatus() {
+		return status;
+	}
+
+	/**
+	 * @param status
+	 *			單據狀態
+	 */
+	public void setStatus(String Status) {
+		this.status = Status;
+	}
+	
+}

@@ -1,0 +1,110 @@
+{
+    "execute": [
+	    {
+            "summary": "删除ord菜单",
+            "hql": "delete Menu m where m.mid = 'ord'"
+        },
+        {
+            "summary": "删除ord下的子菜单",
+            "hql": "delete Menu m where m.mid like 'ord%'"
+        }
+        
+    ],
+    "import": [
+         {
+            "summary": "業務管理",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "ord",
+                "pid": "",
+                "mid": "ord",
+                "order": 10100000,
+                "name": "業務管理",
+                "tag": "ord",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "業務管理",
+                "url": "#",
+                "memo": "業務管理",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-danger"
+            }
+
+        }
+        ,
+         {
+            "summary": "合約管理",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "ord_contbah",
+                "pid": "ord",
+                "mid": "ord_contract",
+                "order": 10101000,
+                "name": "合約管理",
+                "tag": "contract",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "合約管理",
+                "url": "#/ord/contract",
+                "memo": "合約管理",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-danger"
+            }
+
+        }
+        ,
+         {
+            "summary": "專案管理",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "ord_contcase",
+                "pid": "ord",
+                "mid": "ord_contcase",
+                "order": 10103000,
+                "name": "專案管理",
+                "tag": "contcase",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "專案管理",
+                "url": "#/ord/contcase",
+                "memo": "專案管理",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-danger"
+            }
+
+        }
+        ,
+         {
+            "summary": "合約年度結轉",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "ord_project_data",
+                "pid": "ord",
+                "mid": "ord_annual_contract",
+                "order": 10104000,
+                "name": "合約年度結轉",
+                "tag": "annual_contract",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "合約年度結轉",
+                "url": "#/ord/annual_contract",
+                "memo": "合約年度結轉",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-danger"
+            }
+
+        }
+    ]
+}

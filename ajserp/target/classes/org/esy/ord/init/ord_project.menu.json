@@ -1,0 +1,38 @@
+{
+    "execute": [
+	    {
+            "summary": "删除ord_project菜单",
+            "hql": "delete Menu m where m.mid = 'ord_project'"
+        },
+        {
+            "summary": "删除ord_project下的子菜单",
+            "hql": "delete Menu m where m.mid like 'ord_project%'"
+        }
+        
+    ],
+    "import": [
+         {
+            "summary": "專案管理",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "ord_project",
+                "pid": "ord",
+                "mid": "ord_project",
+                "order": 10102000,
+                "name": "專案管理",
+                "tag": "project",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "專案管理",
+                "url": "#/ord/project",
+                "memo": "專案管理",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-danger"
+            }
+
+        }
+    ]
+}
