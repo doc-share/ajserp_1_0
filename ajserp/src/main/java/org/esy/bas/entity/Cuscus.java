@@ -18,30 +18,20 @@ import org.esy.base.annotation.FilterInfo;
  *  实体类
  * 
  * @author <a href="mailto:ardui@163.com"ardui</a
- *  @date Tue Jun 23 13:23:26 CST 2020
+ *  @date Thu Jul 23 17:19:46 CST 2020
  */
 @Entity
 @Table(name = "cus_cus" ,indexes = { @Index(name = "created", columnList = "created"), 
 @Index(name = "updated", columnList = "updated")})
-@EntityInfo("cus_cus")
+@EntityInfo("客戶主檔")
 public class Cuscus extends BaseProperties {
 
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo("客戶編號")
-	@FilterInfo(ListValue = "match", LovValue = "match")
+	@FilterInfo(ListValue = "")
 	@Column(name = "cus_nbr", length =32  )
 	private String cus_nbr ;
-
-	@FieldInfo("客戶名稱")
-	@FilterInfo(ListValue = "match", LovValue = "match")
-	@Column(name = "cus_name", length =64  )
-	private String cus_name ;
-
-	@FieldInfo("客戶電話1")
-	@FilterInfo(ListValue = "")
-	@Column(name = "cus_tel1", length =32  )
-	private String cus_tel1 ;
 
 	@FieldInfo("譯音碼")
 	@FilterInfo(ListValue = "")
@@ -53,34 +43,34 @@ public class Cuscus extends BaseProperties {
 	@Column(name = "area_nbr", length =32  )
 	private String area_nbr ;
 
-	@FieldInfo("組別")
-	@FilterInfo(ListValue = "")
-	@Column(name = "group_nbr", length =32  )
-	private String group_nbr ;
-
 	@FieldInfo("客戶簡稱")
 	@FilterInfo(ListValue = "")
 	@Column(name = "cus_alias", length =32  )
 	private String cus_alias ;
 
+	@FieldInfo("客戶名稱")
+	@FilterInfo(ListValue = "")
+	@Column(name = "cus_name", length =128  )
+	private String cus_name ;
+
 	@FieldInfo("客戶地址")
 	@FilterInfo(ListValue = "")
-	@Column(name = "cus_addr", length =32  )
+	@Column(name = "cus_addr", length =128  )
 	private String cus_addr ;
 
 	@FieldInfo("送貨地址")
 	@FilterInfo(ListValue = "")
-	@Column(name = "sen_addr", length =32  )
+	@Column(name = "sen_addr", length =128  )
 	private String sen_addr ;
 
 	@FieldInfo("發票地址")
 	@FilterInfo(ListValue = "")
-	@Column(name = "ivc_addr", length =32  )
+	@Column(name = "ivc_addr", length =128  )
 	private String ivc_addr ;
 
 	@FieldInfo("E-MAIL地址")
 	@FilterInfo(ListValue = "")
-	@Column(name = "email_addr", length =32  )
+	@Column(name = "email_addr", length =128  )
 	private String email_addr ;
 
 	@FieldInfo("英文名稱")
@@ -95,8 +85,13 @@ public class Cuscus extends BaseProperties {
 
 	@FieldInfo("統一編號")
 	@FilterInfo(ListValue = "")
-	@Column(name = "cus_cun", length =32  )
-	private String cus_cun ;
+	@Column(name = "cus_gun", length =32  )
+	private String cus_gun ;
+
+	@FieldInfo("客戶電話1")
+	@FilterInfo(ListValue = "")
+	@Column(name = "cus_tel1", length =32  )
+	private String cus_tel1 ;
 
 	@FieldInfo("客戶電話2")
 	@FilterInfo(ListValue = "")
@@ -113,35 +108,25 @@ public class Cuscus extends BaseProperties {
 	@Column(name = "attname", length =32  )
 	private String attname ;
 
-	@FieldInfo("聯絡人1")
+	@FieldInfo("連絡人1")
 	@FilterInfo(ListValue = "")
 	@Column(name = "attname1", length =32  )
 	private String attname1 ;
 
-	@FieldInfo("稱謂1")
-	@FilterInfo(ListValue = "")
-	@Column(name = "call1", length =32  )
-	private String call1 ;
-
-	@FieldInfo("聯絡人2")
+	@FieldInfo("連絡人2")
 	@FilterInfo(ListValue = "")
 	@Column(name = "attname2", length =32  )
 	private String attname2 ;
 
-	@FieldInfo("主辦會計")
-	@FilterInfo(ListValue = "")
-	@Column(name = "attname3", length =32  )
-	private String attname3 ;
-
 	@FieldInfo("資本額")
 	@FilterInfo(ListValue = "")
 	@Column(name = "oew_amt")
-	private Double oew_amt;
+	private Integer oew_amt;
 
 	@FieldInfo("年營業額")
 	@FilterInfo(ListValue = "")
 	@Column(name = "acc_amt")
-	private Double acc_amt;
+	private Integer acc_amt;
 
 	@FieldInfo("創立日期")
 	@FilterInfo(ListValue = "")
@@ -160,12 +145,12 @@ public class Cuscus extends BaseProperties {
 	@Column(name = "remark2", length =32  )
 	private String remark2 ;
 
-	@FieldInfo("廠商性質")
+	@FieldInfo("客戶性質")
 	@FilterInfo(ListValue = "")
 	@Column(name = "remark3", length =32  )
 	private String remark3 ;
 
-	@FieldInfo("廠商類別")
+	@FieldInfo("客戶類別")
 	@FilterInfo(ListValue = "")
 	@Column(name = "remark4", length =32  )
 	private String remark4 ;
@@ -202,18 +187,18 @@ public class Cuscus extends BaseProperties {
 
 	@FieldInfo("付票票期")
 	@FilterInfo(ListValue = "")
-	@Column(name = "days1")
-	private Integer days1;
+	@Column(name = "days1", length =32  )
+	private String days1 ;
 
 	@FieldInfo("請款日")
 	@FilterInfo(ListValue = "")
-	@Column(name = "days2")
-	private Integer days2;
+	@Column(name = "days2", length =32  )
+	private String days2 ;
 
 	@FieldInfo("付款日")
 	@FilterInfo(ListValue = "")
-	@Column(name = "days3")
-	private Integer days3;
+	@Column(name = "days3", length =32  )
+	private String days3 ;
 
 	@FieldInfo("開始交易日")
 	@FilterInfo(ListValue = "")
@@ -224,7 +209,7 @@ public class Cuscus extends BaseProperties {
 
 	@FieldInfo("營業項目")
 	@FilterInfo(ListValue = "")
-	@Column(name = "sale_inv", length =32  )
+	@Column(name = "sale_inv", length =128  )
 	private String sale_inv ;
 
 	@FieldInfo("單價等級")
@@ -244,8 +229,8 @@ public class Cuscus extends BaseProperties {
 
 	@FieldInfo("備註")
 	@FilterInfo(ListValue = "")
-	@Column(name = "remark", length =32  )
-	private String remark ;
+	@Column(name = "remark", columnDefinition = "TEXT")
+	private String remark;
 
 	@FieldInfo("最近異動日期")
 	@FilterInfo(ListValue = "")
@@ -261,6 +246,40 @@ public class Cuscus extends BaseProperties {
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date l_shpdate;
 
+	@FieldInfo("建檔日期")
+	@FilterInfo(ListValue = "")
+	@Column(name = "cre_date")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	private Date cre_date;
+
+	@FieldInfo("嘜頭最後編輯日期")
+	@FilterInfo(ListValue = "")
+	@Column(name = "m_date")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	private Date m_date;
+
+	@FieldInfo("嘜頭LOG圖形")
+	@FilterInfo(ListValue = "")
+	@Column(name = "logtype", length =32  )
+	private String logtype ;
+
+	@FieldInfo("嘜頭LOG文字")
+	@FilterInfo(ListValue = "")
+	@Column(name = "logtxt", length =32  )
+	private String logtxt ;
+
+	@FieldInfo("正嘜頭")
+	@FilterInfo(ListValue = "")
+	@Column(name = "fmiltle", length =32  )
+	private String fmiltle ;
+
+	@FieldInfo("側嘜頭")
+	@FilterInfo(ListValue = "")
+	@Column(name = "dmiltle", length =32  )
+	private String dmiltle ;
+
 	@FieldInfo("分機1")
 	@FilterInfo(ListValue = "")
 	@Column(name = "cus_oth1", length =32  )
@@ -271,7 +290,7 @@ public class Cuscus extends BaseProperties {
 	@Column(name = "cus_oth2", length =32  )
 	private String cus_oth2 ;
 
-	@FieldInfo("行動電話")
+	@FieldInfo("手機號碼")
 	@FilterInfo(ListValue = "")
 	@Column(name = "cellphone", length =32  )
 	private String cellphone ;
@@ -293,7 +312,7 @@ public class Cuscus extends BaseProperties {
 
 	@FieldInfo("網站")
 	@FilterInfo(ListValue = "")
-	@Column(name = "http", length =32  )
+	@Column(name = "http", length =128  )
 	private String http ;
 
 	@FieldInfo("郵遞區號")
@@ -301,30 +320,64 @@ public class Cuscus extends BaseProperties {
 	@Column(name = "mail_nbr", length =32  )
 	private String mail_nbr ;
 
+	@FieldInfo("郵遞區號")
+	@FilterInfo(ListValue = "")
+	@Column(name = "mail_no1", length =32  )
+	private String mail_no1 ;
+
+	@FieldInfo("郵遞區號")
+	@FilterInfo(ListValue = "")
+	@Column(name = "mail_no2", length =32  )
+	private String mail_no2 ;
+
 	@FieldInfo("業務性質")
 	@FilterInfo(ListValue = "")
-	@Column(name = "shp_desc", length =32  )
+	@Column(name = "shp_desc", length =128  )
 	private String shp_desc ;
 
-	@FieldInfo("主辦會計員工編號")
+	@FieldInfo("業務說明")
 	@FilterInfo(ListValue = "")
-	@Column(name = "emp_nbr", length =32  )
-	private String emp_nbr ;
+	@Column(name = "shp_1", length =128  )
+	private String shp_1 ;
 
-	@FieldInfo("稅籍編號")
+	@FieldInfo("服務別")
 	@FilterInfo(ListValue = "")
-	@Column(name = "tax_nbr", length =32  )
-	private String tax_nbr ;
+	@Column(name = "service_tp", length =32  )
+	private String service_tp ;
 
-	@FieldInfo("稽徵機關代號")
+	@FieldInfo("稅額計算方式")
 	@FilterInfo(ListValue = "")
-	@Column(name = "chk_nbr", length =32  )
-	private String chk_nbr ;
+	@Column(name = "tax_cal")
+	private Integer tax_cal;
 
-	@FieldInfo("稽徵機關名稱")
+	@FieldInfo("建檔日期")
 	@FilterInfo(ListValue = "")
-	@Column(name = "chk_name", length =32  )
-	private String chk_name ;
+	@Column(name = "crt_date")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	private Date crt_date;
+
+	@FieldInfo("建檔人員")
+	@FilterInfo(ListValue = "")
+	@Column(name = "crt_user", length =32  )
+	private String crt_user ;
+
+	@FieldInfo("最近修改日期")
+	@FilterInfo(ListValue = "")
+	@Column(name = "edit_date")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	private Date edit_date;
+
+	@FieldInfo("最近修改人員")
+	@FilterInfo(ListValue = "")
+	@Column(name = "edit_user", length =32  )
+	private String edit_user ;
+
+	@FieldInfo("是否列印請款標簽")
+	@FilterInfo(ListValue = "")
+	@Column(name = "is_acr_lbl")
+	private Integer is_acr_lbl;
 
 	@FieldInfo("轉出狀態")
 	@FilterInfo(ListValue = "")
@@ -341,70 +394,15 @@ public class Cuscus extends BaseProperties {
 	@Column(name = "trancnt")
 	private Integer trancnt;
 
-	@FieldInfo("是否提供購買發票服務")
+	@FieldInfo(" 使用電子發票交換")
 	@FilterInfo(ListValue = "")
-	@Column(name = "buy_invo")
-	private Integer buy_invo;
+	@Column(name = "isdz_jf")
+	private Integer isdz_jf;
 
-	@FieldInfo("每期     日前送交")
+	@FieldInfo("幣別")
 	@FilterInfo(ListValue = "")
-	@Column(name = "days4")
-	private Integer days4;
-
-	@FieldInfo("每期憑證收取方式")
-	@FilterInfo(ListValue = "")
-	@Column(name = "vou_get")
-	private Integer vou_get;
-
-	@FieldInfo("每期憑證收取日期")
-	@FilterInfo(ListValue = "")
-	@Column(name = "vou_day")
-	private Integer vou_day;
-
-	@FieldInfo("每期稅款收取方式")
-	@FilterInfo(ListValue = "")
-	@Column(name = "tax_get")
-	private Integer tax_get;
-
-	@FieldInfo("營業稅申報方式")
-	@FilterInfo(ListValue = "")
-	@Column(name = "sal_tax")
-	private Integer sal_tax;
-
-	@FieldInfo("發票開立方式")
-	@FilterInfo(ListValue = "")
-	@Column(name = "mak_invo")
-	private Integer mak_invo;
-
-	@FieldInfo("營利事業所得稅結算申報方式")
-	@FilterInfo(ListValue = "")
-	@Column(name = "set_ment")
-	private Integer set_ment;
-
-	@FieldInfo("特殊交易及問題")
-	@FilterInfo(ListValue = "")
-	@Column(name = "spe_que", length =32  )
-	private String spe_que ;
-
-	@FieldInfo("注意事項-營業稅")
-	@FilterInfo(ListValue = "")
-	@Column(name = "note_sale", length =32  )
-	private String note_sale ;
-
-	@FieldInfo("注意事項-營所稅")
-	@FilterInfo(ListValue = "")
-	@Column(name = "note_sale1", length =32  )
-	private String note_sale1 ;
-
-	@FieldInfo("注意事項-帳務")
-	@FilterInfo(ListValue = "")
-	@Column(name = "note_acc", length =32  )
-	private String note_acc ;
-
-	@FieldInfo("注意事項-扣繳")
-	@FilterInfo(ListValue = "")
-	@Column(name = "note_acc1", length =32  )
-	private String note_acc1 ;
+	@Column(name = "coin_nbr", length =32  )
+	private String coin_nbr ;
 
 
      /**
@@ -423,23 +421,17 @@ public class Cuscus extends BaseProperties {
 	 	 * @param cus_nbr
 	 *		  客戶編號
 	 * 
-	 	 * @param cus_name
-	 *		  客戶名稱
-	 * 
-	 	 * @param cus_tel1
-	 *		  客戶電話1
-	 * 
 	 	 * @param big_key
 	 *		  譯音碼
 	 * 
 	 	 * @param area_nbr
 	 *		  地區名稱
 	 * 
-	 	 * @param group_nbr
-	 *		  組別
-	 * 
 	 	 * @param cus_alias
 	 *		  客戶簡稱
+	 * 
+	 	 * @param cus_name
+	 *		  客戶名稱
 	 * 
 	 	 * @param cus_addr
 	 *		  客戶地址
@@ -459,8 +451,11 @@ public class Cuscus extends BaseProperties {
 	 	 * @param addr_e
 	 *		  英文地址
 	 * 
-	 	 * @param cus_cun
+	 	 * @param cus_gun
 	 *		  統一編號
+	 * 
+	 	 * @param cus_tel1
+	 *		  客戶電話1
 	 * 
 	 	 * @param cus_tel2
 	 *		  客戶電話2
@@ -472,16 +467,10 @@ public class Cuscus extends BaseProperties {
 	 *		  負責人
 	 * 
 	 	 * @param attname1
-	 *		  聯絡人1
-	 * 
-	 	 * @param call1
-	 *		  稱謂1
+	 *		  連絡人1
 	 * 
 	 	 * @param attname2
-	 *		  聯絡人2
-	 * 
-	 	 * @param attname3
-	 *		  主辦會計
+	 *		  連絡人2
 	 * 
 	 	 * @param oew_amt
 	 *		  資本額
@@ -499,10 +488,10 @@ public class Cuscus extends BaseProperties {
 	 *		  客戶評等
 	 * 
 	 	 * @param remark3
-	 *		  廠商性質
+	 *		  客戶性質
 	 * 
 	 	 * @param remark4
-	 *		  廠商類別
+	 *		  客戶類別
 	 * 
 	 	 * @param remark5
 	 *		  開發票方式
@@ -555,6 +544,24 @@ public class Cuscus extends BaseProperties {
 	 	 * @param l_shpdate
 	 *		  最近交易日期
 	 * 
+	 	 * @param cre_date
+	 *		  建檔日期
+	 * 
+	 	 * @param m_date
+	 *		  嘜頭最後編輯日期
+	 * 
+	 	 * @param logtype
+	 *		  嘜頭LOG圖形
+	 * 
+	 	 * @param logtxt
+	 *		  嘜頭LOG文字
+	 * 
+	 	 * @param fmiltle
+	 *		  正嘜頭
+	 * 
+	 	 * @param dmiltle
+	 *		  側嘜頭
+	 * 
 	 	 * @param cus_oth1
 	 *		  分機1
 	 * 
@@ -562,7 +569,7 @@ public class Cuscus extends BaseProperties {
 	 *		  分機2
 	 * 
 	 	 * @param cellphone
-	 *		  行動電話
+	 *		  手機號碼
 	 * 
 	 	 * @param acounter
 	 *		  會計
@@ -579,20 +586,38 @@ public class Cuscus extends BaseProperties {
 	 	 * @param mail_nbr
 	 *		  郵遞區號
 	 * 
+	 	 * @param mail_no1
+	 *		  郵遞區號
+	 * 
+	 	 * @param mail_no2
+	 *		  郵遞區號
+	 * 
 	 	 * @param shp_desc
 	 *		  業務性質
 	 * 
-	 	 * @param emp_nbr
-	 *		  主辦會計員工編號
+	 	 * @param shp_1
+	 *		  業務說明
 	 * 
-	 	 * @param tax_nbr
-	 *		  稅籍編號
+	 	 * @param service_tp
+	 *		  服務別
 	 * 
-	 	 * @param chk_nbr
-	 *		  稽徵機關代號
+	 	 * @param tax_cal
+	 *		  稅額計算方式
 	 * 
-	 	 * @param chk_name
-	 *		  稽徵機關名稱
+	 	 * @param crt_date
+	 *		  建檔日期
+	 * 
+	 	 * @param crt_user
+	 *		  建檔人員
+	 * 
+	 	 * @param edit_date
+	 *		  最近修改日期
+	 * 
+	 	 * @param edit_user
+	 *		  最近修改人員
+	 * 
+	 	 * @param is_acr_lbl
+	 *		  是否列印請款標簽
 	 * 
 	 	 * @param tranok
 	 *		  轉出狀態
@@ -603,69 +628,33 @@ public class Cuscus extends BaseProperties {
 	 	 * @param trancnt
 	 *		  轉出次數
 	 * 
-	 	 * @param buy_invo
-	 *		  是否提供購買發票服務
+	 	 * @param isdz_jf
+	 *		   使用電子發票交換
 	 * 
-	 	 * @param days4
-	 *		  每期     日前送交
-	 * 
-	 	 * @param vou_get
-	 *		  每期憑證收取方式
-	 * 
-	 	 * @param vou_day
-	 *		  每期憑證收取日期
-	 * 
-	 	 * @param tax_get
-	 *		  每期稅款收取方式
-	 * 
-	 	 * @param sal_tax
-	 *		  營業稅申報方式
-	 * 
-	 	 * @param mak_invo
-	 *		  發票開立方式
-	 * 
-	 	 * @param set_ment
-	 *		  營利事業所得稅結算申報方式
-	 * 
-	 	 * @param spe_que
-	 *		  特殊交易及問題
-	 * 
-	 	 * @param note_sale
-	 *		  注意事項-營業稅
-	 * 
-	 	 * @param note_sale1
-	 *		  注意事項-營所稅
-	 * 
-	 	 * @param note_acc
-	 *		  注意事項-帳務
-	 * 
-	 	 * @param note_acc1
-	 *		  注意事項-扣繳
+	 	 * @param coin_nbr
+	 *		  幣別
 	 * 
 	 	 */
-    	public Cuscus( String cus_nbr, String cus_name, String cus_tel1, String big_key, String area_nbr, String group_nbr, String cus_alias, String cus_addr, String sen_addr, String ivc_addr, String email_addr, String eng_name, String addr_e, String cus_cun, String cus_tel2, String cus_fax, String attname, String attname1, String call1, String attname2, String attname3, Double oew_amt, Double acc_amt, Date beg_date, String remark1, String remark2, String remark3, String remark4, String remark5, String remark6, String remark7, String pay_term, String tax_type, String days, Integer days1, Integer days2, Integer days3, Date ddate, String sale_inv, String cus_lev, String sale_nbr, Double tot_amt, String remark, Date l_update, Date l_shpdate, String cus_oth1, String cus_oth2, String cellphone, String acounter, String a_tel, String a_oth, String http, String mail_nbr, String shp_desc, String emp_nbr, String tax_nbr, String chk_nbr, String chk_name, String tranok, String tranop, Integer trancnt, Integer buy_invo, Integer days4, Integer vou_get, Integer vou_day, Integer tax_get, Integer sal_tax, Integer mak_invo, Integer set_ment, String spe_que, String note_sale, String note_sale1, String note_acc, String note_acc1 ) {
+    	public Cuscus( String cus_nbr, String big_key, String area_nbr, String cus_alias, String cus_name, String cus_addr, String sen_addr, String ivc_addr, String email_addr, String eng_name, String addr_e, String cus_gun, String cus_tel1, String cus_tel2, String cus_fax, String attname, String attname1, String attname2, Integer oew_amt, Integer acc_amt, Date beg_date, String remark1, String remark2, String remark3, String remark4, String remark5, String remark6, String remark7, String pay_term, String tax_type, String days, String days1, String days2, String days3, Date ddate, String sale_inv, String cus_lev, String sale_nbr, Double tot_amt, String remark, Date l_update, Date l_shpdate, Date cre_date, Date m_date, String logtype, String logtxt, String fmiltle, String dmiltle, String cus_oth1, String cus_oth2, String cellphone, String acounter, String a_tel, String a_oth, String http, String mail_nbr, String mail_no1, String mail_no2, String shp_desc, String shp_1, String service_tp, Integer tax_cal, Date crt_date, String crt_user, Date edit_date, String edit_user, Integer is_acr_lbl, String tranok, String tranop, Integer trancnt, Integer isdz_jf, String coin_nbr ) {
 		super();
 				this.cus_nbr = cus_nbr;
-				this.cus_name = cus_name;
-				this.cus_tel1 = cus_tel1;
 				this.big_key = big_key;
 				this.area_nbr = area_nbr;
-				this.group_nbr = group_nbr;
 				this.cus_alias = cus_alias;
+				this.cus_name = cus_name;
 				this.cus_addr = cus_addr;
 				this.sen_addr = sen_addr;
 				this.ivc_addr = ivc_addr;
 				this.email_addr = email_addr;
 				this.eng_name = eng_name;
 				this.addr_e = addr_e;
-				this.cus_cun = cus_cun;
+				this.cus_gun = cus_gun;
+				this.cus_tel1 = cus_tel1;
 				this.cus_tel2 = cus_tel2;
 				this.cus_fax = cus_fax;
 				this.attname = attname;
 				this.attname1 = attname1;
-				this.call1 = call1;
 				this.attname2 = attname2;
-				this.attname3 = attname3;
 				this.oew_amt = oew_amt;
 				this.acc_amt = acc_amt;
 				this.beg_date = beg_date;
@@ -690,6 +679,12 @@ public class Cuscus extends BaseProperties {
 				this.remark = remark;
 				this.l_update = l_update;
 				this.l_shpdate = l_shpdate;
+				this.cre_date = cre_date;
+				this.m_date = m_date;
+				this.logtype = logtype;
+				this.logtxt = logtxt;
+				this.fmiltle = fmiltle;
+				this.dmiltle = dmiltle;
 				this.cus_oth1 = cus_oth1;
 				this.cus_oth2 = cus_oth2;
 				this.cellphone = cellphone;
@@ -698,27 +693,22 @@ public class Cuscus extends BaseProperties {
 				this.a_oth = a_oth;
 				this.http = http;
 				this.mail_nbr = mail_nbr;
+				this.mail_no1 = mail_no1;
+				this.mail_no2 = mail_no2;
 				this.shp_desc = shp_desc;
-				this.emp_nbr = emp_nbr;
-				this.tax_nbr = tax_nbr;
-				this.chk_nbr = chk_nbr;
-				this.chk_name = chk_name;
+				this.shp_1 = shp_1;
+				this.service_tp = service_tp;
+				this.tax_cal = tax_cal;
+				this.crt_date = crt_date;
+				this.crt_user = crt_user;
+				this.edit_date = edit_date;
+				this.edit_user = edit_user;
+				this.is_acr_lbl = is_acr_lbl;
 				this.tranok = tranok;
 				this.tranop = tranop;
 				this.trancnt = trancnt;
-				this.buy_invo = buy_invo;
-				this.days4 = days4;
-				this.vou_get = vou_get;
-				this.vou_day = vou_day;
-				this.tax_get = tax_get;
-				this.sal_tax = sal_tax;
-				this.mak_invo = mak_invo;
-				this.set_ment = set_ment;
-				this.spe_que = spe_que;
-				this.note_sale = note_sale;
-				this.note_sale1 = note_sale1;
-				this.note_acc = note_acc;
-				this.note_acc1 = note_acc1;
+				this.isdz_jf = isdz_jf;
+				this.coin_nbr = coin_nbr;
 			}
 
 		/**
@@ -735,36 +725,6 @@ public class Cuscus extends BaseProperties {
 	 */
 	public void setCus_nbr(String Cus_nbr) {
 		this.cus_nbr = Cus_nbr;
-	}
-		/**
-	 * @return cus_name
-	 *			客戶名稱
-	 */
-	public String getCus_name() {
-		return cus_name;
-	}
-
-	/**
-	 * @param cus_name
-	 *			客戶名稱
-	 */
-	public void setCus_name(String Cus_name) {
-		this.cus_name = Cus_name;
-	}
-		/**
-	 * @return cus_tel1
-	 *			客戶電話1
-	 */
-	public String getCus_tel1() {
-		return cus_tel1;
-	}
-
-	/**
-	 * @param cus_tel1
-	 *			客戶電話1
-	 */
-	public void setCus_tel1(String Cus_tel1) {
-		this.cus_tel1 = Cus_tel1;
 	}
 		/**
 	 * @return big_key
@@ -797,21 +757,6 @@ public class Cuscus extends BaseProperties {
 		this.area_nbr = Area_nbr;
 	}
 		/**
-	 * @return group_nbr
-	 *			組別
-	 */
-	public String getGroup_nbr() {
-		return group_nbr;
-	}
-
-	/**
-	 * @param group_nbr
-	 *			組別
-	 */
-	public void setGroup_nbr(String Group_nbr) {
-		this.group_nbr = Group_nbr;
-	}
-		/**
 	 * @return cus_alias
 	 *			客戶簡稱
 	 */
@@ -825,6 +770,21 @@ public class Cuscus extends BaseProperties {
 	 */
 	public void setCus_alias(String Cus_alias) {
 		this.cus_alias = Cus_alias;
+	}
+		/**
+	 * @return cus_name
+	 *			客戶名稱
+	 */
+	public String getCus_name() {
+		return cus_name;
+	}
+
+	/**
+	 * @param cus_name
+	 *			客戶名稱
+	 */
+	public void setCus_name(String Cus_name) {
+		this.cus_name = Cus_name;
 	}
 		/**
 	 * @return cus_addr
@@ -917,19 +877,34 @@ public class Cuscus extends BaseProperties {
 		this.addr_e = Addr_e;
 	}
 		/**
-	 * @return cus_cun
+	 * @return cus_gun
 	 *			統一編號
 	 */
-	public String getCus_cun() {
-		return cus_cun;
+	public String getCus_gun() {
+		return cus_gun;
 	}
 
 	/**
-	 * @param cus_cun
+	 * @param cus_gun
 	 *			統一編號
 	 */
-	public void setCus_cun(String Cus_cun) {
-		this.cus_cun = Cus_cun;
+	public void setCus_gun(String Cus_gun) {
+		this.cus_gun = Cus_gun;
+	}
+		/**
+	 * @return cus_tel1
+	 *			客戶電話1
+	 */
+	public String getCus_tel1() {
+		return cus_tel1;
+	}
+
+	/**
+	 * @param cus_tel1
+	 *			客戶電話1
+	 */
+	public void setCus_tel1(String Cus_tel1) {
+		this.cus_tel1 = Cus_tel1;
 	}
 		/**
 	 * @return cus_tel2
@@ -978,7 +953,7 @@ public class Cuscus extends BaseProperties {
 	}
 		/**
 	 * @return attname1
-	 *			聯絡人1
+	 *			連絡人1
 	 */
 	public String getAttname1() {
 		return attname1;
@@ -986,29 +961,14 @@ public class Cuscus extends BaseProperties {
 
 	/**
 	 * @param attname1
-	 *			聯絡人1
+	 *			連絡人1
 	 */
 	public void setAttname1(String Attname1) {
 		this.attname1 = Attname1;
 	}
 		/**
-	 * @return call1
-	 *			稱謂1
-	 */
-	public String getCall1() {
-		return call1;
-	}
-
-	/**
-	 * @param call1
-	 *			稱謂1
-	 */
-	public void setCall1(String Call1) {
-		this.call1 = Call1;
-	}
-		/**
 	 * @return attname2
-	 *			聯絡人2
+	 *			連絡人2
 	 */
 	public String getAttname2() {
 		return attname2;
@@ -1016,31 +976,16 @@ public class Cuscus extends BaseProperties {
 
 	/**
 	 * @param attname2
-	 *			聯絡人2
+	 *			連絡人2
 	 */
 	public void setAttname2(String Attname2) {
 		this.attname2 = Attname2;
 	}
 		/**
-	 * @return attname3
-	 *			主辦會計
-	 */
-	public String getAttname3() {
-		return attname3;
-	}
-
-	/**
-	 * @param attname3
-	 *			主辦會計
-	 */
-	public void setAttname3(String Attname3) {
-		this.attname3 = Attname3;
-	}
-		/**
 	 * @return oew_amt
 	 *			資本額
 	 */
-	public Double getOew_amt() {
+	public Integer getOew_amt() {
 		return oew_amt;
 	}
 
@@ -1048,14 +993,14 @@ public class Cuscus extends BaseProperties {
 	 * @param oew_amt
 	 *			資本額
 	 */
-	public void setOew_amt(Double Oew_amt) {
+	public void setOew_amt(Integer Oew_amt) {
 		this.oew_amt = Oew_amt;
 	}
 		/**
 	 * @return acc_amt
 	 *			年營業額
 	 */
-	public Double getAcc_amt() {
+	public Integer getAcc_amt() {
 		return acc_amt;
 	}
 
@@ -1063,7 +1008,7 @@ public class Cuscus extends BaseProperties {
 	 * @param acc_amt
 	 *			年營業額
 	 */
-	public void setAcc_amt(Double Acc_amt) {
+	public void setAcc_amt(Integer Acc_amt) {
 		this.acc_amt = Acc_amt;
 	}
 		/**
@@ -1113,7 +1058,7 @@ public class Cuscus extends BaseProperties {
 	}
 		/**
 	 * @return remark3
-	 *			廠商性質
+	 *			客戶性質
 	 */
 	public String getRemark3() {
 		return remark3;
@@ -1121,14 +1066,14 @@ public class Cuscus extends BaseProperties {
 
 	/**
 	 * @param remark3
-	 *			廠商性質
+	 *			客戶性質
 	 */
 	public void setRemark3(String Remark3) {
 		this.remark3 = Remark3;
 	}
 		/**
 	 * @return remark4
-	 *			廠商類別
+	 *			客戶類別
 	 */
 	public String getRemark4() {
 		return remark4;
@@ -1136,7 +1081,7 @@ public class Cuscus extends BaseProperties {
 
 	/**
 	 * @param remark4
-	 *			廠商類別
+	 *			客戶類別
 	 */
 	public void setRemark4(String Remark4) {
 		this.remark4 = Remark4;
@@ -1235,7 +1180,7 @@ public class Cuscus extends BaseProperties {
 	 * @return days1
 	 *			付票票期
 	 */
-	public Integer getDays1() {
+	public String getDays1() {
 		return days1;
 	}
 
@@ -1243,14 +1188,14 @@ public class Cuscus extends BaseProperties {
 	 * @param days1
 	 *			付票票期
 	 */
-	public void setDays1(Integer Days1) {
+	public void setDays1(String Days1) {
 		this.days1 = Days1;
 	}
 		/**
 	 * @return days2
 	 *			請款日
 	 */
-	public Integer getDays2() {
+	public String getDays2() {
 		return days2;
 	}
 
@@ -1258,14 +1203,14 @@ public class Cuscus extends BaseProperties {
 	 * @param days2
 	 *			請款日
 	 */
-	public void setDays2(Integer Days2) {
+	public void setDays2(String Days2) {
 		this.days2 = Days2;
 	}
 		/**
 	 * @return days3
 	 *			付款日
 	 */
-	public Integer getDays3() {
+	public String getDays3() {
 		return days3;
 	}
 
@@ -1273,7 +1218,7 @@ public class Cuscus extends BaseProperties {
 	 * @param days3
 	 *			付款日
 	 */
-	public void setDays3(Integer Days3) {
+	public void setDays3(String Days3) {
 		this.days3 = Days3;
 	}
 		/**
@@ -1397,6 +1342,96 @@ public class Cuscus extends BaseProperties {
 		this.l_shpdate = L_shpdate;
 	}
 		/**
+	 * @return cre_date
+	 *			建檔日期
+	 */
+	public Date getCre_date() {
+		return cre_date;
+	}
+
+	/**
+	 * @param cre_date
+	 *			建檔日期
+	 */
+	public void setCre_date(Date Cre_date) {
+		this.cre_date = Cre_date;
+	}
+		/**
+	 * @return m_date
+	 *			嘜頭最後編輯日期
+	 */
+	public Date getM_date() {
+		return m_date;
+	}
+
+	/**
+	 * @param m_date
+	 *			嘜頭最後編輯日期
+	 */
+	public void setM_date(Date M_date) {
+		this.m_date = M_date;
+	}
+		/**
+	 * @return logtype
+	 *			嘜頭LOG圖形
+	 */
+	public String getLogtype() {
+		return logtype;
+	}
+
+	/**
+	 * @param logtype
+	 *			嘜頭LOG圖形
+	 */
+	public void setLogtype(String Logtype) {
+		this.logtype = Logtype;
+	}
+		/**
+	 * @return logtxt
+	 *			嘜頭LOG文字
+	 */
+	public String getLogtxt() {
+		return logtxt;
+	}
+
+	/**
+	 * @param logtxt
+	 *			嘜頭LOG文字
+	 */
+	public void setLogtxt(String Logtxt) {
+		this.logtxt = Logtxt;
+	}
+		/**
+	 * @return fmiltle
+	 *			正嘜頭
+	 */
+	public String getFmiltle() {
+		return fmiltle;
+	}
+
+	/**
+	 * @param fmiltle
+	 *			正嘜頭
+	 */
+	public void setFmiltle(String Fmiltle) {
+		this.fmiltle = Fmiltle;
+	}
+		/**
+	 * @return dmiltle
+	 *			側嘜頭
+	 */
+	public String getDmiltle() {
+		return dmiltle;
+	}
+
+	/**
+	 * @param dmiltle
+	 *			側嘜頭
+	 */
+	public void setDmiltle(String Dmiltle) {
+		this.dmiltle = Dmiltle;
+	}
+		/**
 	 * @return cus_oth1
 	 *			分機1
 	 */
@@ -1428,7 +1463,7 @@ public class Cuscus extends BaseProperties {
 	}
 		/**
 	 * @return cellphone
-	 *			行動電話
+	 *			手機號碼
 	 */
 	public String getCellphone() {
 		return cellphone;
@@ -1436,7 +1471,7 @@ public class Cuscus extends BaseProperties {
 
 	/**
 	 * @param cellphone
-	 *			行動電話
+	 *			手機號碼
 	 */
 	public void setCellphone(String Cellphone) {
 		this.cellphone = Cellphone;
@@ -1517,6 +1552,36 @@ public class Cuscus extends BaseProperties {
 		this.mail_nbr = Mail_nbr;
 	}
 		/**
+	 * @return mail_no1
+	 *			郵遞區號
+	 */
+	public String getMail_no1() {
+		return mail_no1;
+	}
+
+	/**
+	 * @param mail_no1
+	 *			郵遞區號
+	 */
+	public void setMail_no1(String Mail_no1) {
+		this.mail_no1 = Mail_no1;
+	}
+		/**
+	 * @return mail_no2
+	 *			郵遞區號
+	 */
+	public String getMail_no2() {
+		return mail_no2;
+	}
+
+	/**
+	 * @param mail_no2
+	 *			郵遞區號
+	 */
+	public void setMail_no2(String Mail_no2) {
+		this.mail_no2 = Mail_no2;
+	}
+		/**
 	 * @return shp_desc
 	 *			業務性質
 	 */
@@ -1532,64 +1597,124 @@ public class Cuscus extends BaseProperties {
 		this.shp_desc = Shp_desc;
 	}
 		/**
-	 * @return emp_nbr
-	 *			主辦會計員工編號
+	 * @return shp_1
+	 *			業務說明
 	 */
-	public String getEmp_nbr() {
-		return emp_nbr;
+	public String getShp_1() {
+		return shp_1;
 	}
 
 	/**
-	 * @param emp_nbr
-	 *			主辦會計員工編號
+	 * @param shp_1
+	 *			業務說明
 	 */
-	public void setEmp_nbr(String Emp_nbr) {
-		this.emp_nbr = Emp_nbr;
+	public void setShp_1(String Shp_1) {
+		this.shp_1 = Shp_1;
 	}
 		/**
-	 * @return tax_nbr
-	 *			稅籍編號
+	 * @return service_tp
+	 *			服務別
 	 */
-	public String getTax_nbr() {
-		return tax_nbr;
+	public String getService_tp() {
+		return service_tp;
 	}
 
 	/**
-	 * @param tax_nbr
-	 *			稅籍編號
+	 * @param service_tp
+	 *			服務別
 	 */
-	public void setTax_nbr(String Tax_nbr) {
-		this.tax_nbr = Tax_nbr;
+	public void setService_tp(String Service_tp) {
+		this.service_tp = Service_tp;
 	}
 		/**
-	 * @return chk_nbr
-	 *			稽徵機關代號
+	 * @return tax_cal
+	 *			稅額計算方式
 	 */
-	public String getChk_nbr() {
-		return chk_nbr;
+	public Integer getTax_cal() {
+		return tax_cal;
 	}
 
 	/**
-	 * @param chk_nbr
-	 *			稽徵機關代號
+	 * @param tax_cal
+	 *			稅額計算方式
 	 */
-	public void setChk_nbr(String Chk_nbr) {
-		this.chk_nbr = Chk_nbr;
+	public void setTax_cal(Integer Tax_cal) {
+		this.tax_cal = Tax_cal;
 	}
 		/**
-	 * @return chk_name
-	 *			稽徵機關名稱
+	 * @return crt_date
+	 *			建檔日期
 	 */
-	public String getChk_name() {
-		return chk_name;
+	public Date getCrt_date() {
+		return crt_date;
 	}
 
 	/**
-	 * @param chk_name
-	 *			稽徵機關名稱
+	 * @param crt_date
+	 *			建檔日期
 	 */
-	public void setChk_name(String Chk_name) {
-		this.chk_name = Chk_name;
+	public void setCrt_date(Date Crt_date) {
+		this.crt_date = Crt_date;
+	}
+		/**
+	 * @return crt_user
+	 *			建檔人員
+	 */
+	public String getCrt_user() {
+		return crt_user;
+	}
+
+	/**
+	 * @param crt_user
+	 *			建檔人員
+	 */
+	public void setCrt_user(String Crt_user) {
+		this.crt_user = Crt_user;
+	}
+		/**
+	 * @return edit_date
+	 *			最近修改日期
+	 */
+	public Date getEdit_date() {
+		return edit_date;
+	}
+
+	/**
+	 * @param edit_date
+	 *			最近修改日期
+	 */
+	public void setEdit_date(Date Edit_date) {
+		this.edit_date = Edit_date;
+	}
+		/**
+	 * @return edit_user
+	 *			最近修改人員
+	 */
+	public String getEdit_user() {
+		return edit_user;
+	}
+
+	/**
+	 * @param edit_user
+	 *			最近修改人員
+	 */
+	public void setEdit_user(String Edit_user) {
+		this.edit_user = Edit_user;
+	}
+		/**
+	 * @return is_acr_lbl
+	 *			是否列印請款標簽
+	 */
+	public Integer getIs_acr_lbl() {
+		return is_acr_lbl;
+	}
+
+	/**
+	 * @param is_acr_lbl
+	 *			是否列印請款標簽
+	 */
+	public void setIs_acr_lbl(Integer Is_acr_lbl) {
+		this.is_acr_lbl = Is_acr_lbl;
 	}
 		/**
 	 * @return tranok
@@ -1637,199 +1762,34 @@ public class Cuscus extends BaseProperties {
 		this.trancnt = Trancnt;
 	}
 		/**
-	 * @return buy_invo
-	 *			是否提供購買發票服務
+	 * @return isdz_jf
+	 *			 使用電子發票交換
 	 */
-	public Integer getBuy_invo() {
-		return buy_invo;
+	public Integer getIsdz_jf() {
+		return isdz_jf;
 	}
 
 	/**
-	 * @param buy_invo
-	 *			是否提供購買發票服務
+	 * @param isdz_jf
+	 *			 使用電子發票交換
 	 */
-	public void setBuy_invo(Integer Buy_invo) {
-		this.buy_invo = Buy_invo;
+	public void setIsdz_jf(Integer Isdz_jf) {
+		this.isdz_jf = Isdz_jf;
 	}
 		/**
-	 * @return days4
-	 *			每期     日前送交
+	 * @return coin_nbr
+	 *			幣別
 	 */
-	public Integer getDays4() {
-		return days4;
+	public String getCoin_nbr() {
+		return coin_nbr;
 	}
 
 	/**
-	 * @param days4
-	 *			每期     日前送交
+	 * @param coin_nbr
+	 *			幣別
 	 */
-	public void setDays4(Integer Days4) {
-		this.days4 = Days4;
-	}
-		/**
-	 * @return vou_get
-	 *			每期憑證收取方式
-	 */
-	public Integer getVou_get() {
-		return vou_get;
-	}
-
-	/**
-	 * @param vou_get
-	 *			每期憑證收取方式
-	 */
-	public void setVou_get(Integer Vou_get) {
-		this.vou_get = Vou_get;
-	}
-		/**
-	 * @return vou_day
-	 *			每期憑證收取日期
-	 */
-	public Integer getVou_day() {
-		return vou_day;
-	}
-
-	/**
-	 * @param vou_day
-	 *			每期憑證收取日期
-	 */
-	public void setVou_day(Integer Vou_day) {
-		this.vou_day = Vou_day;
-	}
-		/**
-	 * @return tax_get
-	 *			每期稅款收取方式
-	 */
-	public Integer getTax_get() {
-		return tax_get;
-	}
-
-	/**
-	 * @param tax_get
-	 *			每期稅款收取方式
-	 */
-	public void setTax_get(Integer Tax_get) {
-		this.tax_get = Tax_get;
-	}
-		/**
-	 * @return sal_tax
-	 *			營業稅申報方式
-	 */
-	public Integer getSal_tax() {
-		return sal_tax;
-	}
-
-	/**
-	 * @param sal_tax
-	 *			營業稅申報方式
-	 */
-	public void setSal_tax(Integer Sal_tax) {
-		this.sal_tax = Sal_tax;
-	}
-		/**
-	 * @return mak_invo
-	 *			發票開立方式
-	 */
-	public Integer getMak_invo() {
-		return mak_invo;
-	}
-
-	/**
-	 * @param mak_invo
-	 *			發票開立方式
-	 */
-	public void setMak_invo(Integer Mak_invo) {
-		this.mak_invo = Mak_invo;
-	}
-		/**
-	 * @return set_ment
-	 *			營利事業所得稅結算申報方式
-	 */
-	public Integer getSet_ment() {
-		return set_ment;
-	}
-
-	/**
-	 * @param set_ment
-	 *			營利事業所得稅結算申報方式
-	 */
-	public void setSet_ment(Integer Set_ment) {
-		this.set_ment = Set_ment;
-	}
-		/**
-	 * @return spe_que
-	 *			特殊交易及問題
-	 */
-	public String getSpe_que() {
-		return spe_que;
-	}
-
-	/**
-	 * @param spe_que
-	 *			特殊交易及問題
-	 */
-	public void setSpe_que(String Spe_que) {
-		this.spe_que = Spe_que;
-	}
-		/**
-	 * @return note_sale
-	 *			注意事項-營業稅
-	 */
-	public String getNote_sale() {
-		return note_sale;
-	}
-
-	/**
-	 * @param note_sale
-	 *			注意事項-營業稅
-	 */
-	public void setNote_sale(String Note_sale) {
-		this.note_sale = Note_sale;
-	}
-		/**
-	 * @return note_sale1
-	 *			注意事項-營所稅
-	 */
-	public String getNote_sale1() {
-		return note_sale1;
-	}
-
-	/**
-	 * @param note_sale1
-	 *			注意事項-營所稅
-	 */
-	public void setNote_sale1(String Note_sale1) {
-		this.note_sale1 = Note_sale1;
-	}
-		/**
-	 * @return note_acc
-	 *			注意事項-帳務
-	 */
-	public String getNote_acc() {
-		return note_acc;
-	}
-
-	/**
-	 * @param note_acc
-	 *			注意事項-帳務
-	 */
-	public void setNote_acc(String Note_acc) {
-		this.note_acc = Note_acc;
-	}
-		/**
-	 * @return note_acc1
-	 *			注意事項-扣繳
-	 */
-	public String getNote_acc1() {
-		return note_acc1;
-	}
-
-	/**
-	 * @param note_acc1
-	 *			注意事項-扣繳
-	 */
-	public void setNote_acc1(String Note_acc1) {
-		this.note_acc1 = Note_acc1;
+	public void setCoin_nbr(String Coin_nbr) {
+		this.coin_nbr = Coin_nbr;
 	}
 	
 }
