@@ -16,7 +16,7 @@ define(function() {
             scope.promise = null;
             scope.listUrl = "plugins/bas/templates/list.html";
             scope.config = {
-                title: "客戶管理",
+                title: "客戶維護",
                 listoperation: {
                     add: {
                         name: "新增",
@@ -81,12 +81,6 @@ define(function() {
                     }
                 },
                 filterItems: {
-                    cus_alias: {
-                        type: "input",
-                        lovtype: "",
-                        name: "cus_alias",
-                        label: "客戶簡稱"
-                    },
                     cus_nbr: {
                         type: "basDefault",
                         lovtype: "",
@@ -98,9 +92,15 @@ define(function() {
                         lovtype: "",
                         name: "cus_name",
                         label: "客戶名稱"
-                    }
+                    },
+                    cus_alias: {
+                        type: "input",
+                        lovtype: "",
+                        name: "cus_alias",
+                        label: "客戶簡稱"
+                    },
                 },
-                filtermoreItems: {
+                filtermoreItems: {   //更多--->高級搜索
                     cus_gun: {
                         type: "input",
                         lovtype: "",

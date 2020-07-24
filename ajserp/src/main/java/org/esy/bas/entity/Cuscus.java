@@ -18,7 +18,7 @@ import org.esy.base.annotation.FilterInfo;
  *  实体类
  * 
  * @author <a href="mailto:ardui@163.com"ardui</a
- *  @date Thu Jul 23 17:19:46 CST 2020
+ *  @date Fri Jul 24 09:57:39 CST 2020
  */
 @Entity
 @Table(name = "cus_cus" ,indexes = { @Index(name = "created", columnList = "created"), 
@@ -170,7 +170,7 @@ public class Cuscus extends BaseProperties {
 	@Column(name = "remark7", length =32  )
 	private String remark7 ;
 
-	@FieldInfo("交易方式")
+	@FieldInfo("付款條件")
 	@FilterInfo(ListValue = "")
 	@Column(name = "pay_term", length =32  )
 	private String pay_term ;
@@ -503,7 +503,7 @@ public class Cuscus extends BaseProperties {
 	 *		  收款方式
 	 * 
 	 	 * @param pay_term
-	 *		  交易方式
+	 *		  付款條件
 	 * 
 	 	 * @param tax_type
 	 *		  稅別
@@ -1133,7 +1133,7 @@ public class Cuscus extends BaseProperties {
 	}
 		/**
 	 * @return pay_term
-	 *			交易方式
+	 *			付款條件
 	 */
 	public String getPay_term() {
 		return pay_term;
@@ -1141,7 +1141,7 @@ public class Cuscus extends BaseProperties {
 
 	/**
 	 * @param pay_term
-	 *			交易方式
+	 *			付款條件
 	 */
 	public void setPay_term(String Pay_term) {
 		this.pay_term = Pay_term;

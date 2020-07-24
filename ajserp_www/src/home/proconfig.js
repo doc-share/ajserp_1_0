@@ -249,11 +249,10 @@ angular.module('app.core.proconfig', [])
                         title: "備註主檔",
                         queryUrl: "bas/basrem/query", //查詢地址
                         initLoad: false, //加載時是否初始化數據
-                        small: true, //速查是否顯示編號
+                        small: false, //速查是否顯示編號
                         showField: { //速查基本欄位
                             valueField: "rem_nbr",
-                            nameField: "rem_nbr",
-                            smallField: "rem_desc"
+                            nameField: "rem_desc",
                         },
                         dialog:"selrem"
                     },

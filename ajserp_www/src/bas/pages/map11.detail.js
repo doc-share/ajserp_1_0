@@ -719,7 +719,7 @@ define(function () {
                                                 { value: "1", name: "A  外加" },
                                                 { value: "2", name: "I  內含" },
                                                 { value: "3", name: "N  稅額不計" },
-                                                { value: "2", name: "O  零稅" }
+                                                { value: "4", name: "O  零稅" }
                                             ],
                                         },
                                         {
@@ -1181,7 +1181,111 @@ define(function () {
                                         }
                                     ]
                                 },
-                                {
+                                {    //加了整個會無法存檔，要存檔看可以先註解掉
+                                    title: "產品單價記錄",  //cus_itm的表
+                                    items:[{
+                                        title: "明細行",
+                                        key: 'map11',
+                                        type: "basEditgrid",
+                                        gridkey: "bas.map11.detail",
+                                        css: "cell100",
+                                        // action: {
+                                        //     add: {
+                                        //         editstatus: {
+                                        //             relation: "or",
+                                        //             editstatus: {
+                                        //                 relation: "and",
+                                        //                 filedlist: [
+                                        //                     {field: "formstatus", status: "add,edit"}, //表單為新增，修改狀態
+                                        //                 ]
+                                        //             },
+                                        //             filedlist: [
+                                        //                 {field: "formstatus", status: "add,edit"}, //表單新增狀態
+                                        //             ]
+                                        //         },
+                                        //         click: function () {
+                                        //             var item = {
+                                        //                 isdel: false
+                                        //             }
+                                        //             scope.model.cuscus.push(item);
+                                        //         }
+                                        //     },
+                                        //     del: {
+                                        //         editstatus: {
+                                        //             relation: "or",
+                                        //             filedlist: [
+                                        //                 {field: "formstatus", status: "add,edit"}, //表單新增狀態
+                                        //             ]
+                                        //         },
+                                        //         click: function (item) {
+                                        //             item.isdel = true;
+                                        //             scope.counttot_amt();
+                                        //         }
+                                        //     }
+                                        // },
+                                        headers: {
+                                            "item_nbr": {
+                                                displayName: "產品編號",
+                                                type: "basDefault",
+                                                width: 110
+                                            },
+                                            "cus_item": {
+                                                displayName: "客戶料品編號",
+                                                type: 'basDefault',
+                                                width: 110
+                                            },
+                                            "item_name": {
+                                                displayName: "產品名稱",
+                                                type: 'basDefault',
+                                                width: 110,
+                                            },
+                                            "pro_nbr": {
+                                                displayName: "製程",
+                                                type: 'basDefault',
+                                                width: 110
+                                            },
+                                            "item_desc": {   
+                                                displayName: "規格說明",//inv_itm表--欄位
+                                                type: 'basDefault',
+                                                width: 110,
+                                               
+                                            },
+                                            "unit": {
+                                                displayName: "單位",
+                                                type: 'basDefault',
+                                                width: 110
+                                            },
+                                            "coin_nbr": {
+                                                displayName: "幣別",
+                                                type: 'basDefault',
+                                                width: 110
+                                            },
+                                            "price": {
+                                                displayName: "歷史單價",
+                                                type: 'basDefault',
+                                                width: 110
+                                            },
+                                            "last_date": {
+                                                displayName: "最近價格日期",
+                                                type: 'basEsydatetime',
+                                                width: 110
+                                            },
+                                            "jprice": {
+                                                displayName: "加工單價",
+                                                type: 'basDefault',
+                                                width: 110
+                                            },
+                                            "last_jdate": {
+                                                displayName: "最近加工日",
+                                                type: 'basEsydatetime',
+                                                width: 110
+                                            }
+                                        }
+            
+                                    },
+                                ]
+                                },
+                                {    //加了整個會無法存檔，要存檔看可以先註解掉
                                     title: "聯絡人",
                                     items:[{
                                         title: "明細行",
