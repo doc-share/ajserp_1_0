@@ -1367,7 +1367,8 @@ define(function() {
                                 },
                                 {    //加了整個會無法存檔，要存檔看可以先註解掉
                                     title: "產品文件",  //bmp_bat的表
-                                    items:[{
+                                    items:[
+                                        {
                                         title: "明細行",
                                         key: 'map14',
                                         type: "basEditgrid",
@@ -1381,16 +1382,6 @@ define(function() {
                                             },
                                             "item_desc": {
                                                 displayName: "文件說明",
-                                                type: 'basDefault',
-                                                width: 110
-                                            },
-                                            "load": {
-                                                displayName: "讀檔",
-                                                type: 'basUploader',
-                                                width: 110,
-                                            },
-                                            "del": {
-                                                displayName: "刪除",
                                                 type: 'basDefault',
                                                 width: 110
                                             }

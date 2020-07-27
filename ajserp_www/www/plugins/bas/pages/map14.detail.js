@@ -1383,16 +1383,6 @@ define(function() {
                                                 displayName: "文件說明",
                                                 type: 'basDefault',
                                                 width: 110
-                                            },
-                                            "load": {
-                                                displayName: "讀檔",
-                                                type: 'basUploader',
-                                                width: 110,
-                                            },
-                                            "del": {
-                                                displayName: "刪除",
-                                                type: 'basDefault',
-                                                width: 110
                                             }
                                         }
             
