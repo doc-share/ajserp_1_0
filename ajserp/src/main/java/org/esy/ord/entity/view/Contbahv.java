@@ -221,11 +221,11 @@ public class Contbahv extends BaseProperties {
 	@Column(name = "cus_alias", length = 64)
 	private String cus_alias;
 	
-	@FieldInfo("工作內容")//虛擬欄位
-	@Column(name = "work_desc", length = 64)
+	@FieldInfo("工作內容")//虛擬欄位   
+	@Column(name = "work_desc", length = 64)      //相關欄位寫法
 	private String work_desc;
 
-	@Transient
+	@Transient   //表頭過濾項要加的!!!!!!
 	@JsonProperty("group_nbrb")//虛擬欄位
 	private String group_nbrb;// shift+alt+s
 	

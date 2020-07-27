@@ -830,9 +830,9 @@ define(function() {
                                     title: "料品單價記錄",  //ven_itm的表
                                     items:[{
                                         title: "明細行",
-                                        key: 'map11',
+                                        key: 'map12',
                                         type: "basEditgrid",
-                                        gridkey: "bas.map11.detail",
+                                        gridkey: "bas.map12.detail",
                                         css: "cell100",
                                         // action: {
                                         //     add: {
@@ -924,9 +924,9 @@ define(function() {
                                     title: "聯絡人",
                                     items:[{
                                         title: "明細行",
-                                        key: 'map11',
+                                        key: 'map12',
                                         type: "basEditgrid",
-                                        gridkey: "bas.map11.detail",
+                                        gridkey: "bas.map12.detail",
                                         css: "cell100",
                                         action: {
                                             add: {
@@ -946,7 +946,7 @@ define(function() {
                                                     var item = {
                                                         isdel: false
                                                     }
-                                                    scope.model.cuscus.push(item);
+                                                    scope.model.map12.push(item);
                                                 }
                                             },
                                             del: {
@@ -958,7 +958,7 @@ define(function() {
                                                 },
                                                 click: function (item) {
                                                     item.isdel = true;
-                                                    scope.counttot_amt();
+                                                    scope.model.map11.splice();
                                                 }
                                             }
                                         },

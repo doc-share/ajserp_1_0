@@ -347,7 +347,7 @@ define(function () {
                             items: [{
                                     title: "客戶編號",
                                     key: 'cus_nbr',
-                                    placeholder: "自動產生",
+                                    placeholder: "編號自動產生",
                                     readonly: true,
                                     type: 'basString'
                                 },
@@ -1311,7 +1311,7 @@ define(function () {
                                                     var item = {
                                                         isdel: false
                                                     }
-                                                    scope.model.cuscus.push(item);
+                                                    scope.model.map11.push(item);
                                                 }
                                             },
                                             del: {
@@ -1323,7 +1323,7 @@ define(function () {
                                                 },
                                                 click: function (item) {
                                                     item.isdel = true;
-                                                    scope.counttot_amt();
+                                                    scope.model.map11.splice();
                                                 }
                                             }
                                         },

@@ -1,11 +1,10 @@
 package org.esy.ord.service.impl;
 
-//import java.text.SimpleDateFormat;//引入
+import java.text.SimpleDateFormat;//引入
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-//import org.esy.base.service.ISerialService;//引入
 import org.esy.base.common.BaseUtil;
 import org.esy.base.dao.YSDao;
 import org.esy.base.dao.core.PageResult;
@@ -21,26 +20,19 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import org.esy.base.service.ISerialService;////自動生成引入
 @Service
 public class ContbahServiceImpl implements IContbahService {
 
 	@Autowired
 	private YSDao dao;
 
-//	@Autowired
-//	private ISerialService serialService;
+	@Autowired
+	private ISerialService serialService;   //自動生成
 	
 	@Autowired
 	private IAttachmentService attachmentService;  //上傳文件加寫
 
-	/**
-	 * 保存实体
-	 * 
-	 * @param acrbatv
-	 * @return Contbah o
-	 * @version v2.0
-	 */
 	@Override
 	@Transactional
 	public Contbahv save(Contbahv o) throws YesException {
@@ -54,10 +46,10 @@ public class ContbahServiceImpl implements IContbahService {
 				throw new YesException(HttpStatus.INTERNAL_SERVER_ERROR, "该记录已被其他用户修改，不可更新!!！");
 			}
 		}
-//			SimpleDateFormat formatter = new SimpleDateFormat("yyyyMM");
-//			String date = "S" + YESUtil.getDateString(o.getNbrdate(), formatter);
-//			String no = serialService.getSerialString("ord", "ordbah", date, 5, 99999);
-//			o.setNbr(no);
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyyMM");
+			String date = "S" + YESUtil.getDateString(o.getDate(), formatter);
+			String no = serialService.getSerialString("ord", "ordbah", date, 5, 99999);
+			o.setNbr(no);
 		
 		if (BaseUtil.isEmpty(o.getNbr())) {  //判斷欄位是否為空(o.get..()可變換，這邊用Nbr())
 			throw new YesException(HttpStatus.NOT_FOUND, "合约编号不可为空!!!");
@@ -87,7 +79,7 @@ public class ContbahServiceImpl implements IContbahService {
 		
 		for (Contacr contacr : contacrs) {  //存檔:一筆一筆迴圈
 			
-			if (contacr.getIsdel() && BaseUtil.isNotEmpty(contacr.getUid())) {//BaseUtil.isNotEmpty(contacr.getUid())判斷合約明細(contacr)不為空時(修改時)
+			if (contacr.getIsdel() && BaseUtil.isNotEmpty(contacr.getUid())) { //BaseUtil.isNotEmpty(contacr.getUid())判斷合約明細(contacr)不為空時(修改時)
 				dao.delete(Contacr.class, contacr);
 			}
 			if (!contacr.getIsdel()) {
