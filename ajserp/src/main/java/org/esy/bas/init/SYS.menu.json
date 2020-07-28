@@ -968,6 +968,30 @@
         }
         ,
          {
+            "summary": "拋轉模板測試",
+            "classname": "org.esy.base.entity.Menu",
+            "entity": {
+                "uid": "ord_test",
+                "pid": "ord",
+                "mid": "ord_test",
+                "order": 10200000,
+                "name": "拋轉模板測試",
+                "tag": "test",
+                "enable": true,
+                "type": "menu",
+                "icon": "fa-book",
+                "tip": "拋轉模板測試",
+                "url": "#/ord/test",
+                "memo": "拋轉模板測試",
+                "home": true,
+                "blank": false,
+                "expanded": false,
+                "color": "btn-warning"
+            }
+
+        }
+        ,
+         {
             "summary": "訂單登錄",
             "classname": "org.esy.base.entity.Menu",
             "entity": {

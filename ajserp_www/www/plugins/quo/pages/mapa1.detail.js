@@ -417,7 +417,7 @@ define(function () {
                                                     var item = {
                                                         isdel: false
                                                     }
-                                                    scope.model.mapa1.push(item);
+                                                    scope.model.quobats.push(item);
                                                 }
                                             },
                                             del: {
@@ -429,7 +429,7 @@ define(function () {
                                                 },
                                                 click: function (item) {
                                                     item.isdel = true;
-                                                    scope.model.mapa1.splice();
+                                                    scope.model.quobats.splice();
                                                 }
                                             }
                                         },
@@ -563,7 +563,8 @@ define(function () {
                     $scope.$broadcast('schemaFormRedraw');
                     scope.model = {
                         coin_per: 1.000,
-                        formstatus: "add" //edit,view
+                        formstatus: "add", //edit,view
+                        nbrdate: qwsys.gettoday(),   //獲取當天時間
                     }
                 },
                 edit: function () {

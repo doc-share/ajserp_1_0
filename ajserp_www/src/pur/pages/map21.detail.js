@@ -1,5 +1,5 @@
 define(function () {
-    angular.module('app').controller('quo.mapa1.detail',
+    angular.module('app').controller('pur.map21.detail',
         function ($rootScope, $scope, $location, utils, path, getSingleView, settings,
             $timeout, dialog, toastr, ngDialog, uiGridConstants, qwsys, sysconstant) {
             var scope = $scope;
@@ -120,66 +120,80 @@ define(function () {
                                 "title": "日期",
                                 "type": "Date"
                             },
-                            "tax_type": {
-                                "title": "稅別",
+                            "tot_amt": {
+                                "title": "總金額",
+                                "type": "Double"
+                            },
+                            "ven_nbr": {
+                                "title": "供應商代號",
                                 "type": "String"
                             },
-                            "cus_nbr": {
-                                "title": "客戶代號",
-                                "type": "String"
-                            },
-                            "over_date": {
-                                "title": "有效日期",
+                            "plan_date": {
+                                "title": "預定到貨日",
                                 "type": "Date"
+                            },
+                            "pay_term": {
+                                "title": "交易方式",
+                                "type": "String"
+                            },
+                            "ven_nbr1": {
+                                "title": "指送廠商",
+                                "type": "String"
+                            },
+                            "cus_ord": {
+                                "title": "客戶訂單據號碼",
+                                "type": "String"
                             },
                             "coin_nbr": {
                                 "title": "幣別",
+                                "type": "String"
+                            },
+                            "sale_nbr": {
+                                "title": "業務員",
                                 "type": "String"
                             },
                             "coin_per": {
                                 "title": "匯率",
                                 "type": "Double"
                             },
-                            "sale_nbr": {
-                                "title": "業務員",
-                                "type": "String"
-                            },
-                            "pay_term": {
-                                "title": "付款方式",
-                                "type": "String"
-                            },
-                            "tax_amt": {
-                                "title": "稅額",
-                                "type": "integer"
-                            },
-                            "tot_amt": {
-                                "title": "報價總額",
-                                "type": "Double"
-                            },
-                            "attname1": {
-                                "title": "連絡人1",
+                            "remark": {
+                                "title": "備註",
                                 "type": "String"
                             },
                             "status": {
                                 "title": "狀態",
                                 "type": "String"
                             },
-                            "remark": {
-                                "title": "備註",
+                            "ord_nbr": {
+                                "title": "訂單單據號碼",
+                                "type": "String"
+                            },
+                            "isord": {
+                                "title": "是否轉單",
+                                "type": "String"
+                            },
+                            "itemdesc": {
+                                "title": "採購描述",
                                 "type": "String"
                             }
                         }
                     },
-                    form: [
-                        {
+                    form: [{
                             type: "group",
                             title: "",
                             items: [{
                                     title: "單據號碼",
                                     key: 'nbr',
-                                    readonly:true,
-                                    placeholder:"號碼自動產生",
+                                    editstatus: {
+                                        relation: "and",
+                                        filedlist: [{
+                                                field: "formstatus",
+                                                status: "add,edit"
+                                            } //表单为新增，修改状态
+                                        ]
+                                    },
                                     type: 'basDefault',
+                                    lovtype: ''
                                 },
                                 {
                                     title: "日期",
@@ -193,156 +207,7 @@ define(function () {
                                         ]
                                     },
                                     type: 'basEsydatetime',
-                                },
-                                {
-                                    title: "稅別",
-                                    key: 'tax_type',
-                                    editstatus: {
-                                        relation: "and",
-                                        filedlist: [{
-                                                field: "formstatus",
-                                                status: "add,edit"
-                                            } //表单为新增，修改状态
-                                        ]
-                                    },
-                                    relationfield: [{
-                                        findfield: "tax_desc",
-                                        tofield: "tax_desc"
-                                    }],
-                                    additionalField: {
-                                        key: "tax_desc",
-                                        readonly: true,
-                                        type: "basString"
-                                    },
-                                    type: 'basLov',
-                                    lovtype: 'get_tax'
-                                },
-                                {
-                                    title: "客戶代號",
-                                    key: 'cus_nbr',
-                                    editstatus: {
-                                        relation: "and",
-                                        filedlist: [{
-                                                field: "formstatus",
-                                                status: "add,edit"
-                                            } //表单为新增，修改状态
-                                        ]
-                                    },
-                                    relationfield: [{
-                                        findfield: "cus_name",
-                                        tofield: "cus_name"
-                                    }],
-                                    additionalField: {
-                                        key: "cus_name",
-                                        readonly: true,
-                                        type: "basString"
-                                    },
-                                    type: 'basLov',
-                                    lovtype: 'get_cus'
-                                },
-                                {
-                                    title: "有效日期",
-                                    key: 'over_date',
-                                    editstatus: {
-                                        relation: "and",
-                                        filedlist: [{
-                                                field: "formstatus",
-                                                status: "add,edit"
-                                            } //表单为新增，修改状态
-                                        ]
-                                    },
-                                    type: 'basEsydatetime',
-                                },
-                                {
-                                    title: "幣別",
-                                    key: 'coin_nbr',
-                                    editstatus: {
-                                        relation: "and",
-                                        filedlist: [{
-                                                field: "formstatus",
-                                                status: "add,edit"
-                                            } //表单为新增，修改状态
-                                        ]
-                                    },
-                                    relationfield: [{
-                                        findfield: "coin_desc",
-                                        tofield: "coin_desc"
-                                    }],
-                                    additionalField: {
-                                        key: "coin_desc",
-                                        readonly: true,
-                                        type: "basString"
-                                    },
-                                    type: 'basLov',
-                                    lovtype: 'get_coin'
-                                },
-                                {
-                                    title: "匯率",
-                                    key: 'coin_per',
-                                    editstatus: {
-                                        relation: "and",
-                                        filedlist: [{
-                                                field: "formstatus",
-                                                status: "add,edit"
-                                            } //表单为新增，修改状态
-                                        ]
-                                    },
-                                    type: 'basNumber',
-                                },
-                                {
-                                    title: "業務員",
-                                    key: 'sale_nbr',
-                                    editstatus: {
-                                        relation: "and",
-                                        filedlist: [{
-                                                field: "formstatus",
-                                                status: "add,edit"
-                                            } //表单为新增，修改状态
-                                        ]
-                                    },
-                                    relationfield: [{
-                                        findfield: "sale_name",
-                                        tofield: "sale_name"
-                                    }],
-                                    additionalField: {
-                                        key: "sale_name",
-                                        readonly: true,
-                                        type: "basString"
-                                    },
-                                    type: 'basLov',
-                                    lovtype: 'get_sal'
-                                },
-                                {
-                                    title: "付款方式",
-                                    key: 'pay_term',
-                                    editstatus: {
-                                        relation: "and",
-                                        filedlist: [{
-                                                field: "formstatus",
-                                                status: "add,edit"
-                                            } //表单为新增，修改状态
-                                        ]
-                                    },
-                                    type: 'basLov',
-                                    lovtype: 'select',
-                                    titleMap:[
-                                        {value:"1",name:"票據"},
-                                        {value:"2",name:"現金"},
-                                        {value:"3",name:"匯款"}
-                                    ]
-                                },
-                                {
-                                    title: "稅額",
-                                    key: 'tax_amt',
-                                    editstatus: {
-                                        relation: "and",
-                                        filedlist: [{
-                                                field: "formstatus",
-                                                status: "add,edit"
-                                            } //表单为新增，修改状态
-                                        ]
-                                    },
-                                    type: 'basNumber',
+                                    lovtype: ''
                                 },
                                 {
                                     title: "總金額",
@@ -356,10 +221,67 @@ define(function () {
                                         ]
                                     },
                                     type: 'basNumber',
+                                    lovtype: ''
                                 },
                                 {
-                                    title: "連絡人1",
-                                    key: 'attname1',
+                                    title: "供應商代號",
+                                    key: 'ven_nbr',
+                                    editstatus: {
+                                        relation: "and",
+                                        filedlist: [{
+                                                field: "formstatus",
+                                                status: "add,edit"
+                                            } //表单为新增，修改状态
+                                        ]
+                                    },
+                                    type: 'basLov',
+                                    lovtype: 'get_ven'
+                                },
+                                {
+                                    title: "預定到貨日",
+                                    key: 'plan_date',
+                                    editstatus: {
+                                        relation: "and",
+                                        filedlist: [{
+                                                field: "formstatus",
+                                                status: "add,edit"
+                                            } //表单为新增，修改状态
+                                        ]
+                                    },
+                                    type: 'basEsydatetime',
+                                    lovtype: ''
+                                },
+                                {
+                                    title: "交易方式",
+                                    key: 'pay_term',
+                                    editstatus: {
+                                        relation: "and",
+                                        filedlist: [{
+                                                field: "formstatus",
+                                                status: "add,edit"
+                                            } //表单为新增，修改状态
+                                        ]
+                                    },
+                                    type: 'basLov',
+                                    lovtype: ''
+                                },
+                                {
+                                    title: "指送廠商",
+                                    key: 'ven_nbr1',
+                                    editstatus: {
+                                        relation: "and",
+                                        filedlist: [{
+                                                field: "formstatus",
+                                                status: "add,edit"
+                                            } //表单为新增，修改状态
+                                        ]
+                                    },
+                                    type: 'basLov',
+                                    lovtype: 'get_ven'
+                                },
+                                {
+                                    title: "客戶訂單據號碼",
+                                    key: 'cus_ord',
                                     editstatus: {
                                         relation: "and",
                                         filedlist: [{
@@ -369,6 +291,63 @@ define(function () {
                                         ]
                                     },
                                     type: 'basDefault',
+                                    lovtype: ''
+                                },
+                                {
+                                    title: "幣別",
+                                    key: 'coin_nbr',
+                                    editstatus: {
+                                        relation: "and",
+                                        filedlist: [{
+                                                field: "formstatus",
+                                                status: "add,edit"
+                                            } //表单为新增，修改状态
+                                        ]
+                                    },
+                                    type: 'basLov',
+                                    lovtype: 'get_coin'
+                                },
+                                {
+                                    title: "業務員",
+                                    key: 'sale_nbr',
+                                    editstatus: {
+                                        relation: "and",
+                                        filedlist: [{
+                                                field: "formstatus",
+                                                status: "add,edit"
+                                            } //表单为新增，修改状态
+                                        ]
+                                    },
+                                    type: 'basLov',
+                                    lovtype: 'get_sal'
+                                },
+                                {
+                                    title: "匯率",
+                                    key: 'coin_per',
+                                    editstatus: {
+                                        relation: "and",
+                                        filedlist: [{
+                                                field: "formstatus",
+                                                status: "add,edit"
+                                            } //表单为新增，修改状态
+                                        ]
+                                    },
+                                    type: 'basNumber',
+                                    lovtype: ''
+                                },
+                                {
+                                    title: "備註",
+                                    key: 'remark',
+                                    editstatus: {
+                                        relation: "and",
+                                        filedlist: [{
+                                                field: "formstatus",
+                                                status: "add,edit"
+                                            } //表单为新增，修改状态
+                                        ]
+                                    },
+                                    type: 'basDefault',
+                                    lovtype: ''
                                 },
                                 {
                                     title: "狀態",
@@ -381,7 +360,36 @@ define(function () {
                                             } //表单为新增，修改状态
                                         ]
                                     },
+                                    type: 'basLov',
+                                    lovtype: ''
+                                },
+                                {
+                                    title: "訂單單據號碼",
+                                    key: 'ord_nbr',
+                                    editstatus: {
+                                        relation: "and",
+                                        filedlist: [{
+                                                field: "formstatus",
+                                                status: "add,edit"
+                                            } //表单为新增，修改状态
+                                        ]
+                                    },
                                     type: 'basDefault',
+                                    lovtype: ''
+                                },
+                                {
+                                    title: " 是否轉單",
+                                    key: 'isord',
+                                    editstatus: {
+                                        relation: "and",
+                                        filedlist: [{
+                                                field: "formstatus",
+                                                status: "add,edit"
+                                            } //表单为新增，修改状态
+                                        ]
+                                    },
+                                    type: 'basDefault',
+                                    lovtype: ''
                                 }
                             ]
                         },
@@ -390,137 +398,16 @@ define(function () {
                             type: "basTabs",
                             css: "max-4",
                             tabs: [
-                                //下面為頁簽A
-                                {    //加了整個會無法存檔，要存檔看可以先註解掉
-                                    title: "明細",
-                                    items:[{
-                                        title: "明細行",
-                                        key: 'quobats',
-                                        type: "basEditgrid",
-                                        gridkey: "bas.mapa1.detail",
-                                        css: "cell100",
-                                        action: {
-                                            add: {
-                                                editstatus: {
-                                                    relation: "or",
-                                                    editstatus: {
-                                                        relation: "and",
-                                                        filedlist: [
-                                                            {field: "formstatus", status: "add,edit"}, //表單為新增，修改狀態
-                                                        ]
-                                                    },
-                                                    filedlist: [
-                                                        {field: "formstatus", status: "add,edit"}, //表單新增狀態
-                                                    ]
-                                                },
-                                                click: function () {
-                                                    var item = {
-                                                        isdel: false
-                                                    }
-                                                    scope.model.quobats.push(item);
-                                                }
-                                            },
-                                            del: {
-                                                editstatus: {
-                                                    relation: "or",
-                                                    filedlist: [
-                                                        {field: "formstatus", status: "add,edit"}, //表單新增狀態
-                                                    ]
-                                                },
-                                                click: function (item) {
-                                                    item.isdel = true;
-                                                    scope.model.quobats.splice();
-                                                }
-                                            }
-                                        },
-                                        headers: {
-                                            "cus_item": {
-                                                displayName: "客戶產品編號",
-                                                type: "basDefault",
-                                                width: 110
-                                            },
-                                            "item_nbr": {
-                                                displayName: "產品編號",
-                                                type: 'basDefault',
-                                                width: 110
-                                            },
-                                            "cus_item1": {
-                                                displayName: "參考號碼",
-                                                type: 'basDefault',
-                                                width: 110,
-                                            },
-                                            "item_desc": {
-                                                displayName: "產品規格",
-                                                type: 'basDefault',
-                                                width: 110
-                                            },
-                                            "unit": {
-                                                displayName: "單位",
-                                                type: 'basDefault',
-                                                width: 110,
-                                               
-                                            },
-                                            "qty": {
-                                                displayName: "數量",
-                                                type: 'basDefault',
-                                                width: 110
-                                            },
-                                            "price": {
-                                                displayName: "金額",
-                                                type: 'basDefault',
-                                                width: 110
-                                            },
-                                            "t_unit": {
-                                                displayName: "計價單位",
-                                                type: 'basDefault',
-                                                width: 110
-                                            },
-                                            "in_box": {
-                                                displayName: "內盒",
-                                                type: 'basDefault',
-                                                width: 110
-                                            },
-                                            "t_qty": {
-                                                displayName: "計價數量",
-                                                type: 'basDefault',
-                                                width: 110
-                                            },
-                                            "qty_pbox": {
-                                                displayName: "外箱",
-                                                type: 'basDefault',
-                                                width: 110
-                                            },
-                                            "n_wight": {
-                                                displayName: "淨重",
-                                                type: 'basDefault',
-                                                width: 110
-                                            },
-                                            "remark": {
-                                                displayName: "備註",
-                                                type: 'basDefault',
-                                                width: 110
-                                            },
-                                            "g_wight": {
-                                                displayName: "毛重",
-                                                type: 'basDefault',
-                                                width: 110
-                                            },
-                                            "cuft": {
-                                                displayName: "材積",
-                                                type: 'basDefault',
-                                                width: 110
-                                            },
-                                        }
-            
-                                    },
-                                ]
-                                },
-                                //下面為頁簽B
+                                //下面为页签A
                                 {
-                                    title: "備註",
+
+                                },
+                                //下面为页签B
+                                {
+                                    title: "採購描述",
                                     items: [{
-                                        title: "備註",
-                                        key: 'remark',
+                                        title: "採購描述",
+                                        key: 'itemdesc',
                                         editstatus: {
                                             relation: "and",
                                             filedlist: [{
@@ -532,25 +419,8 @@ define(function () {
                                         type: 'basTextarea',
                                         css:"cell100"
                                     }]
-                                },
-                                //下面為頁簽C
-                                // {
-                                //     title: "英文報價資料",
-                                //     items: [ 
-                                //         {
-                                //         title: "",
-                                //         key: '',
-                                //         editstatus: {
-                                //             relation: "and",
-                                //             filedlist: [{
-                                //                     field: "formstatus",
-                                //                     status: "add,edit"
-                                //                 } //表单为新增，修改状态
-                                //             ]
-                                //         },
-                                //         type: 'basDefault'
-                                //     }]
-                                // }
+                                }
+
                             ]
                         }
 
@@ -562,9 +432,7 @@ define(function () {
                 add: function (event) {
                     $scope.$broadcast('schemaFormRedraw');
                     scope.model = {
-                        coin_per: 1.000,
-                        formstatus: "add", //edit,view
-                        nbrdate: qwsys.gettoday(),   //獲取當天時間
+                        formstatus: "add" //edit,view
                     }
                 },
                 edit: function () {
@@ -575,13 +443,13 @@ define(function () {
                     dialog.confirm('确定删除当前数据?').then(function () {
                         scope.promise = utils.ajax({
                             method: 'DELETE',
-                            url: "ord/quobah/" + scope.model.uid,
-                            mockUrl: "plugins/data/mapa1.detail.json"
+                            url: "pur/purbah/" + scope.model.uid,
+                            mockUrl: "plugins/data/map21.detail.json"
                         }).then(function (res) {
                             toastr.info("数据删除成功!!!");
                             scope.uid = "";
                             scope.action.add();
-                            scope.refreshtab("refreshquobah", {});
+                            scope.refreshtab("refreshpurbah", {});
 
                         });
                     });
@@ -599,8 +467,8 @@ define(function () {
                     if (scope.uid) {
                         scope.promise = utils.ajax({
                             method: 'GET',
-                            url: "ord/quobah/" + scope.uid,
-                            mockUrl: "plugins/data/mapa1.detail.json"
+                            url: "pur/purbah/" + scope.uid,
+                            mockUrl: "plugins/data/map21.detail.json"
                         }).then(function (res) {
                             var data = res.data;
                             scope.model = data.body;
@@ -633,8 +501,8 @@ define(function () {
                     scope.model.formstatus = "read";
                     scope.promise = utils.ajax({
                         method: "POST",
-                        url: "ord/quobah",
-                        mockUrl: "plugins/data/mapa1.detail.json",
+                        url: "pur/purbah",
+                        mockUrl: "plugins/data/map21.detail.json",
                         data: scope.model
                     }).then(function (res) {
                         scope.uid = res.data.body.uid
@@ -645,7 +513,7 @@ define(function () {
                         }
                         scope.action.load();
                         $scope.$broadcast('schemaFormRedraw');
-                        scope.refreshtab("refreshquobah", {});
+                        scope.refreshtab("refreshpurbah", {});
 
                     }, function (error) {
                         $timeout(function () {

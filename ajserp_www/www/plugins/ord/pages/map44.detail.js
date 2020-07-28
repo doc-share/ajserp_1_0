@@ -1,5 +1,5 @@
 define(function () {
-    angular.module('app').controller('quo.mapa1.detail',
+    angular.module('app').controller('ord.map44.detail',
         function ($rootScope, $scope, $location, utils, path, getSingleView, settings,
             $timeout, dialog, toastr, ngDialog, uiGridConstants, qwsys, sysconstant) {
             var scope = $scope;
@@ -120,17 +120,17 @@ define(function () {
                                 "title": "日期",
                                 "type": "Date"
                             },
-                            "tax_type": {
-                                "title": "稅別",
-                                "type": "String"
+                            "tot_amt": {
+                                "title": "總金額",
+                                "type": "Double"
                             },
                             "cus_nbr": {
                                 "title": "客戶代號",
                                 "type": "String"
                             },
-                            "over_date": {
-                                "title": "有效日期",
-                                "type": "Date"
+                            "attname1": {
+                                "title": "連絡人1",
+                                "type": "String"
                             },
                             "coin_nbr": {
                                 "title": "幣別",
@@ -141,27 +141,27 @@ define(function () {
                                 "type": "Double"
                             },
                             "sale_nbr": {
-                                "title": "業務員",
+                                "title": "業務員代號",
                                 "type": "String"
                             },
-                            "pay_term": {
-                                "title": "付款方式",
-                                "type": "String"
+                            "sure": {
+                                "title": "核准狀態",
+                                "type": " String"
                             },
-                            "tax_amt": {
-                                "title": "稅額",
-                                "type": "integer"
+                            "plan_date": {
+                                "title": "預計出貨日",
+                                "type": "Date"
                             },
-                            "tot_amt": {
-                                "title": "報價總額",
-                                "type": "Double"
-                            },
-                            "attname1": {
-                                "title": "連絡人1",
+                            "cus_ord": {
+                                "title": "客戶訂單據號碼",
                                 "type": "String"
                             },
                             "status": {
                                 "title": "狀態",
+                                "type": "String"
+                            },
+                            "cus_ord": {
+                                "title": "客戶訂單據號碼",
                                 "type": "String"
                             },
                             "remark": {
@@ -174,11 +174,11 @@ define(function () {
                         {
                             type: "group",
                             title: "",
-                            items: [{
+                            items: [
+                                {
                                     title: "單據號碼",
                                     key: 'nbr',
                                     readonly:true,
-                                    placeholder:"號碼自動產生",
                                     type: 'basDefault',
                                 },
                                 {
@@ -195,8 +195,8 @@ define(function () {
                                     type: 'basEsydatetime',
                                 },
                                 {
-                                    title: "稅別",
-                                    key: 'tax_type',
+                                    title: "總金額",
+                                    key: 'tot_amt',
                                     editstatus: {
                                         relation: "and",
                                         filedlist: [{
@@ -205,17 +205,7 @@ define(function () {
                                             } //表单为新增，修改状态
                                         ]
                                     },
-                                    relationfield: [{
-                                        findfield: "tax_desc",
-                                        tofield: "tax_desc"
-                                    }],
-                                    additionalField: {
-                                        key: "tax_desc",
-                                        readonly: true,
-                                        type: "basString"
-                                    },
-                                    type: 'basLov',
-                                    lovtype: 'get_tax'
+                                    type: 'basNumber',
                                 },
                                 {
                                     title: "客戶代號",
@@ -241,8 +231,8 @@ define(function () {
                                     lovtype: 'get_cus'
                                 },
                                 {
-                                    title: "有效日期",
-                                    key: 'over_date',
+                                    title: "連絡人1",
+                                    key: 'attname1',
                                     editstatus: {
                                         relation: "and",
                                         filedlist: [{
@@ -251,7 +241,7 @@ define(function () {
                                             } //表单为新增，修改状态
                                         ]
                                     },
-                                    type: 'basEsydatetime',
+                                    type: 'basDefault',
                                 },
                                 {
                                     title: "幣別",
@@ -290,7 +280,7 @@ define(function () {
                                     type: 'basNumber',
                                 },
                                 {
-                                    title: "業務員",
+                                    title: "業務員代號",
                                     key: 'sale_nbr',
                                     editstatus: {
                                         relation: "and",
@@ -313,8 +303,8 @@ define(function () {
                                     lovtype: 'get_sal'
                                 },
                                 {
-                                    title: "付款方式",
-                                    key: 'pay_term',
+                                    title: "核准狀態",
+                                    key: 'sure',
                                     editstatus: {
                                         relation: "and",
                                         filedlist: [{
@@ -323,17 +313,15 @@ define(function () {
                                             } //表单为新增，修改状态
                                         ]
                                     },
-                                    type: 'basLov',
-                                    lovtype: 'select',
-                                    titleMap:[
-                                        {value:"1",name:"票據"},
-                                        {value:"2",name:"現金"},
-                                        {value:"3",name:"匯款"}
-                                    ]
+                                    type: 'basStatus',
+                                    titleMap: [
+                                        {value: "N",name: "【未審核】"},
+                                        {value: "Y", name: "【已審核】"}
+                                    ],
                                 },
                                 {
-                                    title: "稅額",
-                                    key: 'tax_amt',
+                                    title: "預計出貨日",
+                                    key: 'plan_date',
                                     editstatus: {
                                         relation: "and",
                                         filedlist: [{
@@ -342,24 +330,11 @@ define(function () {
                                             } //表单为新增，修改状态
                                         ]
                                     },
-                                    type: 'basNumber',
+                                    type: 'basEsydatetime',
                                 },
                                 {
-                                    title: "總金額",
-                                    key: 'tot_amt',
-                                    editstatus: {
-                                        relation: "and",
-                                        filedlist: [{
-                                                field: "formstatus",
-                                                status: "add,edit"
-                                            } //表单为新增，修改状态
-                                        ]
-                                    },
-                                    type: 'basNumber',
-                                },
-                                {
-                                    title: "連絡人1",
-                                    key: 'attname1',
+                                    title: "客戶訂單據號碼",
+                                    key: 'cus_ord',
                                     editstatus: {
                                         relation: "and",
                                         filedlist: [{
@@ -381,7 +356,13 @@ define(function () {
                                             } //表单为新增，修改状态
                                         ]
                                     },
-                                    type: 'basDefault',
+                                    type: 'basStatus',
+                                    titleMap: [
+                                        {value: "10",name: "【未出貨】"},
+                                        {value: "20",name: "【出貨中】"},
+                                        {value: "30",name: "【已結案】"},
+                                        {value: "40",name: "【手動結案】"}
+                                    ],
                                 }
                             ]
                         },
@@ -390,14 +371,15 @@ define(function () {
                             type: "basTabs",
                             css: "max-4",
                             tabs: [
-                                //下面為頁簽A
+                                //下面为页签A
                                 {    //加了整個會無法存檔，要存檔看可以先註解掉
-                                    title: "明細",
-                                    items:[{
+                                    title: "明細",  //cus_itm的表
+                                    items:[
+                                        {
                                         title: "明細行",
-                                        key: 'quobats',
+                                        key: 'ordbats',
                                         type: "basEditgrid",
-                                        gridkey: "bas.mapa1.detail",
+                                        gridkey: "bas.map31.detail",
                                         css: "cell100",
                                         action: {
                                             add: {
@@ -417,7 +399,7 @@ define(function () {
                                                     var item = {
                                                         isdel: false
                                                     }
-                                                    scope.model.quobats.push(item);
+                                                    scope.model.ordbats.push(item);
                                                 }
                                             },
                                             del: {
@@ -429,36 +411,41 @@ define(function () {
                                                 },
                                                 click: function (item) {
                                                     item.isdel = true;
-                                                    scope.model.quobats.splice();
+                                                    scope.model.ordbats.splice();
                                                 }
                                             }
                                         },
                                         headers: {
+                                            "cus_ord": {
+                                                displayName: "客戶訂單編號",
+                                                type: "basDefault",
+                                                width: 110
+                                            },
                                             "cus_item": {
                                                 displayName: "客戶產品編號",
-                                                type: "basDefault",
+                                                type: 'basDefault',
                                                 width: 110
                                             },
                                             "item_nbr": {
                                                 displayName: "產品編號",
                                                 type: 'basDefault',
-                                                width: 110
-                                            },
-                                            "cus_item1": {
-                                                displayName: "參考號碼",
-                                                type: 'basDefault',
                                                 width: 110,
                                             },
                                             "item_desc": {
-                                                displayName: "產品規格",
+                                                displayName: "規格說明",
                                                 type: 'basDefault',
                                                 width: 110
+                                            },
+                                            "pro_nbr": {   
+                                                displayName: "製程",//inv_itm表--欄位
+                                                type: 'basDefault',
+                                                width: 110,
+                                               
                                             },
                                             "unit": {
                                                 displayName: "單位",
                                                 type: 'basDefault',
-                                                width: 110,
-                                               
+                                                width: 110
                                             },
                                             "qty": {
                                                 displayName: "數量",
@@ -466,8 +453,13 @@ define(function () {
                                                 width: 110
                                             },
                                             "price": {
-                                                displayName: "金額",
+                                                displayName: "單價",
                                                 type: 'basDefault',
+                                                width: 110
+                                            },
+                                            "amt": {
+                                                displayName: "金額",
+                                                type: 'basNumber',
                                                 width: 110
                                             },
                                             "t_unit": {
@@ -475,23 +467,19 @@ define(function () {
                                                 type: 'basDefault',
                                                 width: 110
                                             },
-                                            "in_box": {
-                                                displayName: "內盒",
-                                                type: 'basDefault',
+                                            "plan_date": {
+                                                displayName: "預計出貨日",
+                                                type: 'basEsydatetime',
                                                 width: 110
                                             },
-                                            "t_qty": {
-                                                displayName: "計價數量",
+                                            "pack_qty": {   
+                                                displayName: "總箱數",
                                                 type: 'basDefault',
-                                                width: 110
+                                                width: 110,
+                                               
                                             },
-                                            "qty_pbox": {
-                                                displayName: "外箱",
-                                                type: 'basDefault',
-                                                width: 110
-                                            },
-                                            "n_wight": {
-                                                displayName: "淨重",
+                                            "ioqty": {
+                                                displayName: "已出貨數量",
                                                 type: 'basDefault',
                                                 width: 110
                                             },
@@ -500,22 +488,32 @@ define(function () {
                                                 type: 'basDefault',
                                                 width: 110
                                             },
-                                            "g_wight": {
-                                                displayName: "毛重",
+                                            "no_t": {
+                                                displayName: "箱子編號抬頭",
                                                 type: 'basDefault',
                                                 width: 110
                                             },
-                                            "cuft": {
-                                                displayName: "材積",
+                                            "no1": {
+                                                displayName: "箱子編號起",
                                                 type: 'basDefault',
                                                 width: 110
                                             },
+                                            "no2": {
+                                                displayName: "箱子編號迄",
+                                                type: 'basDefault',
+                                                width: 110
+                                            },
+                                            "qty_pbox": {
+                                                displayName: "外箱",
+                                                type: 'basDefault',
+                                                width: 110
+                                            }
                                         }
             
-                                    },
-                                ]
+                                        },
+                                    ]
                                 },
-                                //下面為頁簽B
+                                //下面为页签B
                                 {
                                     title: "備註",
                                     items: [{
@@ -532,25 +530,8 @@ define(function () {
                                         type: 'basTextarea',
                                         css:"cell100"
                                     }]
-                                },
-                                //下面為頁簽C
-                                // {
-                                //     title: "英文報價資料",
-                                //     items: [ 
-                                //         {
-                                //         title: "",
-                                //         key: '',
-                                //         editstatus: {
-                                //             relation: "and",
-                                //             filedlist: [{
-                                //                     field: "formstatus",
-                                //                     status: "add,edit"
-                                //                 } //表单为新增，修改状态
-                                //             ]
-                                //         },
-                                //         type: 'basDefault'
-                                //     }]
-                                // }
+                                }
+
                             ]
                         }
 
@@ -562,9 +543,12 @@ define(function () {
                 add: function (event) {
                     $scope.$broadcast('schemaFormRedraw');
                     scope.model = {
-                        coin_per: 1.000,
                         formstatus: "add", //edit,view
+                        sure: "N",
+                        status: "10",
                         nbrdate: qwsys.gettoday(),   //獲取當天時間
+                        coin_per: 1.000,
+                        // coin_per: qwsys.getsysvar(),  //獲取匯率
                     }
                 },
                 edit: function () {
@@ -575,13 +559,13 @@ define(function () {
                     dialog.confirm('确定删除当前数据?').then(function () {
                         scope.promise = utils.ajax({
                             method: 'DELETE',
-                            url: "ord/quobah/" + scope.model.uid,
-                            mockUrl: "plugins/data/mapa1.detail.json"
+                            url: "ord/ordbah/" + scope.model.uid,
+                            mockUrl: "plugins/data/map44.detail.json"
                         }).then(function (res) {
                             toastr.info("数据删除成功!!!");
                             scope.uid = "";
                             scope.action.add();
-                            scope.refreshtab("refreshquobah", {});
+                            scope.refreshtab("refreshordbah", {});
 
                         });
                     });
@@ -599,8 +583,8 @@ define(function () {
                     if (scope.uid) {
                         scope.promise = utils.ajax({
                             method: 'GET',
-                            url: "ord/quobah/" + scope.uid,
-                            mockUrl: "plugins/data/mapa1.detail.json"
+                            url: "ord/ordbah/" + scope.uid,
+                            mockUrl: "plugins/data/map44.detail.json"
                         }).then(function (res) {
                             var data = res.data;
                             scope.model = data.body;
@@ -633,8 +617,8 @@ define(function () {
                     scope.model.formstatus = "read";
                     scope.promise = utils.ajax({
                         method: "POST",
-                        url: "ord/quobah",
-                        mockUrl: "plugins/data/mapa1.detail.json",
+                        url: "ord/ordbah",
+                        mockUrl: "plugins/data/map44.detail.json",
                         data: scope.model
                     }).then(function (res) {
                         scope.uid = res.data.body.uid
@@ -645,7 +629,7 @@ define(function () {
                         }
                         scope.action.load();
                         $scope.$broadcast('schemaFormRedraw');
-                        scope.refreshtab("refreshquobah", {});
+                        scope.refreshtab("refreshordbah", {});
 
                     }, function (error) {
                         $timeout(function () {
