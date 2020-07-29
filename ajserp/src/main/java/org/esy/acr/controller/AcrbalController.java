@@ -21,39 +21,39 @@ import org.esy.base.core.Response;
 import org.esy.base.service.ILoginService;
 import org.esy.base.util.RestUtils;
 import org.esy.base.http.HttpResult;
-import org.esy.acr.service.IAcrbatService;
-import org.esy.acr.entity.Acrbat;
+import org.esy.acr.service.IAcrbalService;
+import org.esy.acr.entity.Acrbal;
 
 /**
  * 实体控制器
  *  @author <a href="mailto:ardui@163.com">ardui</a>
  *  @version v2.0
- * @date Wed Jul 29 17:15:19 CST 2020			
+ * @date Wed Jul 29 16:10:01 CST 2020			
  */
 @Controller
-@RequestMapping("/api/acr/acrbat")
-public class AcrbatController {
+@RequestMapping("/api/acr/acrbal")
+public class AcrbalController {
 
-    public static final String AUTHORITY = "acr_acrbat";
+    public static final String AUTHORITY = "acr_map78";
 
 	@Autowired
 	private ILoginService loginService;
 
 	@Autowired
-	private IAcrbatService acrbatService;
+	private IAcrbalService acrbalService;
 		
 	/**
 	 * 通过页面数据保存实体
 	 * 
 	 * @author <a href="mailto:ardui@163.com">ardui</a> 
-	 * @param Acrbat  o
+	 * @param Acrbal  o
 	 * @param BindingResult request
 	 * @return ResponseEntity<Response>
-	 * @date Wed Jul 29 17:15:19 CST 2020	
+	 * @date Wed Jul 29 16:10:01 CST 2020	
 	 */
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<Response> save(@RequestBody Acrbat o, HttpServletRequest request) {
+	public ResponseEntity<Response> save(@RequestBody Acrbal o, HttpServletRequest request) {
 
 		ResponseEntity<Response> result = RestUtils.checkAuthorization(request, loginService,AUTHORITY);
 		if (result.getBody().getError() != 0) {
@@ -63,7 +63,7 @@ public class AcrbatController {
 		Response resp;
 		try {
 			//o.setUid(null);
-			resp = new Response(0, "Save success.", acrbatService.save(o));
+			resp = new Response(0, "Save success.", acrbalService.save(o));
 			return new ResponseEntity<Response>(resp, HttpStatus.OK);
 		} catch (YesException e) {
 			// TODO: handle exception
@@ -80,7 +80,7 @@ public class AcrbatController {
 	 * @author <a href="mailto:ardui@163.com">ardui</a>
 	 * @param uid
 	 * @return ResponseEntity<Response> 
-	 * @date Wed Jul 29 17:15:19 CST 2020	
+	 * @date Wed Jul 29 16:10:01 CST 2020	
 	 */
 	@RequestMapping(value = "/{uids}", method = RequestMethod.DELETE)
 	@ResponseBody
@@ -94,7 +94,7 @@ public class AcrbatController {
 		Response resp;
 		try {
 
-			acrbatService.deletes(uids);
+			acrbalService.deletes(uids);
 			resp = new Response(0, "Delete success.", null);
 			return new ResponseEntity<Response>(resp, HttpStatus.OK);
 		} catch (YesException e) {
@@ -112,7 +112,7 @@ public class AcrbatController {
 	 * @author <a href="mailto:ardui@163.com">ardui</a>
 	 * @param uid
 	 * @return ResponseEntity<Response> 
-	 * @date Wed Jul 29 17:15:19 CST 2020	
+	 * @date Wed Jul 29 16:10:01 CST 2020	
 	 */
 	@RequestMapping(value = "/{uid}", method = RequestMethod.GET)
 	@ResponseBody
@@ -125,7 +125,7 @@ public class AcrbatController {
 
 		Response resp;
 
-		Acrbat o = acrbatService.getByUid(uid);
+		Acrbal o = acrbalService.getByUid(uid);
 		if (o == null) {
 			resp = new Response(HttpStatus.NOT_FOUND.value(), "Object not found", null);
 			return new ResponseEntity<Response>(resp, HttpStatus.NOT_FOUND);
@@ -139,16 +139,16 @@ public class AcrbatController {
 	 * 通过条件查询实体
 	 * 
 	 * @author <a href="mailto:ardui@163.com">ardui</a>
-	 * @param Acrbat, pageable
+	 * @param Acrbal, pageable
 	 * @return HttpResult
-	 * @date Wed Jul 29 17:15:19 CST 2020	
+	 * @date Wed Jul 29 16:10:01 CST 2020	
 	 */
 	@RequestMapping(value = "query", method = RequestMethod.POST)
-	public HttpResult query(@Valid @RequestBody(required = false) Acrbat acrbat, Pageable pageable) {
-		if (acrbat == null) {
-			acrbat = new Acrbat();
+	public HttpResult query(@Valid @RequestBody(required = false) Acrbal acrbal, Pageable pageable) {
+		if (acrbal == null) {
+			acrbal = new Acrbal();
 		}
-		return new HttpResult(acrbatService.query(acrbat, pageable));
+		return new HttpResult(acrbalService.query(acrbal, pageable));
 	}
 	
 	

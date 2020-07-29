@@ -65,8 +65,8 @@ public class ShpbahServiceImpl implements IShpbahService {
 	public Shpbahv getByUid(String uid) {
 		
 		Shpbahv o = dao.getByUid(Shpbahv.class, uid);
-		o.setShpbats(dao.getlist(Shpbat.class, new Shpbat()));
-		return dao.getByUid(Shpbah.class,uid);
+		o.setShpbats(dao.getlist(Shpbat.class, new Shpbat(o.getUid())));
+		return o;
 		
 	}
 

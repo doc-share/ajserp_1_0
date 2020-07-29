@@ -1,5 +1,5 @@
 define(function () {
-    angular.module('app').controller('acr.acrbah',
+    angular.module('app').controller('inv.map61.detail',
         function ($rootScope, $scope, $location, utils, path, getSingleView, settings,
             $timeout, dialog, toastr, ngDialog, uiGridConstants, qwsys, sysconstant) {
             var scope = $scope;
@@ -112,17 +112,34 @@ define(function () {
                     schema: {
                         "type": "object",
                         "properties": {
+                            "io_p": {
+                                "title": "單據類別",
+                                "type": "String"
+                            },
+                            "nbrdate": {
+                                "title": "日期",
+                                "type": "Date"
+                            },
                             "nbr": {
-                                "title": "收款單代號",
-                                "type": "string"
+                                "title": "單據號碼",
+                                "type": "String"
                             },
-                            "acc_nbr": {
-                                "title": "會計傳票",
-                                "type": "string"
+                            
+                            "ware_nbr": {
+                                "title": "倉庫",
+                                "type": "String"
                             },
-                            "acr_mon": {
-                                "title": "結帳月份",
-                                "type": "string"
+                            "remark": {
+                                "title": "備註",
+                                "type": "String"
+                            },
+                            "status": {
+                                "title": "狀態",
+                                "type": "String"
+                            },
+                            "remark": {
+                                "title": "備註",
+                                "type": "String"
                             }
                         }
                     },
@@ -130,114 +147,91 @@ define(function () {
                             type: "group",
                             title: "",
                             items: [{
-                                    title: "收款單號",
-                                    key: 'nbr',
-                                    type: 'basString',
+                                    title: "單據類別",
+                                    key: 'io_p',
+                                    editstatus: {
+                                        relation: "and",
+                                        filedlist: [{
+                                                field: "formstatus",
+                                                status: "add,edit"
+                                            } //表单为新增，修改状态
+                                        ]
+                                    },
+                                    type: 'basLov',
+                                    lovtype: 'select',
+                                    titleMap:[
+                                        {value:"1",name:"入庫單"},
+                                        {value:"2",name:"出庫單"},
+                                    ]
                                 },
                                 {
-                                    title: "收款日期",
-                                    key: 'date',
+                                    title: "單據號碼",
+                                    key: 'nbr',
+                                    readonly:true,
+                                    type: 'basDefault',
+                                },
+                                {
+                                    title: "日期",
+                                    key: 'nbrdate',
+                                    editstatus: {
+                                        relation: "and",
+                                        filedlist: [{
+                                                field: "formstatus",
+                                                status: "add,edit"
+                                            } //表单为新增，修改状态
+                                        ]
+                                    },
                                     type: 'basEsydatetime',
                                 },
                                 {
-                                    title: "客戶代號",
-                                    key: 'cus_nbr',
+                                    title: "倉庫",
+                                    key: 'ware_nbr',
+                                    editstatus: {
+                                        relation: "and",
+                                        filedlist: [{
+                                                field: "formstatus",
+                                                status: "add,edit"
+                                            } //表单为新增，修改状态
+                                        ]
+                                    },
                                     relationfield: [{
-                                        findfield: "cus_alias",
-                                        tofield: "cus_alias"
-                                    }, ],
+                                        findfield: "ware_desc",
+                                        tofield: "ware_desc"
+                                    }],
                                     additionalField: {
-                                        key: "cus_alias",
+                                        key: "ware_desc",
                                         readonly: true,
                                         type: "basString"
                                     },
-                                    nameField: "cus_alias",
                                     type: 'basLov',
-                                    lovtype: 'getcus',
+                                    lovtype: 'get_war'
                                 },
                                 {
-                                    title: "结帳月份",
-                                    key: 'acr_mon',
-                                    type: "basEsydatetime",
-                                    format: "YYYYMM"
-                                },
-                                {
-                                    title: "本月應收",
-                                    key: 'tot_acr',
-                                    type: 'basNumber',
-                                },
-                                {
-                                    title: "計入預收金額",
-                                    key: 'pre_amt',
-                                    type: 'basNumber',
-                                },
-                                {
-                                    title: "累計應收餘額",
-                                    key: 'aft_amt',
-                                    type: 'basNumber',
-                                },
-
-                                {
-                                    title: "可用沖款之金額",
-                                    key: 'tot_amt',
-                                    type: 'basNumber',
-                                },
-                                {
-                                    title: "代扣稅額",
-                                    key: 'tax_amt',
-                                    type: 'basNumber',
-                                },
-                                {
-                                    title: "實際沖款金額",
-                                    key: 'wait_amt',
-                                    type: 'basNumber',
-                                },
-                                {
-                                    title: "匯費、郵資",
-                                    key: 'other_amt',
-                                    type: 'basNumber',
-                                },
-                            ]
-                        },
-                        {
-                            type: "group",
-                            title: "",
-                            css: "max-1",
-                            items: [{
-                                    title: "現金金額",
-                                    key: 'cash_amt',
-                                    type: 'basNumber',
-                                }, {
-                                    title: "票據金額",
-                                    key: 'chk_amt',
-                                    type: 'basNumber',
-                                }, {
-                                    title: "折讓金額",
-                                    key: 'cut_amt',
-                                    type: 'basNumber',
-                                }, {
-                                    title: "其他金額",
-                                    key: 'other_amt',
-                                    type: 'basNumber',
-                                }, {
-                                    title: "抵扣金額",
-                                    key: 'other_amt',
-                                    type: 'basNumber',
+                                    title: "備註",
+                                    key: 'remark',
+                                    editstatus: {
+                                        relation: "and",
+                                        filedlist: [{
+                                                field: "formstatus",
+                                                status: "add,edit"
+                                            } //表单为新增，修改状态
+                                        ]
+                                    },
+                                    type: 'basLov',
+                                    lovtype: 'get_rem'
                                 },
                                 {
                                     title: "狀態",
                                     key: 'status',
-                                    readonly: true,
-                                    titleMap: [{
-                                            value: "10",
-                                            name: "【未審核】"
-                                        },
-                                        {
-                                            value: "30",
-                                            name: "【已審核】"
-                                        }
-                                    ],
-                                    type: 'basStatus'
+                                    editstatus: {
+                                        relation: "and",
+                                        filedlist: [{
+                                                field: "formstatus",
+                                                status: "add,edit"
+                                            } //表单为新增，修改状态
+                                        ]
+                                    },
+                                    type: 'basDefault',
                                 }
                             ]
                         },
@@ -247,12 +241,14 @@ define(function () {
                             css: "max-4",
                             tabs: [
                                 //下面为页签A
-                                {
-                                    title: "明細",
-                                    items: [{
-                                        key: 'acrbah',
+                                {    //加了整個會無法存檔，要存檔看可以先註解掉
+                                    title: "明細",  
+                                    items:[ //invbat的表
+                                        {
+                                        title: "明細行",
+                                        key: 'invbats',
                                         type: "basEditgrid",
-                                        gridkey: "acr.acrbah",
+                                        gridkey: "bas.map54.detail",
                                         css: "cell100",
                                         action: {
                                             add: {
@@ -260,138 +256,88 @@ define(function () {
                                                     relation: "or",
                                                     editstatus: {
                                                         relation: "and",
-                                                        filedlist: [{
-                                                                field: "formstatus",
-                                                                status: "add,edit"
-                                                            }, //表单为新增，修改状态
+                                                        filedlist: [
+                                                            {field: "formstatus", status: "add,edit"}, //表單為新增，修改狀態
                                                         ]
-                                                    }
+                                                    },
+                                                    filedlist: [
+                                                        {field: "formstatus", status: "add,edit"}, //表單新增狀態
+                                                    ]
                                                 },
                                                 click: function () {
                                                     var item = {
                                                         isdel: false
                                                     }
-                                                    scope.model.acrbah.push(item);
+                                                    scope.model.invbats.push(item);
                                                 }
                                             },
                                             del: {
                                                 editstatus: {
                                                     relation: "or",
-                                                    filedlist: [{
-                                                            field: "formstatus",
-                                                            status: "add,edit"
-                                                        }, //表单新增状态
+                                                    filedlist: [
+                                                        {field: "formstatus", status: "add,edit"}, //表單新增狀態
                                                     ]
                                                 },
-                                                //列表刪除後更新金額
                                                 click: function (item) {
                                                     item.isdel = true;
+                                                    scope.model.invbats.splice();
                                                 }
                                             }
                                         },
                                         headers: {
-                                            "status": {
-                                                displayName: "科目",
-                                                type: 'basstring',
+                                            "item_nbr": {   
+                                                displayName: "產品編號",
+                                                type: 'basDefault',
+                                                width: 110,
+                                            },
+                                            "item_desc": {
+                                                displayName: "規格說明",
+                                                type: 'basDefault',
                                                 width: 110
                                             },
-                                            "desc": {
-                                                displayName: "說明",
-                                                type: 'basstring',
+                                            "pro_nbr": {
+                                                displayName: "製程",
+                                                type: "basDefault",
                                                 width: 110
                                             },
-                                            "chk_date": {
-                                                displayName: "票據到期日",
+                                            
+                                            "unit": {
+                                                displayName: "單位",
+                                                type: 'basDefault',
+                                                width: 110
+                                            },
+                                            "ware_nbr": {
+                                                displayName: "倉庫",
                                                 type: 'basEsydatetime',
                                                 width: 110
                                             },
-                                            "chk_nbr": {
-                                                displayName: "票據號碼",
-                                                type: 'basstring',
+                                            "to_qty":{
+                                                displayName: "庫存數量",
+                                                type: 'basDefault',
+                                                width: 110
+                                            },
+                                            "qty": {
+                                                displayName: "數量",
+                                                type: 'basDefault',
                                                 width: 110
                                             },
                                             "remark": {
-                                                displayName: "摘要",
-                                                type: 'basstring',
-                                                width: 110
+                                                displayName: "備註",
+                                                type: 'basDefault',
+                                                width: 180
                                             },
-                                            "pay_bank": {
-                                                displayName: "付款行庫",
-                                                type: 'basstring',
-                                                width: 110
-                                            }
+                                            "stock_desc": {   
+                                                displayName: "儲位",
+                                                type: 'basDefault',
+                                                width: 110,
+                                               
+                                            },
+                                            
                                         }
+            
                                     }]
-                                }
+                                },
                                 //下面为页签B
-                                ,
-                                {
-                                    title: "沖款",
-                                    items: [{
-                                        key: 'acrbah',
-                                        type: "basEditgrid",
-                                        gridkey: "acr.acrbah",
-                                        css: "cell100",
-                                        action: {
-                                            add: {
-                                                editstatus: {
-                                                    relation: "or",
-                                                    editstatus: {
-                                                        relation: "and",
-                                                        filedlist: [{
-                                                                field: "formstatus",
-                                                                status: "add,edit"
-                                                            }, //表单为新增，修改状态
-                                                        ]
-                                                    }
-                                                },
-                                                click: function () {
-                                                    var item = {
-                                                        isdel: false
-                                                    }
-                                                    scope.model.acrbah.push(item);
-                                                }
-                                            },
-                                            del: {
-                                                editstatus: {
-                                                    relation: "or",
-                                                    filedlist: [{
-                                                            field: "formstatus",
-                                                            status: "add,edit"
-                                                        }, //表单新增状态
-                                                    ]
-                                                },
-                                                //列表刪除後更新金額
-                                                click: function (item) {
-                                                    item.isdel = true;
-                                                    scope.counttot_amt();
-                                                }
-                                            }
-                                        },
-                                        headers: {
-                                            "nbr": {
-                                                displayName: "合約號碼",
-                                                type: 'basstring',
-                                                width: 110
-                                            },
-                                            "desc": {
-                                                displayName: "說明",
-                                                type: 'basstring',
-                                                width: 110
-                                            },
-                                            "tot_amt": {
-                                                displayName: "可沖金額",
-                                                type: 'basNumber',
-                                                width: 110
-                                            },
-                                            "wait_amt": {
-                                                displayName: "實沖金額",
-                                                type: 'basNumber',
-                                                width: 110
-                                            },
-                                        }
-                                    }]
-                                }
 
                             ]
                         }
@@ -415,13 +361,13 @@ define(function () {
                     dialog.confirm('确定删除当前数据?').then(function () {
                         scope.promise = utils.ajax({
                             method: 'DELETE',
-                            url: "acr/acrbah/" + scope.model.uid,
-                            mockUrl: "plugins/data/acrbah.json"
+                            url: "inv/invbah/" + scope.model.uid,
+                            mockUrl: "plugins/data/map61.detail.json"
                         }).then(function (res) {
                             toastr.info("数据删除成功!!!");
                             scope.uid = "";
                             scope.action.add();
-                            scope.refreshtab("refreshacrbah", {});
+                            scope.refreshtab("refreshinvbah", {});
 
                         });
                     });
@@ -439,8 +385,8 @@ define(function () {
                     if (scope.uid) {
                         scope.promise = utils.ajax({
                             method: 'GET',
-                            url: "acr/acrbah/" + scope.uid,
-                            mockUrl: "plugins/data/acrbah.json"
+                            url: "inv/invbah/" + scope.uid,
+                            mockUrl: "plugins/data/map61.detail.json"
                         }).then(function (res) {
                             var data = res.data;
                             scope.model = data.body;
@@ -473,8 +419,8 @@ define(function () {
                     scope.model.formstatus = "read";
                     scope.promise = utils.ajax({
                         method: "POST",
-                        url: "acr/acrbah",
-                        mockUrl: "plugins/data/acrbah.json",
+                        url: "inv/invbah",
+                        mockUrl: "plugins/data/map61.detail.json",
                         data: scope.model
                     }).then(function (res) {
                         scope.uid = res.data.body.uid
@@ -485,7 +431,7 @@ define(function () {
                         }
                         scope.action.load();
                         $scope.$broadcast('schemaFormRedraw');
-                        scope.refreshtab("refreshacrbah", {});
+                        scope.refreshtab("refreshinvbah", {});
 
                     }, function (error) {
                         $timeout(function () {
@@ -495,17 +441,6 @@ define(function () {
                     });
                 }
             };
-            scope.counttot_amt = function () {
-                let tot_amt = 0;
-                scope.model.contacrs.forEach(function (item) {
-                    if (!item.isdel) {
-                        tot_amt = tot_amt + (item.amt ? item.amt : 0);
-                        // rec_amt = rec_amt + (item.rec_amt ? item.rec_amt:0);
-                    }
-                }, this);
-                // scope.model.tot_amt = rec_amt;
-                scope.model.amt = tot_amt;
-            }
             scope.action.load();
         });
 

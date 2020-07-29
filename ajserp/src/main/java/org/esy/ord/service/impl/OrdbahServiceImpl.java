@@ -71,7 +71,7 @@ public class OrdbahServiceImpl implements IOrdbahService {
 	public Ordbahv getByUid(String uid) {
 		Ordbahv o = dao.getByUid(Ordbahv.class, uid);
 		o.setOrdbats(dao.getlist(Ordbat.class, new Ordbat(o.getUid())));
-		return dao.getByUid(Ordbah.class,uid);
+		return o;
 	}
 
 	/**

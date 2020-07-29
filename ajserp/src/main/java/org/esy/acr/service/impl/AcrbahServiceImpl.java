@@ -1,6 +1,9 @@
 package org.esy.acr.service.impl;
 
 import org.esy.acr.entity.Acrbah;
+import org.esy.acr.entity.Acrbat;
+import org.esy.acr.entity.Acrdis;
+import org.esy.acr.entity.view.Acrbahv;
 import org.esy.acr.service.IAcrbahService;
 import org.esy.base.common.BaseUtil;
 import org.esy.base.dao.YSDao;
@@ -27,10 +30,10 @@ public class AcrbahServiceImpl implements IAcrbahService {
 	 */
 	@Override
 	@Transactional
-	public Acrbah save(Acrbah o) throws YesException {
+	public Acrbahv save(Acrbahv o) throws YesException {
 	    if (BaseUtil.isNotEmpty(o.getUid())) {
 	    
-			Acrbah old = dao.getByUid(Acrbah.class,o.getUid());
+			Acrbahv old = dao.getByUid(Acrbahv.class,o.getUid());
 			if (BaseUtil.isEmpty(old)) {
 				throw new YesException(HttpStatus.NOT_FOUND, "记录不存在，不可更新!!!");
 			}
@@ -49,8 +52,11 @@ public class AcrbahServiceImpl implements IAcrbahService {
 	 * 
 	 */
 	@Override
-	public Acrbah getByUid(String uid) {
-		return dao.getByUid(Acrbah.class,uid);
+	public Acrbahv getByUid(String uid) {
+		Acrbahv o = dao.getByUid(Acrbahv.class, uid);
+		o.setAcrbats(dao.getlist(Acrbat.class, new Acrbat(o.getUid())));  //有幾個grid就set幾個
+		o.setAcrdiss(dao.getlist(Acrdis.class, new Acrdis(o.getUid())));
+		return o;
 	}
 
 	/**
@@ -61,7 +67,7 @@ public class AcrbahServiceImpl implements IAcrbahService {
 	 */
 	@Override
 	@Transactional
-	public boolean delete(Acrbah o) throws YesException{
+	public boolean delete(Acrbahv o) throws YesException{
 	
 	    Acrbah old = dao.getByUid(Acrbah.class,o.getUid());
 		if (BaseUtil.isNotEmpty(old)) {
@@ -82,8 +88,8 @@ public class AcrbahServiceImpl implements IAcrbahService {
 	 * @ version v2.0 
 	 */
 	@Override
-	public PageResult<Acrbah > query(Acrbah  acrbah, Pageable pageable){
-		return (PageResult<Acrbah>) dao.query(Acrbah.class,acrbah,pageable);
+	public PageResult<Acrbahv> query(Acrbahv  acrbahv, Pageable pageable){
+		return (PageResult<Acrbahv>) dao.query(Acrbahv.class,acrbahv,pageable);
 	}
 	
 	@Override

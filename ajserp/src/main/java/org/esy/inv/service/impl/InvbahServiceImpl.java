@@ -1,7 +1,11 @@
-package org.esy.acr.service.impl;
+package org.esy.inv.service.impl;
 
-import org.esy.acr.entity.Acrbat;
-import org.esy.acr.service.IAcrbatService;
+import org.esy.inv.entity.Invbah;
+import org.esy.inv.entity.Invbat;
+import org.esy.inv.entity.view.Invbahv;
+import org.esy.inv.service.IInvbahService;
+import org.esy.pur.entity.Purbat;
+import org.esy.pur.entity.view.Purbahv;
 import org.esy.base.common.BaseUtil;
 import org.esy.base.dao.YSDao;
 import org.esy.base.util.YESUtil;
@@ -14,23 +18,23 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class AcrbatServiceImpl implements IAcrbatService {
+public class InvbahServiceImpl implements IInvbahService {
 
 	@Autowired
 	private YSDao dao;
 	
 	/**
 	 * 保存实体
-	 * @param Acrbat
-	 * @return Acrbat o
+	 * @param Invbah
+	 * @return Invbah o
 	 * @version v2.0
 	 */
 	@Override
 	@Transactional
-	public Acrbat save(Acrbat o) throws YesException {
+	public Invbahv save(Invbahv o) throws YesException {
 	    if (BaseUtil.isNotEmpty(o.getUid())) {
 	    
-			Acrbat old = dao.getByUid(Acrbat.class,o.getUid());
+			Invbahv old = dao.getByUid(Invbahv.class,o.getUid());
 			if (BaseUtil.isEmpty(old)) {
 				throw new YesException(HttpStatus.NOT_FOUND, "记录不存在，不可更新!!!");
 			}
@@ -44,26 +48,29 @@ public class AcrbatServiceImpl implements IAcrbatService {
 	/**
 	 * 通过uid查找实体
 	 * @param uid
-	 * @return Acrbat o
+	 * @return Invbah o
 	 * @ version v2.0
 	 * 
 	 */
 	@Override
-	public Acrbat getByUid(String uid) {
-		return dao.getByUid(Acrbat.class,uid);
+	public Invbahv getByUid(String uid) {
+		
+		Invbahv o = dao.getByUid(Invbahv.class, uid);
+		o.setInvbats(dao.getlist(Invbat.class, new Invbat(o.getUid())));
+		return o;
 	}
 
 	/**
 	 * 删除实体
-	 * @param Acrbat o
+	 * @param Invbah o
 	 * @return boolean 
 	 * @ version v2.0 
 	 */
 	@Override
 	@Transactional
-	public boolean delete(Acrbat o) throws YesException{
+	public boolean delete(Invbahv o) throws YesException{
 	
-	    Acrbat old = dao.getByUid(Acrbat.class,o.getUid());
+	    Invbah old = dao.getByUid(Invbah.class,o.getUid());
 		if (BaseUtil.isNotEmpty(old)) {
 			throw new YesException(HttpStatus.INTERNAL_SERVER_ERROR, "记录不存，不可删除!!!");
 		}
@@ -82,8 +89,8 @@ public class AcrbatServiceImpl implements IAcrbatService {
 	 * @ version v2.0 
 	 */
 	@Override
-	public PageResult<Acrbat > query(Acrbat  acrbat, Pageable pageable){
-		return (PageResult<Acrbat>) dao.query(Acrbat.class,acrbat,pageable);
+	public PageResult<Invbahv > query(Invbahv  invbahv, Pageable pageable){
+		return (PageResult<Invbahv>) dao.query(Invbahv.class,invbahv,pageable);
 	}
 	
 	@Override
@@ -94,7 +101,7 @@ public class AcrbatServiceImpl implements IAcrbatService {
 		String[] uidsArr = uids.split(",");
 		for (String uid : uidsArr) {
 		
-			Acrbat old = dao.getByUid(Acrbat.class,uid);
+			Invbah old = dao.getByUid(Invbah.class,uid);
 			if (BaseUtil.isEmpty(old)) {
 				throw new YesException(HttpStatus.INTERNAL_SERVER_ERROR, "记录不存，不可删除!!!");
 			}

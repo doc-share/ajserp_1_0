@@ -459,6 +459,10 @@ public class Shpbat extends BaseProperties {
 				this.trancnt = trancnt;
 			}
 
+		public Shpbat(String uid) {
+		// TODO Auto-generated constructor stub
+	}
+
 		/**
 	 * @return nbr
 	 *			單據號碼

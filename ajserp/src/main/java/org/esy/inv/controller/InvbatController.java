@@ -1,4 +1,4 @@
-package org.esy.acr.controller;
+package org.esy.inv.controller;
 
 import java.util.Map;
 
@@ -21,39 +21,39 @@ import org.esy.base.core.Response;
 import org.esy.base.service.ILoginService;
 import org.esy.base.util.RestUtils;
 import org.esy.base.http.HttpResult;
-import org.esy.acr.service.IAcrbatService;
-import org.esy.acr.entity.Acrbat;
+import org.esy.inv.service.IInvbatService;
+import org.esy.inv.entity.Invbat;
 
 /**
  * 实体控制器
  *  @author <a href="mailto:ardui@163.com">ardui</a>
  *  @version v2.0
- * @date Wed Jul 29 17:15:19 CST 2020			
+ * @date Wed Jul 29 14:58:22 CST 2020			
  */
 @Controller
-@RequestMapping("/api/acr/acrbat")
-public class AcrbatController {
+@RequestMapping("/api/inv/invbat")
+public class InvbatController {
 
-    public static final String AUTHORITY = "acr_acrbat";
+    public static final String AUTHORITY = "inv_invbat";
 
 	@Autowired
 	private ILoginService loginService;
 
 	@Autowired
-	private IAcrbatService acrbatService;
+	private IInvbatService invbatService;
 		
 	/**
 	 * 通过页面数据保存实体
 	 * 
 	 * @author <a href="mailto:ardui@163.com">ardui</a> 
-	 * @param Acrbat  o
+	 * @param Invbat  o
 	 * @param BindingResult request
 	 * @return ResponseEntity<Response>
-	 * @date Wed Jul 29 17:15:19 CST 2020	
+	 * @date Wed Jul 29 14:58:22 CST 2020	
 	 */
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<Response> save(@RequestBody Acrbat o, HttpServletRequest request) {
+	public ResponseEntity<Response> save(@RequestBody Invbat o, HttpServletRequest request) {
 
 		ResponseEntity<Response> result = RestUtils.checkAuthorization(request, loginService,AUTHORITY);
 		if (result.getBody().getError() != 0) {
@@ -63,7 +63,7 @@ public class AcrbatController {
 		Response resp;
 		try {
 			//o.setUid(null);
-			resp = new Response(0, "Save success.", acrbatService.save(o));
+			resp = new Response(0, "Save success.", invbatService.save(o));
 			return new ResponseEntity<Response>(resp, HttpStatus.OK);
 		} catch (YesException e) {
 			// TODO: handle exception
@@ -80,7 +80,7 @@ public class AcrbatController {
 	 * @author <a href="mailto:ardui@163.com">ardui</a>
 	 * @param uid
 	 * @return ResponseEntity<Response> 
-	 * @date Wed Jul 29 17:15:19 CST 2020	
+	 * @date Wed Jul 29 14:58:22 CST 2020	
 	 */
 	@RequestMapping(value = "/{uids}", method = RequestMethod.DELETE)
 	@ResponseBody
@@ -94,7 +94,7 @@ public class AcrbatController {
 		Response resp;
 		try {
 
-			acrbatService.deletes(uids);
+			invbatService.deletes(uids);
 			resp = new Response(0, "Delete success.", null);
 			return new ResponseEntity<Response>(resp, HttpStatus.OK);
 		} catch (YesException e) {
@@ -112,7 +112,7 @@ public class AcrbatController {
 	 * @author <a href="mailto:ardui@163.com">ardui</a>
 	 * @param uid
 	 * @return ResponseEntity<Response> 
-	 * @date Wed Jul 29 17:15:19 CST 2020	
+	 * @date Wed Jul 29 14:58:22 CST 2020	
 	 */
 	@RequestMapping(value = "/{uid}", method = RequestMethod.GET)
 	@ResponseBody
@@ -125,7 +125,7 @@ public class AcrbatController {
 
 		Response resp;
 
-		Acrbat o = acrbatService.getByUid(uid);
+		Invbat o = invbatService.getByUid(uid);
 		if (o == null) {
 			resp = new Response(HttpStatus.NOT_FOUND.value(), "Object not found", null);
 			return new ResponseEntity<Response>(resp, HttpStatus.NOT_FOUND);
@@ -139,16 +139,16 @@ public class AcrbatController {
 	 * 通过条件查询实体
 	 * 
 	 * @author <a href="mailto:ardui@163.com">ardui</a>
-	 * @param Acrbat, pageable
+	 * @param Invbat, pageable
 	 * @return HttpResult
-	 * @date Wed Jul 29 17:15:19 CST 2020	
+	 * @date Wed Jul 29 14:58:22 CST 2020	
 	 */
 	@RequestMapping(value = "query", method = RequestMethod.POST)
-	public HttpResult query(@Valid @RequestBody(required = false) Acrbat acrbat, Pageable pageable) {
-		if (acrbat == null) {
-			acrbat = new Acrbat();
+	public HttpResult query(@Valid @RequestBody(required = false) Invbat invbat, Pageable pageable) {
+		if (invbat == null) {
+			invbat = new Invbat();
 		}
-		return new HttpResult(acrbatService.query(acrbat, pageable));
+		return new HttpResult(invbatService.query(invbat, pageable));
 	}
 	
 	

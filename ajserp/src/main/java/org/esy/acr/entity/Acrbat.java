@@ -18,21 +18,16 @@ import org.esy.base.annotation.FilterInfo;
  *  实体类
  * 
  * @author <a href="mailto:ardui@163.com"ardui</a
- *  @date Sat Jun 20 09:44:17 CST 2020
+ *  @date Wed Jul 29 17:15:19 CST 2020
  */
 @Entity
 @Table(name = "acr_bat" ,indexes = { @Index(name = "created", columnList = "created"), 
 @Index(name = "updated", columnList = "updated")})
-@EntityInfo("收款單明細")
+@EntityInfo("收款單明細檔")
 public class Acrbat extends BaseProperties {
 
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo("表頭uid")
-	@FilterInfo(ListValue = "eq")
-	@Column(name = "huid", length = 32)
-	private String huid;
-	
 	@FieldInfo("收款單代號")
 	@FilterInfo(ListValue = "")
 	@Column(name = "nbr", length =32  )
@@ -40,8 +35,8 @@ public class Acrbat extends BaseProperties {
 
 	@FieldInfo("序號")
 	@FilterInfo(ListValue = "")
-	@Column(name = "seq", length =32  )
-	private String seq ;
+	@Column(name = "seq")
+	private Integer seq;
 
 	@FieldInfo("庫存交易序")
 	@FilterInfo(ListValue = "")
@@ -63,7 +58,7 @@ public class Acrbat extends BaseProperties {
 	@Column(name = "remark", length =32  )
 	private String remark ;
 
-	@FieldInfo("現金/票據登入編號")
+	@FieldInfo("現金/票據登錄編號")
 	@FilterInfo(ListValue = "")
 	@Column(name = "io_nbr", length =32  )
 	private String io_nbr ;
@@ -100,15 +95,30 @@ public class Acrbat extends BaseProperties {
 	@Column(name = "cannot", length =32  )
 	private String cannot ;
 
-	@FieldInfo("是否轉票存")
+	@FieldInfo("是否轉付票")
 	@FilterInfo(ListValue = "")
 	@Column(name = "ret_chk", length =32  )
 	private String ret_chk ;
 
-	@FieldInfo("參考號")
+	@FieldInfo("轉出狀態")
 	@FilterInfo(ListValue = "")
-	@Column(name = "acr_nbr", length =32  )
-	private String acr_nbr ;
+	@Column(name = "tranok", length =32  )
+	private String tranok ;
+
+	@FieldInfo("操作類型")
+	@FilterInfo(ListValue = "")
+	@Column(name = "tranop", length =32  )
+	private String tranop ;
+
+	@FieldInfo("轉出次數")
+	@FilterInfo(ListValue = "")
+	@Column(name = "trancnt")
+	private Integer trancnt;
+
+	@FieldInfo("儲位")
+	@FilterInfo(ListValue = "")
+	@Column(name = "stock_desc", length =32  )
+	private String stock_desc ;
 
 
      /**
@@ -143,7 +153,7 @@ public class Acrbat extends BaseProperties {
 	 *		  備註
 	 * 
 	 	 * @param io_nbr
-	 *		  現金/票據登入編號
+	 *		  現金/票據登錄編號
 	 * 
 	 	 * @param chk_date
 	 *		  票據到期日
@@ -164,13 +174,22 @@ public class Acrbat extends BaseProperties {
 	 *		  是否可修改
 	 * 
 	 	 * @param ret_chk
-	 *		  是否轉票存
+	 *		  是否轉付票
 	 * 
-	 	 * @param acr_nbr
-	 *		  參考號
+	 	 * @param tranok
+	 *		  轉出狀態
+	 * 
+	 	 * @param tranop
+	 *		  操作類型
+	 * 
+	 	 * @param trancnt
+	 *		  轉出次數
+	 * 
+	 	 * @param stock_desc
+	 *		  儲位
 	 * 
 	 	 */
-    	public Acrbat( String nbr, String seq, String ioseq, String acr_class, Double ar_amt, String remark, String io_nbr, Date chk_date, String chk_no, String b_nbr, String pay_bank, String pay_code, String cannot, String ret_chk, String acr_nbr ) {
+    	public Acrbat( String nbr, Integer seq, String ioseq, String acr_class, Double ar_amt, String remark, String io_nbr, Date chk_date, String chk_no, String b_nbr, String pay_bank, String pay_code, String cannot, String ret_chk, String tranok, String tranop, Integer trancnt, String stock_desc ) {
 		super();
 				this.nbr = nbr;
 				this.seq = seq;
@@ -186,8 +205,15 @@ public class Acrbat extends BaseProperties {
 				this.pay_code = pay_code;
 				this.cannot = cannot;
 				this.ret_chk = ret_chk;
-				this.acr_nbr = acr_nbr;
+				this.tranok = tranok;
+				this.tranop = tranop;
+				this.trancnt = trancnt;
+				this.stock_desc = stock_desc;
 			}
+
+		public Acrbat(String uid) {
+		// TODO Auto-generated constructor stub
+	}
 
 		/**
 	 * @return nbr
@@ -208,7 +234,7 @@ public class Acrbat extends BaseProperties {
 	 * @return seq
 	 *			序號
 	 */
-	public String getSeq() {
+	public Integer getSeq() {
 		return seq;
 	}
 
@@ -216,7 +242,7 @@ public class Acrbat extends BaseProperties {
 	 * @param seq
 	 *			序號
 	 */
-	public void setSeq(String Seq) {
+	public void setSeq(Integer Seq) {
 		this.seq = Seq;
 	}
 		/**
@@ -281,7 +307,7 @@ public class Acrbat extends BaseProperties {
 	}
 		/**
 	 * @return io_nbr
-	 *			現金/票據登入編號
+	 *			現金/票據登錄編號
 	 */
 	public String getIo_nbr() {
 		return io_nbr;
@@ -289,7 +315,7 @@ public class Acrbat extends BaseProperties {
 
 	/**
 	 * @param io_nbr
-	 *			現金/票據登入編號
+	 *			現金/票據登錄編號
 	 */
 	public void setIo_nbr(String Io_nbr) {
 		this.io_nbr = Io_nbr;
@@ -386,7 +412,7 @@ public class Acrbat extends BaseProperties {
 	}
 		/**
 	 * @return ret_chk
-	 *			是否轉票存
+	 *			是否轉付票
 	 */
 	public String getRet_chk() {
 		return ret_chk;
@@ -394,33 +420,70 @@ public class Acrbat extends BaseProperties {
 
 	/**
 	 * @param ret_chk
-	 *			是否轉票存
+	 *			是否轉付票
 	 */
 	public void setRet_chk(String Ret_chk) {
 		this.ret_chk = Ret_chk;
 	}
 		/**
-	 * @return acr_nbr
-	 *			參考號
+	 * @return tranok
+	 *			轉出狀態
 	 */
-	public String getAcr_nbr() {
-		return acr_nbr;
+	public String getTranok() {
+		return tranok;
 	}
 
 	/**
-	 * @param acr_nbr
-	 *			參考號
+	 * @param tranok
+	 *			轉出狀態
 	 */
-	public void setAcr_nbr(String Acr_nbr) {
-		this.acr_nbr = Acr_nbr;
+	public void setTranok(String Tranok) {
+		this.tranok = Tranok;
+	}
+		/**
+	 * @return tranop
+	 *			操作類型
+	 */
+	public String getTranop() {
+		return tranop;
 	}
 
-	public String getHuid() {
-		return huid;
+	/**
+	 * @param tranop
+	 *			操作類型
+	 */
+	public void setTranop(String Tranop) {
+		this.tranop = Tranop;
+	}
+		/**
+	 * @return trancnt
+	 *			轉出次數
+	 */
+	public Integer getTrancnt() {
+		return trancnt;
 	}
 
-	public void setHuid(String huid) {
-		this.huid = huid;
+	/**
+	 * @param trancnt
+	 *			轉出次數
+	 */
+	public void setTrancnt(Integer Trancnt) {
+		this.trancnt = Trancnt;
+	}
+		/**
+	 * @return stock_desc
+	 *			儲位
+	 */
+	public String getStock_desc() {
+		return stock_desc;
+	}
+
+	/**
+	 * @param stock_desc
+	 *			儲位
+	 */
+	public void setStock_desc(String Stock_desc) {
+		this.stock_desc = Stock_desc;
 	}
 	
 }

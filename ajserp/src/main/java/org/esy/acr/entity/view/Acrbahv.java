@@ -1,30 +1,41 @@
-package org.esy.acr.entity;
+package org.esy.acr.entity.view;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Index;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
 import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import org.esy.acr.entity.Acrbat;
+import org.esy.acr.entity.Acrdis;
 import org.esy.base.annotation.EntityInfo;
 import org.esy.base.annotation.FieldInfo;
 import org.esy.base.core.BaseProperties;
+import org.hibernate.annotations.Subselect;
+import org.hibernate.annotations.Synchronize;
 import org.esy.base.annotation.FilterInfo;
 
 
 
-/**
- *  实体类
- * 
- * @author <a href="mailto:ardui@163.com"ardui</a
- *  @date Wed Jul 29 17:15:14 CST 2020
- */
 @Entity
-@Table(name = "acr_bah" ,indexes = { @Index(name = "created", columnList = "created"), 
-@Index(name = "updated", columnList = "updated")})
 @EntityInfo("收款單表頭檔")
-public class Acrbah extends BaseProperties {
+@Table(name = "Acrbahv")
+@Subselect("select a.* from acr_bah a")
+//@Subselect("select a.*, b.ven_name, c.ven_name as ven_name1, d.coin_desc, e.sale_name from pur_bah a "
+//		+ "left join pur_ven b on b.ven_nbr=a.ven_nbr "
+//		+ "left join pur_ven c on c.ven_nbr=a.ven_nbr1 "
+//		+ "left join bas_coin d on d.coin_nbr=a.coin_nbr "
+//		+ "left join bas_sal e on e.sale_nbr=a.sale_nbr ")
+@Synchronize("acr_bah")
+
+public class Acrbahv extends BaseProperties {
 
 	private static final long serialVersionUID = 1L;
 
@@ -170,12 +181,37 @@ public class Acrbah extends BaseProperties {
 	private Integer trancnt;
 
 
-     /**
+	@Transient
+	@JsonProperty("acrbats") //宿主(要引用明細檔)(acrbats要跟grid key值一樣)
+	private List<Acrbat> acrbats = new ArrayList<Acrbat>();
+	
+	@Transient
+	@JsonProperty("acrdiss") //宿主(要引用明細檔)(acrdiss要跟grid key值一樣)
+	private List<Acrdis> acrdiss = new ArrayList<Acrdis>();
+	
+	
+     public List<Acrbat> getAcrbats() {
+		return acrbats;
+	}
+
+	public void setAcrbats(List<Acrbat> acrbats) {
+		this.acrbats = acrbats;
+	}
+
+	public List<Acrdis> getAcrdiss() {
+		return acrdiss;
+	}
+
+	public void setAcrdiss(List<Acrdis> acrdiss) {
+		this.acrdiss = acrdiss;
+	}
+
+	/**
 	 *
 	 * 构造函数
 	 *
 	 */
-	public Acrbah() {
+	public Acrbahv() {
 		super();
 	}
 	
@@ -265,7 +301,7 @@ public class Acrbah extends BaseProperties {
 	 *		  轉出次數
 	 * 
 	 	 */
-    	public Acrbah( String nbr, String acc_nbr, String acr_mon, Date nbrdate, String cus_nbr, String sale_nbr, Double cash_amt, Double chk_amt, Double cut_amt, Double other_amt, Double post_amt, Double pre_amt, Double tot_amt, Double wait_amt, String status, Double tot_acr, Double opre_amt, Double aft_amt, Integer arjupd, String last_user, Date crt_date, String crt_user, Date edit_date, String edit_user, String tranok, String tranop, Integer trancnt ) {
+    	public Acrbahv( String nbr, String acc_nbr, String acr_mon, Date nbrdate, String cus_nbr, String sale_nbr, Double cash_amt, Double chk_amt, Double cut_amt, Double other_amt, Double post_amt, Double pre_amt, Double tot_amt, Double wait_amt, String status, Double tot_acr, Double opre_amt, Double aft_amt, Integer arjupd, String last_user, Date crt_date, String crt_user, Date edit_date, String edit_user, String tranok, String tranop, Integer trancnt ) {
 		super();
 				this.nbr = nbr;
 				this.acc_nbr = acc_nbr;

@@ -1,9 +1,6 @@
 package org.esy.acr.controller;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import org.springframework.data.domain.Pageable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.esy.base.util.YesException;
 import org.esy.base.core.Response;
@@ -22,19 +18,19 @@ import org.esy.base.service.ILoginService;
 import org.esy.base.util.RestUtils;
 import org.esy.base.http.HttpResult;
 import org.esy.acr.service.IAcrbahService;
-import org.esy.acr.entity.Acrbah;
+import org.esy.acr.entity.view.Acrbahv;
 
 /**
  * 实体控制器
  *  @author <a href="mailto:ardui@163.com">ardui</a>
  *  @version v2.0
- * @date Fri Jun 19 16:52:53 CST 2020			
+ * @date Wed Jul 29 17:15:14 CST 2020			
  */
 @Controller
 @RequestMapping("/api/acr/acrbah")
 public class AcrbahController {
 
-    public static final String AUTHORITY = "acr_acrbah";
+    public static final String AUTHORITY = "acr_map73";
 
 	@Autowired
 	private ILoginService loginService;
@@ -49,11 +45,11 @@ public class AcrbahController {
 	 * @param Acrbah  o
 	 * @param BindingResult request
 	 * @return ResponseEntity<Response>
-	 * @date Fri Jun 19 16:52:53 CST 2020	
+	 * @date Wed Jul 29 17:15:14 CST 2020	
 	 */
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<Response> save(@RequestBody Acrbah o, HttpServletRequest request) {
+	public ResponseEntity<Response> save(@RequestBody Acrbahv o, HttpServletRequest request) {
 
 		ResponseEntity<Response> result = RestUtils.checkAuthorization(request, loginService,AUTHORITY);
 		if (result.getBody().getError() != 0) {
@@ -80,7 +76,7 @@ public class AcrbahController {
 	 * @author <a href="mailto:ardui@163.com">ardui</a>
 	 * @param uid
 	 * @return ResponseEntity<Response> 
-	 * @date Fri Jun 19 16:52:53 CST 2020	
+	 * @date Wed Jul 29 17:15:14 CST 2020	
 	 */
 	@RequestMapping(value = "/{uids}", method = RequestMethod.DELETE)
 	@ResponseBody
@@ -112,7 +108,7 @@ public class AcrbahController {
 	 * @author <a href="mailto:ardui@163.com">ardui</a>
 	 * @param uid
 	 * @return ResponseEntity<Response> 
-	 * @date Fri Jun 19 16:52:53 CST 2020	
+	 * @date Wed Jul 29 17:15:14 CST 2020	
 	 */
 	@RequestMapping(value = "/{uid}", method = RequestMethod.GET)
 	@ResponseBody
@@ -125,7 +121,7 @@ public class AcrbahController {
 
 		Response resp;
 
-		Acrbah o = acrbahService.getByUid(uid);
+		Acrbahv o = acrbahService.getByUid(uid);
 		if (o == null) {
 			resp = new Response(HttpStatus.NOT_FOUND.value(), "Object not found", null);
 			return new ResponseEntity<Response>(resp, HttpStatus.NOT_FOUND);
@@ -141,14 +137,14 @@ public class AcrbahController {
 	 * @author <a href="mailto:ardui@163.com">ardui</a>
 	 * @param Acrbah, pageable
 	 * @return HttpResult
-	 * @date Fri Jun 19 16:52:53 CST 2020	
+	 * @date Wed Jul 29 17:15:14 CST 2020	
 	 */
 	@RequestMapping(value = "query", method = RequestMethod.POST)
-	public HttpResult query(@Valid @RequestBody(required = false) Acrbah acrbah, Pageable pageable) {
-		if (acrbah == null) {
-			acrbah = new Acrbah();
+	public HttpResult query(@Valid @RequestBody(required = false) Acrbahv acrbahv, Pageable pageable) {
+		if (acrbahv == null) {
+			acrbahv = new Acrbahv();
 		}
-		return new HttpResult(acrbahService.query(acrbah, pageable));
+		return new HttpResult(acrbahService.query(acrbahv, pageable));
 	}
 	
 	

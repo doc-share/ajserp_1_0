@@ -134,6 +134,10 @@ public class Acrdis extends BaseProperties {
 				this.status = status;
 			}
 
+		public Acrdis(String uid) {
+		// TODO Auto-generated constructor stub
+	}
+
 		/**
 	 * @return nbr
 	 *			收款單代號

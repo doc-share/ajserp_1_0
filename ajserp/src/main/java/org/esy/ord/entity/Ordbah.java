@@ -152,35 +152,35 @@ public class Ordbah extends BaseProperties {
 	@Column(name = "work_desc", length =32  )
 	private String work_desc ;
 
-	@FieldInfo("")
-	@FilterInfo(ListValue = "")
-	@Column(name = "pi", length =128  )
-	private String pi ;
-
-	@FieldInfo("")
-	@FilterInfo(ListValue = "")
-	@Column(name = "attn", length =128  )
-	private String attn ;
-
-	@FieldInfo("")
-	@FilterInfo(ListValue = "")
-	@Column(name = "term", length =128  )
-	private String term ;
-
-	@FieldInfo("")
-	@FilterInfo(ListValue = "")
-	@Column(name = "packing", length =128  )
-	private String packing ;
-
-	@FieldInfo("")
-	@FilterInfo(ListValue = "")
-	@Column(name = "pay", length =128  )
-	private String pay ;
-
-	@FieldInfo("")
-	@FilterInfo(ListValue = "")
-	@Column(name = "delivery", length =128  )
-	private String delivery ;
+//	@FieldInfo("")
+//	@FilterInfo(ListValue = "")
+//	@Column(name = "pi", length =128  )
+//	private String pi ;
+//
+//	@FieldInfo("")
+//	@FilterInfo(ListValue = "")
+//	@Column(name = "attn", length =128  )
+//	private String attn ;
+//
+//	@FieldInfo("")
+//	@FilterInfo(ListValue = "")
+//	@Column(name = "term", length =128  )
+//	private String term ;
+//
+//	@FieldInfo("")
+//	@FilterInfo(ListValue = "")
+//	@Column(name = "packing", length =128  )
+//	private String packing ;
+//
+//	@FieldInfo("")
+//	@FilterInfo(ListValue = "")
+//	@Column(name = "pay", length =128  )
+//	private String pay ;
+//
+//	@FieldInfo("")
+//	@FilterInfo(ListValue = "")
+//	@Column(name = "delivery", length =128  )
+//	private String delivery ;
 
 	@FieldInfo("折數")
 	@FilterInfo(ListValue = "")
@@ -421,12 +421,12 @@ public class Ordbah extends BaseProperties {
 				this.sure = sure;
 				this.user_code = user_code;
 				this.work_desc = work_desc;
-				this.pi = pi;
-				this.attn = attn;
-				this.term = term;
-				this.packing = packing;
-				this.pay = pay;
-				this.delivery = delivery;
+//				this.pi = pi;
+//				this.attn = attn;
+//				this.term = term;
+//				this.packing = packing;
+//				this.pay = pay;
+//				this.delivery = delivery;
 				this.cut = cut;
 				this.rmk = rmk;
 				this.mttd = mttd;
@@ -806,92 +806,92 @@ public class Ordbah extends BaseProperties {
 	 * @return pi
 	 *			
 	 */
-	public String getPi() {
-		return pi;
-	}
-
-	/**
-	 * @param pi
-	 *			
-	 */
-	public void setPi(String Pi) {
-		this.pi = Pi;
-	}
-		/**
-	 * @return attn
-	 *			
-	 */
-	public String getAttn() {
-		return attn;
-	}
-
-	/**
-	 * @param attn
-	 *			
-	 */
-	public void setAttn(String Attn) {
-		this.attn = Attn;
-	}
-		/**
-	 * @return term
-	 *			
-	 */
-	public String getTerm() {
-		return term;
-	}
-
-	/**
-	 * @param term
-	 *			
-	 */
-	public void setTerm(String Term) {
-		this.term = Term;
-	}
-		/**
-	 * @return packing
-	 *			
-	 */
-	public String getPacking() {
-		return packing;
-	}
-
-	/**
-	 * @param packing
-	 *			
-	 */
-	public void setPacking(String Packing) {
-		this.packing = Packing;
-	}
-		/**
-	 * @return pay
-	 *			
-	 */
-	public String getPay() {
-		return pay;
-	}
-
-	/**
-	 * @param pay
-	 *			
-	 */
-	public void setPay(String Pay) {
-		this.pay = Pay;
-	}
-		/**
-	 * @return delivery
-	 *			
-	 */
-	public String getDelivery() {
-		return delivery;
-	}
-
-	/**
-	 * @param delivery
-	 *			
-	 */
-	public void setDelivery(String Delivery) {
-		this.delivery = Delivery;
-	}
+//	public String getPi() {
+//		return pi;
+//	}
+//
+//	/**
+//	 * @param pi
+//	 *			
+//	 */
+//	public void setPi(String Pi) {
+//		this.pi = Pi;
+//	}
+//		/**
+//	 * @return attn
+//	 *			
+//	 */
+//	public String getAttn() {
+//		return attn;
+//	}
+//
+//	/**
+//	 * @param attn
+//	 *			
+//	 */
+//	public void setAttn(String Attn) {
+//		this.attn = Attn;
+//	}
+//		/**
+//	 * @return term
+//	 *			
+//	 */
+//	public String getTerm() {
+//		return term;
+//	}
+//
+//	/**
+//	 * @param term
+//	 *			
+//	 */
+//	public void setTerm(String Term) {
+//		this.term = Term;
+//	}
+//		/**
+//	 * @return packing
+//	 *			
+//	 */
+//	public String getPacking() {
+//		return packing;
+//	}
+//
+//	/**
+//	 * @param packing
+//	 *			
+//	 */
+//	public void setPacking(String Packing) {
+//		this.packing = Packing;
+//	}
+//		/**
+//	 * @return pay
+//	 *			
+//	 */
+//	public String getPay() {
+//		return pay;
+//	}
+//
+//	/**
+//	 * @param pay
+//	 *			
+//	 */
+//	public void setPay(String Pay) {
+//		this.pay = Pay;
+//	}
+//		/**
+//	 * @return delivery
+//	 *			
+//	 */
+//	public String getDelivery() {
+//		return delivery;
+//	}
+//
+//	/**
+//	 * @param delivery
+//	 *			
+//	 */
+//	public void setDelivery(String Delivery) {
+//		this.delivery = Delivery;
+//	}
 		/**
 	 * @return cut
 	 *			折數

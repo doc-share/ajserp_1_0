@@ -1,5 +1,5 @@
 define(function () {
-    angular.module('app').controller('acr.acrbah',
+    angular.module('app').controller('acr.map73.detail',
         function ($rootScope, $scope, $location, utils, path, getSingleView, settings,
             $timeout, dialog, toastr, ngDialog, uiGridConstants, qwsys, sysconstant) {
             var scope = $scope;
@@ -129,8 +129,10 @@ define(function () {
                     form: [{
                             type: "group",
                             title: "",
-                            items: [{
+                            items: [
+                                {
                                     title: "收款單號",
+                                    readonly:true,
                                     key: 'nbr',
                                     type: 'basString',
                                 },
@@ -143,17 +145,17 @@ define(function () {
                                     title: "客戶代號",
                                     key: 'cus_nbr',
                                     relationfield: [{
-                                        findfield: "cus_alias",
-                                        tofield: "cus_alias"
+                                        findfield: "cus_name",
+                                        tofield: "cus_name"
                                     }, ],
                                     additionalField: {
-                                        key: "cus_alias",
+                                        key: "cus_name",
                                         readonly: true,
                                         type: "basString"
                                     },
-                                    nameField: "cus_alias",
+                                    nameField: "cus_name",
                                     type: 'basLov',
-                                    lovtype: 'getcus',
+                                    lovtype: 'get_cus',
                                 },
                                 {
                                     title: "结帳月份",
@@ -250,9 +252,9 @@ define(function () {
                                 {
                                     title: "明細",
                                     items: [{
-                                        key: 'acrbah',
+                                        key: 'acrbats',
                                         type: "basEditgrid",
-                                        gridkey: "acr.acrbah",
+                                        gridkey: "acr.map73.detail",
                                         css: "cell100",
                                         action: {
                                             add: {
@@ -271,7 +273,7 @@ define(function () {
                                                     var item = {
                                                         isdel: false
                                                     }
-                                                    scope.model.acrbah.push(item);
+                                                    scope.model.acrbats.push(item);
                                                 }
                                             },
                                             del: {
@@ -300,6 +302,11 @@ define(function () {
                                                 type: 'basstring',
                                                 width: 110
                                             },
+                                            "ar_amt":{
+                                                displayName: "金額",
+                                                type: 'basNumber',
+                                                width: 110
+                                            },
                                             "chk_date": {
                                                 displayName: "票據到期日",
                                                 type: 'basEsydatetime',
@@ -315,6 +322,35 @@ define(function () {
                                                 type: 'basstring',
                                                 width: 110
                                             },
+                                            "b_nbr": {
+                                                displayName: "銀行",
+                                                readonlystatus: {
+                                                    relation: "and",
+                                                    filedlist: [{
+                                                            field: "formstatus",
+                                                            status: "view"
+                                                        }, //表单新增状态
+                                                    ]
+                                                },
+                                                relationfield: [{
+                                                    findfield: "b_name",
+                                                    tofield: "b_name"
+                                                }],
+                                                additionalField: {
+                                                    key: "b_name",
+                                                    readonly: true,
+                                                    type: "basString"
+                                                },
+                                                type: 'basLov',
+                                                lovtype: 'get_bank',
+                                                width: 110
+                                            },
+                                            "b_name": {
+                                                displayName: "銀行名稱",
+                                                readonly:true,
+                                                type: 'basDefault',
+                                                width: 110
+                                            },
                                             "pay_bank": {
                                                 displayName: "付款行庫",
                                                 type: 'basstring',
@@ -328,9 +364,9 @@ define(function () {
                                 {
                                     title: "沖款",
                                     items: [{
-                                        key: 'acrbah',
+                                        key: 'acrdiss',
                                         type: "basEditgrid",
-                                        gridkey: "acr.acrbah",
+                                        gridkey: "acr.map73.detail",
                                         css: "cell100",
                                         action: {
                                             add: {
@@ -349,7 +385,7 @@ define(function () {
                                                     var item = {
                                                         isdel: false
                                                     }
-                                                    scope.model.acrbah.push(item);
+                                                    scope.model.acrdiss.push(item);
                                                 }
                                             },
                                             del: {
@@ -364,19 +400,25 @@ define(function () {
                                                 //列表刪除後更新金額
                                                 click: function (item) {
                                                     item.isdel = true;
+                                                    scope.model.acrdiss.splice();
                                                     scope.counttot_amt();
                                                 }
                                             }
                                         },
                                         headers: {
                                             "nbr": {
-                                                displayName: "合約號碼",
+                                                displayName: "單據號碼",
                                                 type: 'basstring',
                                                 width: 110
                                             },
-                                            "desc": {
-                                                displayName: "說明",
+                                            "io_p": {
+                                                displayName: "出退",
                                                 type: 'basstring',
+                                                width: 110
+                                            },
+                                            "nbrdate":{
+                                                displayName: "日期",
+                                                type: 'basEsydateyime',
                                                 width: 110
                                             },
                                             "tot_amt": {
@@ -404,7 +446,8 @@ define(function () {
                 add: function (event) {
                     $scope.$broadcast('schemaFormRedraw');
                     scope.model = {
-                        formstatus: "add" //edit,view
+                        formstatus: "add", //edit,view
+                        status: "10"
                     }
                 },
                 edit: function () {
@@ -416,7 +459,7 @@ define(function () {
                         scope.promise = utils.ajax({
                             method: 'DELETE',
                             url: "acr/acrbah/" + scope.model.uid,
-                            mockUrl: "plugins/data/acrbah.json"
+                            mockUrl: "plugins/data/map73.detail.json"
                         }).then(function (res) {
                             toastr.info("数据删除成功!!!");
                             scope.uid = "";
@@ -440,7 +483,7 @@ define(function () {
                         scope.promise = utils.ajax({
                             method: 'GET',
                             url: "acr/acrbah/" + scope.uid,
-                            mockUrl: "plugins/data/acrbah.json"
+                            mockUrl: "plugins/data/map73.detail.json"
                         }).then(function (res) {
                             var data = res.data;
                             scope.model = data.body;
@@ -474,7 +517,7 @@ define(function () {
                     scope.promise = utils.ajax({
                         method: "POST",
                         url: "acr/acrbah",
-                        mockUrl: "plugins/data/acrbah.json",
+                        mockUrl: "plugins/data/map73.detail.json",
                         data: scope.model
                     }).then(function (res) {
                         scope.uid = res.data.body.uid
@@ -497,7 +540,7 @@ define(function () {
             };
             scope.counttot_amt = function () {
                 let tot_amt = 0;
-                scope.model.contacrs.forEach(function (item) {
+                scope.model.acrdiss.forEach(function (item) {
                     if (!item.isdel) {
                         tot_amt = tot_amt + (item.amt ? item.amt : 0);
                         // rec_amt = rec_amt + (item.rec_amt ? item.rec_amt:0);

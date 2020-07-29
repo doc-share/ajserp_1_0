@@ -126,8 +126,7 @@ define(function () {
                             }
                         }
                     },
-                    form: [
-                        {
+                    form: [{
                             type: "group",
                             title: "",
                             items: [{
@@ -204,8 +203,7 @@ define(function () {
                             type: "group",
                             title: "",
                             css: "max-1",
-                            items:[
-                                {
+                            items: [{
                                     title: "現金金額",
                                     key: 'cash_amt',
                                     type: 'basNumber',
@@ -498,7 +496,7 @@ define(function () {
                 }
             };
             scope.counttot_amt = function () {
-                let tot_amt=0;
+                let tot_amt = 0;
                 scope.model.contacrs.forEach(function (item) {
                     if (!item.isdel) {
                         tot_amt = tot_amt + (item.amt ? item.amt : 0);
