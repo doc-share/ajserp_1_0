@@ -17,39 +17,39 @@ import org.esy.base.core.Response;
 import org.esy.base.service.ILoginService;
 import org.esy.base.util.RestUtils;
 import org.esy.base.http.HttpResult;
-import org.esy.pur.service.IPurbahService;
-import org.esy.pur.entity.view.Purbahv;
+import org.esy.pur.service.IRecbahService;
+import org.esy.pur.entity.view.Recbahv;
 
 /**
  * 实体控制器
  *  @author <a href="mailto:ardui@163.com">ardui</a>
  *  @version v2.0
- * @date Tue Jul 28 17:08:52 CST 2020			
+ * @date Wed Jul 29 11:40:25 CST 2020			
  */
 @Controller
-@RequestMapping("/api/pur/purbah")
-public class PurbahController {
+@RequestMapping("/api/pur/recbah")
+public class RecbahController {
 
-    public static final String AUTHORITY = "pur_map21";
+    public static final String AUTHORITY = "rec_map54";
 
 	@Autowired
 	private ILoginService loginService;
 
 	@Autowired
-	private IPurbahService purbahService;
+	private IRecbahService recbahService;
 		
 	/**
 	 * 通过页面数据保存实体
 	 * 
 	 * @author <a href="mailto:ardui@163.com">ardui</a> 
-	 * @param Purbah  o
+	 * @param Recbah  o
 	 * @param BindingResult request
 	 * @return ResponseEntity<Response>
-	 * @date Tue Jul 28 17:08:52 CST 2020	
+	 * @date Wed Jul 29 11:40:25 CST 2020	
 	 */
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<Response> save(@RequestBody Purbahv o, HttpServletRequest request) {
+	public ResponseEntity<Response> save(@RequestBody Recbahv o, HttpServletRequest request) {
 
 		ResponseEntity<Response> result = RestUtils.checkAuthorization(request, loginService,AUTHORITY);
 		if (result.getBody().getError() != 0) {
@@ -59,7 +59,7 @@ public class PurbahController {
 		Response resp;
 		try {
 			//o.setUid(null);
-			resp = new Response(0, "Save success.", purbahService.save(o));
+			resp = new Response(0, "Save success.", recbahService.save(o));
 			return new ResponseEntity<Response>(resp, HttpStatus.OK);
 		} catch (YesException e) {
 			// TODO: handle exception
@@ -76,7 +76,7 @@ public class PurbahController {
 	 * @author <a href="mailto:ardui@163.com">ardui</a>
 	 * @param uid
 	 * @return ResponseEntity<Response> 
-	 * @date Tue Jul 28 17:08:52 CST 2020	
+	 * @date Wed Jul 29 11:40:25 CST 2020	
 	 */
 	@RequestMapping(value = "/{uids}", method = RequestMethod.DELETE)
 	@ResponseBody
@@ -90,7 +90,7 @@ public class PurbahController {
 		Response resp;
 		try {
 
-			purbahService.deletes(uids);
+			recbahService.deletes(uids);
 			resp = new Response(0, "Delete success.", null);
 			return new ResponseEntity<Response>(resp, HttpStatus.OK);
 		} catch (YesException e) {
@@ -108,7 +108,7 @@ public class PurbahController {
 	 * @author <a href="mailto:ardui@163.com">ardui</a>
 	 * @param uid
 	 * @return ResponseEntity<Response> 
-	 * @date Tue Jul 28 17:08:52 CST 2020	
+	 * @date Wed Jul 29 11:40:25 CST 2020	
 	 */
 	@RequestMapping(value = "/{uid}", method = RequestMethod.GET)
 	@ResponseBody
@@ -121,7 +121,7 @@ public class PurbahController {
 
 		Response resp;
 
-		Purbahv o = purbahService.getByUid(uid);
+		Recbahv o = recbahService.getByUid(uid);
 		if (o == null) {
 			resp = new Response(HttpStatus.NOT_FOUND.value(), "Object not found", null);
 			return new ResponseEntity<Response>(resp, HttpStatus.NOT_FOUND);
@@ -135,16 +135,16 @@ public class PurbahController {
 	 * 通过条件查询实体
 	 * 
 	 * @author <a href="mailto:ardui@163.com">ardui</a>
-	 * @param Purbah, pageable
+	 * @param Recbah, pageable
 	 * @return HttpResult
-	 * @date Tue Jul 28 17:08:52 CST 2020	
+	 * @date Wed Jul 29 11:40:25 CST 2020	
 	 */
 	@RequestMapping(value = "query", method = RequestMethod.POST)
-	public HttpResult query(@Valid @RequestBody(required = false) Purbahv purbahv, Pageable pageable) {
-		if (purbahv == null) {
-			purbahv = new Purbahv();
+	public HttpResult query(@Valid @RequestBody(required = false) Recbahv recbahv, Pageable pageable) {
+		if (recbahv == null) {
+			recbahv = new Recbahv();
 		}
-		return new HttpResult(purbahService.query(purbahv, pageable));
+		return new HttpResult(recbahService.query(recbahv, pageable));
 	}
 	
 	

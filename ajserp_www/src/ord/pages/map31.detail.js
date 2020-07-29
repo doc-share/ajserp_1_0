@@ -373,7 +373,7 @@ define(function () {
                             tabs: [
                                 //下面为页签A
                                 {    //加了整個會無法存檔，要存檔看可以先註解掉
-                                    title: "明細",  //cus_itm的表
+                                    title: "明細",  //ordbat的表
                                     items:[
                                         {
                                         title: "明細行",

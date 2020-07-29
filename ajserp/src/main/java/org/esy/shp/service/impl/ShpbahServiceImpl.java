@@ -29,12 +29,6 @@ public class ShpbahServiceImpl implements IShpbahService {
 	@Autowired
 	private ISerialService serialService;   //自動生成
 	
-	/**
-	 * 保存实体
-	 * @param Shpbah
-	 * @return Shpbah o
-	 * @version v2.0
-	 */
 	@Override
 	@Transactional
 	public Shpbahv save(Shpbahv o) throws YesException {
@@ -69,9 +63,11 @@ public class ShpbahServiceImpl implements IShpbahService {
 	 */
 	@Override
 	public Shpbahv getByUid(String uid) {
+		
 		Shpbahv o = dao.getByUid(Shpbahv.class, uid);
 		o.setShpbats(dao.getlist(Shpbat.class, new Shpbat()));
 		return dao.getByUid(Shpbah.class,uid);
+		
 	}
 
 	/**
@@ -103,7 +99,7 @@ public class ShpbahServiceImpl implements IShpbahService {
 	 * @ version v2.0 
 	 */
 	@Override
-	public PageResult<Shpbahv > query(Shpbahv  shpbahv, Pageable pageable){
+	public PageResult<Shpbahv> query(Shpbahv shpbahv, Pageable pageable){
 		return (PageResult<Shpbahv>) dao.query(Shpbahv.class,shpbahv,pageable);
 	}
 	

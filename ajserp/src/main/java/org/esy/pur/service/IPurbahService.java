@@ -1,6 +1,6 @@
 package org.esy.pur.service;
 
-import org.esy.pur.entity.Purbah;
+import org.esy.pur.entity.view.Purbahv;
 import org.esy.base.dao.core.PageResult;
 import org.springframework.data.domain.Pageable;
 
@@ -12,13 +12,13 @@ import org.springframework.data.domain.Pageable;
  */
 public interface IPurbahService  {
     
-    Purbah save(Purbah o);
+    Purbahv save(Purbahv o);
 
-	Purbah getByUid(String uid);
+	Purbahv getByUid(String uid);
 
-	boolean delete(Purbah o);
+	boolean delete(Purbahv o);
 
-	PageResult<Purbah> query(Purbah purbah, Pageable pageable);
+	PageResult<Purbahv> query(Purbahv purbahv, Pageable pageable);
      
      void deletes(String uids);
 }

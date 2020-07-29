@@ -193,7 +193,6 @@ define(function () {
                                         ]
                                     },
                                     type: 'basDefault',
-                                    lovtype: ''
                                 },
                                 {
                                     title: "日期",
@@ -207,10 +206,9 @@ define(function () {
                                         ]
                                     },
                                     type: 'basEsydatetime',
-                                    lovtype: ''
                                 },
                                 {
-                                    title: "總金額",
+                                    title: "採購總額",
                                     key: 'tot_amt',
                                     editstatus: {
                                         relation: "and",
@@ -221,10 +219,9 @@ define(function () {
                                         ]
                                     },
                                     type: 'basNumber',
-                                    lovtype: ''
                                 },
                                 {
-                                    title: "供應商代號",
+                                    title: "付款廠商",
                                     key: 'ven_nbr',
                                     editstatus: {
                                         relation: "and",
@@ -234,11 +231,20 @@ define(function () {
                                             } //表单为新增，修改状态
                                         ]
                                     },
+                                    relationfield: [{
+                                        findfield: "ven_name",
+                                        tofield: "ven_name"
+                                    }],
+                                    additionalField: {
+                                        key: "ven_name",
+                                        readonly: true,
+                                        type: "basString"
+                                    },
                                     type: 'basLov',
                                     lovtype: 'get_ven'
                                 },
                                 {
-                                    title: "預定到貨日",
+                                    title: "預計到廠日",
                                     key: 'plan_date',
                                     editstatus: {
                                         relation: "and",
@@ -249,10 +255,9 @@ define(function () {
                                         ]
                                     },
                                     type: 'basEsydatetime',
-                                    lovtype: ''
                                 },
                                 {
-                                    title: "交易方式",
+                                    title: "付款方式",
                                     key: 'pay_term',
                                     editstatus: {
                                         relation: "and",
@@ -263,7 +268,12 @@ define(function () {
                                         ]
                                     },
                                     type: 'basLov',
-                                    lovtype: ''
+                                    lovtype:"select",
+                                    titleMap: [
+                                        {value: "1",name: "票據"},
+                                        {value: "2",name: "現金"},
+                                        {value: "3",name: "匯款"}
+                                    ],
                                 },
                                 {
                                     title: "指送廠商",
@@ -276,11 +286,20 @@ define(function () {
                                             } //表单为新增，修改状态
                                         ]
                                     },
+                                    relationfield: [{
+                                        findfield: "ven_name",
+                                        tofield: "ven_name1"   //使用ven_name1避免與付款廠商衝突
+                                    }],
+                                    additionalField: {
+                                        key: "ven_name1",
+                                        readonly: true,
+                                        type: "basString"
+                                    },
                                     type: 'basLov',
                                     lovtype: 'get_ven'
                                 },
                                 {
-                                    title: "客戶訂單據號碼",
+                                    title: "客戶訂單編號",
                                     key: 'cus_ord',
                                     editstatus: {
                                         relation: "and",
@@ -291,7 +310,6 @@ define(function () {
                                         ]
                                     },
                                     type: 'basDefault',
-                                    lovtype: ''
                                 },
                                 {
                                     title: "幣別",
@@ -304,11 +322,20 @@ define(function () {
                                             } //表单为新增，修改状态
                                         ]
                                     },
+                                    relationfield: [{
+                                        findfield: "coin_desc",
+                                        tofield: "coin_desc"
+                                    }],
+                                    additionalField: {
+                                        key: "coin_desc",
+                                        readonly: true,
+                                        type: "basString"
+                                    },
                                     type: 'basLov',
                                     lovtype: 'get_coin'
                                 },
                                 {
-                                    title: "業務員",
+                                    title: "採購人員",
                                     key: 'sale_nbr',
                                     editstatus: {
                                         relation: "and",
@@ -317,6 +344,15 @@ define(function () {
                                                 status: "add,edit"
                                             } //表单为新增，修改状态
                                         ]
+                                    },
+                                    relationfield: [{
+                                        findfield: "sale_name",
+                                        tofield: "sale_name"
+                                    }],
+                                    additionalField: {
+                                        key: "sale_name",
+                                        readonly: true,
+                                        type: "basString"
                                     },
                                     type: 'basLov',
                                     lovtype: 'get_sal'
@@ -333,7 +369,6 @@ define(function () {
                                         ]
                                     },
                                     type: 'basNumber',
-                                    lovtype: ''
                                 },
                                 {
                                     title: "備註",
@@ -346,8 +381,8 @@ define(function () {
                                             } //表单为新增，修改状态
                                         ]
                                     },
-                                    type: 'basDefault',
-                                    lovtype: ''
+                                    type: 'basLov',
+                                    lovtype: 'get_rem'
                                 },
                                 {
                                     title: "狀態",
@@ -360,8 +395,13 @@ define(function () {
                                             } //表单为新增，修改状态
                                         ]
                                     },
-                                    type: 'basLov',
-                                    lovtype: ''
+                                    type: 'basStatus',
+                                    titleMap:[
+                                        {value:"10",name:"【未收料】"},
+                                        {value:"20",name:"【收料中】"},
+                                        {value:"30",name:"【已結案】"},
+                                        {value:"40",name:"【手動結案】"}
+                                    ]
                                 },
                                 {
                                     title: "訂單單據號碼",
@@ -375,10 +415,9 @@ define(function () {
                                         ]
                                     },
                                     type: 'basDefault',
-                                    lovtype: ''
                                 },
                                 {
-                                    title: " 是否轉單",
+                                    title: " 轉單狀態",
                                     key: 'isord',
                                     editstatus: {
                                         relation: "and",
@@ -388,8 +427,11 @@ define(function () {
                                             } //表单为新增，修改状态
                                         ]
                                     },
-                                    type: 'basDefault',
-                                    lovtype: ''
+                                    type: 'basStatus',
+                                    titleMap:[
+                                        {value:"N",name:"【未轉單】"},
+                                        {value:"Y",name:"【已轉單】"},
+                                    ]
                                 }
                             ]
                         },
@@ -399,8 +441,114 @@ define(function () {
                             css: "max-4",
                             tabs: [
                                 //下面为页签A
-                                {
-
+                                {    //加了整個會無法存檔，要存檔看可以先註解掉
+                                    title: "明細",  //purbat的表
+                                    items:[{
+                                        title: "明細行",
+                                        key: 'purbats',
+                                        type: "basEditgrid",
+                                        gridkey: "bas.map21.detail",
+                                        css: "cell100",
+                                        action: {
+                                            add: {
+                                                editstatus: {
+                                                    relation: "or",
+                                                    editstatus: {
+                                                        relation: "and",
+                                                        filedlist: [
+                                                            {field: "formstatus", status: "add,edit"}, //表單為新增，修改狀態
+                                                        ]
+                                                    },
+                                                    filedlist: [
+                                                        {field: "formstatus", status: "add,edit"}, //表單新增狀態
+                                                    ]
+                                                },
+                                                click: function () {
+                                                    var item = {
+                                                        isdel: false
+                                                    }
+                                                    scope.model.purbats.push(item);
+                                                }
+                                            },
+                                            del: {
+                                                editstatus: {
+                                                    relation: "or",
+                                                    filedlist: [
+                                                        {field: "formstatus", status: "add,edit"}, //表單新增狀態
+                                                    ]
+                                                },
+                                                click: function (item) {
+                                                    item.isdel = true;
+                                                    scope.model.purbats.splice();
+                                                }
+                                            }
+                                        },
+                                        headers: {
+                                            "desc_no": {
+                                                displayName: "客戶訂單號碼",
+                                                type: 'basDefault',
+                                                width: 110
+                                            },
+                                            "item_nbr": {   
+                                                displayName: "產品編號",
+                                                type: 'basDefault',
+                                                width: 110,
+                                               
+                                            },
+                                            "item_desc": {
+                                                displayName: "規格說明",
+                                                type: 'basDefault',
+                                                width: 110
+                                            },
+                                            "pro_nbr": {
+                                                displayName: "製程",
+                                                type: 'basDefault',
+                                                width: 110
+                                            },
+                                            "unit": {
+                                                displayName: "單位",
+                                                type: 'basDefault',
+                                                width: 110
+                                            },
+                                            "qty": {
+                                                displayName: "數量",
+                                                type: 'basDefault',
+                                                width: 110
+                                            },
+                                            "ioqty": {
+                                                displayName: "已收料量",
+                                                type: 'basDefault',
+                                                width: 110
+                                            },
+                                            "safe_qty": {
+                                                displayName: "最低訂購量",
+                                                type: 'basDefault',
+                                                width: 110
+                                            },
+                                            "price": {
+                                                displayName: "單價",
+                                                type: 'basDefault',
+                                                width: 110
+                                            },
+                                            "amt": {
+                                                displayName: "金額",
+                                                type: 'basNumber',
+                                                width: 110
+                                            },
+                                            "plan_date": {   
+                                                displayName: "預定交貨日",
+                                                type: 'basDefault',
+                                                width: 110,
+                                               
+                                            },
+                                            "remark": {
+                                                displayName: "備註",
+                                                type: 'basDefault',
+                                                width: 180
+                                            }
+                                        }
+            
+                                    }]
                                 },
                                 //下面为页签B
                                 {
@@ -432,7 +580,11 @@ define(function () {
                 add: function (event) {
                     $scope.$broadcast('schemaFormRedraw');
                     scope.model = {
-                        formstatus: "add" //edit,view
+                        formstatus: "add", //edit,view
+                        status: "10",
+                        isord: "N",
+                        coin_per: 1.000,
+                        nbrdate: qwsys.gettoday()
                     }
                 },
                 edit: function () {

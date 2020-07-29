@@ -150,10 +150,10 @@ public class Shpbah extends BaseProperties {
 	@Column(name = "logtxt", length =128  )
 	private String logtxt ;
 
-	@FieldInfo("")
-	@FilterInfo(ListValue = "")
-	@Column(name = "mess", length =32  )
-	private String mess ;
+//	@FieldInfo("")
+//	@FilterInfo(ListValue = "")
+//	@Column(name = "mess", length =32  )
+//	private String mess ;
 
 	@FieldInfo("正嘜頭")
 	@FilterInfo(ListValue = "")
@@ -165,50 +165,50 @@ public class Shpbah extends BaseProperties {
 	@Column(name = "dmiltle", length =32  )
 	private String dmiltle ;
 
-	@FieldInfo("")
-	@FilterInfo(ListValue = "")
-	@Column(name = "no_nbr", length =32  )
-	private String no_nbr ;
+//	@FieldInfo("")
+//	@FilterInfo(ListValue = "")
+//	@Column(name = "no_nbr", length =32  )
+//	private String no_nbr ;
 
 	@FieldInfo("清單")
 	@FilterInfo(ListValue = "")
 	@Column(name = "invoice", length =128  )
 	private String invoice ;
 
-	@FieldInfo("")
-	@FilterInfo(ListValue = "")
-	@Column(name = "messrs1", length =128  )
-	private String messrs1 ;
-
-	@FieldInfo("")
-	@FilterInfo(ListValue = "")
-	@Column(name = "messrs2", length =128  )
-	private String messrs2 ;
-
-	@FieldInfo("")
-	@FilterInfo(ListValue = "")
-	@Column(name = "shipper", length =128  )
-	private String shipper ;
-
-	@FieldInfo("")
-	@FilterInfo(ListValue = "")
-	@Column(name = "per", length =128  )
-	private String per ;
-
-	@FieldInfo("")
-	@FilterInfo(ListValue = "")
-	@Column(name = "sailing", length =32  )
-	private String sailing ;
-
-	@FieldInfo("")
-	@FilterInfo(ListValue = "")
-	@Column(name = "to_nbr", length =32  )
-	private String to_nbr ;
-
-	@FieldInfo("")
-	@FilterInfo(ListValue = "")
-	@Column(name = "lcno", length =128  )
-	private String lcno ;
+//	@FieldInfo("")
+//	@FilterInfo(ListValue = "")
+//	@Column(name = "messrs1", length =128  )
+//	private String messrs1 ;
+//
+//	@FieldInfo("")
+//	@FilterInfo(ListValue = "")
+//	@Column(name = "messrs2", length =128  )
+//	private String messrs2 ;
+//
+//	@FieldInfo("")
+//	@FilterInfo(ListValue = "")
+//	@Column(name = "shipper", length =128  )
+//	private String shipper ;
+//
+//	@FieldInfo("")
+//	@FilterInfo(ListValue = "")
+//	@Column(name = "per", length =128  )
+//	private String per ;
+//
+//	@FieldInfo("")
+//	@FilterInfo(ListValue = "")
+//	@Column(name = "sailing", length =32  )
+//	private String sailing ;
+//
+//	@FieldInfo("")
+//	@FilterInfo(ListValue = "")
+//	@Column(name = "to_nbr", length =32  )
+//	private String to_nbr ;
+//
+//	@FieldInfo("")
+//	@FilterInfo(ListValue = "")
+//	@Column(name = "lcno", length =128  )
+//	private String lcno ;
 
 	@FieldInfo("合約號碼")
 	@FilterInfo(ListValue = "")
@@ -240,10 +240,10 @@ public class Shpbah extends BaseProperties {
 	@Column(name = "last_user", length =32  )
 	private String last_user ;
 
-	@FieldInfo("")
-	@FilterInfo(ListValue = "")
-	@Column(name = "lc_no", length =32  )
-	private String lc_no ;
+//	@FieldInfo("")
+//	@FilterInfo(ListValue = "")
+//	@Column(name = "lc_no", length =32  )
+//	private String lc_no ;
 
 	@FieldInfo("日期")
 	@FilterInfo(ListValue = "")
@@ -252,25 +252,25 @@ public class Shpbah extends BaseProperties {
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date dated;
 
-	@FieldInfo("")
-	@FilterInfo(ListValue = "")
-	@Column(name = "pack", length =128  )
-	private String pack ;
+//	@FieldInfo("")
+//	@FilterInfo(ListValue = "")
+//	@Column(name = "pack", length =128  )
+//	private String pack ;
+//
+//	@FieldInfo("")
+//	@FilterInfo(ListValue = "")
+//	@Column(name = "attn", length =128  )
+//	private String attn ;
+//
+//	@FieldInfo("")
+//	@FilterInfo(ListValue = "")
+//	@Column(name = "shipped", length =128  )
+//	private String shipped ;
 
-	@FieldInfo("")
-	@FilterInfo(ListValue = "")
-	@Column(name = "attn", length =128  )
-	private String attn ;
-
-	@FieldInfo("")
-	@FilterInfo(ListValue = "")
-	@Column(name = "shipped", length =128  )
-	private String shipped ;
-
-	@FieldInfo("")
-	@FilterInfo(ListValue = "")
-	@Column(name = "from", length =32  )
-	private String from ;
+//	@FieldInfo("")
+//	@FilterInfo(ListValue = "")
+//	@Column(name = "from", length =32  )
+//	private String from ;
 
 	@FieldInfo("折數")
 	@FilterInfo(ListValue = "")
@@ -557,30 +557,30 @@ public class Shpbah extends BaseProperties {
 				this.rec_amt = rec_amt;
 				this.logtype = logtype;
 				this.logtxt = logtxt;
-				this.mess = mess;
+//				this.mess = mess;
 				this.fmiltle = fmiltle;
 				this.dmiltle = dmiltle;
-				this.no_nbr = no_nbr;
+//				this.no_nbr = no_nbr;
 				this.invoice = invoice;
-				this.messrs1 = messrs1;
-				this.messrs2 = messrs2;
-				this.shipper = shipper;
-				this.per = per;
-				this.sailing = sailing;
-				this.to_nbr = to_nbr;
-				this.lcno = lcno;
+//				this.messrs1 = messrs1;
+//				this.messrs2 = messrs2;
+//				this.shipper = shipper;
+//				this.per = per;
+//				this.sailing = sailing;
+//				this.to_nbr = to_nbr;
+//				this.lcno = lcno;
 				this.contract = contract;
 				this.coin_nbr = coin_nbr;
 				this.remark1 = remark1;
 				this.remark2 = remark2;
 				this.form_nbr = form_nbr;
 				this.last_user = last_user;
-				this.lc_no = lc_no;
+//				this.lc_no = lc_no;
 				this.dated = dated;
-				this.pack = pack;
-				this.attn = attn;
-				this.shipped = shipped;
-				this.from = from;
+//				this.pack = pack;
+//				this.attn = attn;
+//				this.shipped = shipped;
+//				this.from = from;
 				this.cut = cut;
 				this.mttd = mttd;
 				this.is_sure = is_sure;
@@ -959,17 +959,17 @@ public class Shpbah extends BaseProperties {
 	 * @return mess
 	 *			
 	 */
-	public String getMess() {
-		return mess;
-	}
-
-	/**
-	 * @param mess
-	 *			
-	 */
-	public void setMess(String Mess) {
-		this.mess = Mess;
-	}
+//	public String getMess() {
+//		return mess;
+//	}
+//
+//	/**
+//	 * @param mess
+//	 *			
+//	 */
+//	public void setMess(String Mess) {
+//		this.mess = Mess;
+//	}
 		/**
 	 * @return fmiltle
 	 *			正嘜頭
@@ -1004,17 +1004,17 @@ public class Shpbah extends BaseProperties {
 	 * @return no_nbr
 	 *			
 	 */
-	public String getNo_nbr() {
-		return no_nbr;
-	}
-
-	/**
-	 * @param no_nbr
-	 *			
-	 */
-	public void setNo_nbr(String No_nbr) {
-		this.no_nbr = No_nbr;
-	}
+//	public String getNo_nbr() {
+//		return no_nbr;
+//	}
+//
+//	/**
+//	 * @param no_nbr
+//	 *			
+//	 */
+//	public void setNo_nbr(String No_nbr) {
+//		this.no_nbr = No_nbr;
+//	}
 		/**
 	 * @return invoice
 	 *			清單
@@ -1034,107 +1034,107 @@ public class Shpbah extends BaseProperties {
 	 * @return messrs1
 	 *			
 	 */
-	public String getMessrs1() {
-		return messrs1;
-	}
-
-	/**
-	 * @param messrs1
-	 *			
-	 */
-	public void setMessrs1(String Messrs1) {
-		this.messrs1 = Messrs1;
-	}
+//	public String getMessrs1() {
+//		return messrs1;
+//	}
+//
+//	/**
+//	 * @param messrs1
+//	 *			
+//	 */
+//	public void setMessrs1(String Messrs1) {
+//		this.messrs1 = Messrs1;
+//	}
 		/**
 	 * @return messrs2
 	 *			
 	 */
-	public String getMessrs2() {
-		return messrs2;
-	}
-
-	/**
-	 * @param messrs2
-	 *			
-	 */
-	public void setMessrs2(String Messrs2) {
-		this.messrs2 = Messrs2;
-	}
+//	public String getMessrs2() {
+//		return messrs2;
+//	}
+//
+//	/**
+//	 * @param messrs2
+//	 *			
+//	 */
+//	public void setMessrs2(String Messrs2) {
+//		this.messrs2 = Messrs2;
+//	}
 		/**
 	 * @return shipper
 	 *			
 	 */
-	public String getShipper() {
-		return shipper;
-	}
-
-	/**
-	 * @param shipper
-	 *			
-	 */
-	public void setShipper(String Shipper) {
-		this.shipper = Shipper;
-	}
+//	public String getShipper() {
+//		return shipper;
+//	}
+//
+//	/**
+//	 * @param shipper
+//	 *			
+//	 */
+//	public void setShipper(String Shipper) {
+//		this.shipper = Shipper;
+//	}
 		/**
 	 * @return per
 	 *			
 	 */
-	public String getPer() {
-		return per;
-	}
-
-	/**
-	 * @param per
-	 *			
-	 */
-	public void setPer(String Per) {
-		this.per = Per;
-	}
+//	public String getPer() {
+//		return per;
+//	}
+//
+//	/**
+//	 * @param per
+//	 *			
+//	 */
+//	public void setPer(String Per) {
+//		this.per = Per;
+//	}
 		/**
 	 * @return sailing
 	 *			
 	 */
-	public String getSailing() {
-		return sailing;
-	}
-
-	/**
-	 * @param sailing
-	 *			
-	 */
-	public void setSailing(String Sailing) {
-		this.sailing = Sailing;
-	}
+//	public String getSailing() {
+//		return sailing;
+//	}
+//
+//	/**
+//	 * @param sailing
+//	 *			
+//	 */
+//	public void setSailing(String Sailing) {
+//		this.sailing = Sailing;
+//	}
 		/**
 	 * @return to_nbr
 	 *			
 	 */
-	public String getTo_nbr() {
-		return to_nbr;
-	}
-
-	/**
-	 * @param to_nbr
-	 *			
-	 */
-	public void setTo_nbr(String To_nbr) {
-		this.to_nbr = To_nbr;
-	}
+//	public String getTo_nbr() {
+//		return to_nbr;
+//	}
+//
+//	/**
+//	 * @param to_nbr
+//	 *			
+//	 */
+//	public void setTo_nbr(String To_nbr) {
+//		this.to_nbr = To_nbr;
+//	}
 		/**
 	 * @return lcno
 	 *			
 	 */
-	public String getLcno() {
-		return lcno;
-	}
-
-	/**
-	 * @param lcno
-	 *			
-	 */
-	public void setLcno(String Lcno) {
-		this.lcno = Lcno;
-	}
+//	public String getLcno() {
+//		return lcno;
+//	}
+//
+//	/**
+//	 * @param lcno
+//	 *			
+//	 */
+//	public void setLcno(String Lcno) {
+//		this.lcno = Lcno;
+//	}
 		/**
 	 * @return contract
 	 *			合約號碼
@@ -1229,17 +1229,17 @@ public class Shpbah extends BaseProperties {
 	 * @return lc_no
 	 *			
 	 */
-	public String getLc_no() {
-		return lc_no;
-	}
-
-	/**
-	 * @param lc_no
-	 *			
-	 */
-	public void setLc_no(String Lc_no) {
-		this.lc_no = Lc_no;
-	}
+//	public String getLc_no() {
+//		return lc_no;
+//	}
+//
+//	/**
+//	 * @param lc_no
+//	 *			
+//	 */
+//	public void setLc_no(String Lc_no) {
+//		this.lc_no = Lc_no;
+//	}
 		/**
 	 * @return dated
 	 *			日期
@@ -1259,62 +1259,62 @@ public class Shpbah extends BaseProperties {
 	 * @return pack
 	 *			
 	 */
-	public String getPack() {
-		return pack;
-	}
-
-	/**
-	 * @param pack
-	 *			
-	 */
-	public void setPack(String Pack) {
-		this.pack = Pack;
-	}
+//	public String getPack() {
+//		return pack;
+//	}
+//
+//	/**
+//	 * @param pack
+//	 *			
+//	 */
+//	public void setPack(String Pack) {
+//		this.pack = Pack;
+//	}
 		/**
 	 * @return attn
 	 *			
 	 */
-	public String getAttn() {
-		return attn;
-	}
-
-	/**
-	 * @param attn
-	 *			
-	 */
-	public void setAttn(String Attn) {
-		this.attn = Attn;
-	}
+//	public String getAttn() {
+//		return attn;
+//	}
+//
+//	/**
+//	 * @param attn
+//	 *			
+//	 */
+//	public void setAttn(String Attn) {
+//		this.attn = Attn;
+//	}
 		/**
 	 * @return shipped
 	 *			
 	 */
-	public String getShipped() {
-		return shipped;
-	}
-
-	/**
-	 * @param shipped
-	 *			
-	 */
-	public void setShipped(String Shipped) {
-		this.shipped = Shipped;
-	}
+//	public String getShipped() {
+//		return shipped;
+//	}
+//
+//	/**
+//	 * @param shipped
+//	 *			
+//	 */
+//	public void setShipped(String Shipped) {
+//		this.shipped = Shipped;
+//	}
 		/**
 	 * @return from
 	 *			
 	 */
-	public String getFrom() {
-		return from;
-	}
-
-	/**
-	 * @param from
-	 *			
-	 */
-	public void setFrom(String From) {
-		this.from = From;
-	}
+//	public String getFrom() {
+//		return from;
+//	}
+//
+//	/**
+//	 * @param from
+//	 *			
+//	 */
+//	public void setFrom(String From) {
+//		this.from = From;
+//	}
 		/**
 	 * @return cut
 	 *			折數

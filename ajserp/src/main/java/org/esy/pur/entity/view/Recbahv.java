@@ -1,47 +1,61 @@
-package org.esy.pur.entity;
+package org.esy.pur.entity.view;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Index;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
 import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 import org.esy.base.annotation.EntityInfo;
 import org.esy.base.annotation.FieldInfo;
 import org.esy.base.core.BaseProperties;
+import org.esy.pur.entity.Recbat;
+import org.hibernate.annotations.Subselect;
+import org.hibernate.annotations.Synchronize;
 import org.esy.base.annotation.FilterInfo;
 
 
-
-/**
- *  实体类
- * 
- * @author <a href="mailto:ardui@163.com"ardui</a
- *  @date Tue Jul 28 17:09:52 CST 2020
- */
 @Entity
-@Table(name = "pur_bah" ,indexes = { @Index(name = "created", columnList = "created"), 
-@Index(name = "updated", columnList = "updated")})
-@EntityInfo("採購表頭檔")
-public class Purbah extends BaseProperties {
+@EntityInfo("收料表頭檔")
+@Table(name = "Recbahv")
+@Subselect("select a.* from rec_bah a")
+@Synchronize("rec_bah")
+
+public class Recbahv extends BaseProperties {
 
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo("訂單單據號碼")
+	@FieldInfo("會計傳票")
 	@FilterInfo(ListValue = "")
-	@Column(name = "ord_nbr", length =32  )
-	private String ord_nbr ;
+	@Column(name = "acc_nbr", length =32  )
+	private String acc_nbr ;
 
 	@FieldInfo("單據號碼")
 	@FilterInfo(ListValue = "")
 	@Column(name = "nbr", length =32  )
 	private String nbr ;
 
-	@FieldInfo("客戶訂單據號碼")
+	@FieldInfo("進/退別")
 	@FilterInfo(ListValue = "")
-	@Column(name = "cus_ord", length =32  )
-	private String cus_ord ;
+	@Column(name = "io_p", length =32  )
+	private String io_p ;
+
+	@FieldInfo("結帳月份")
+	@FilterInfo(ListValue = "")
+	@Column(name = "acr_mon", length =32  )
+	private String acr_mon ;
+
+	@FieldInfo("交易方式")
+	@FilterInfo(ListValue = "")
+	@Column(name = "pay_term", length =32  )
+	private String pay_term ;
 
 	@FieldInfo("日期")
 	@FilterInfo(ListValue = "")
@@ -55,30 +69,35 @@ public class Purbah extends BaseProperties {
 	@Column(name = "ven_nbr", length =32  )
 	private String ven_nbr ;
 
-	@FieldInfo("業務員")
+	@FieldInfo("倉庫代號")
 	@FilterInfo(ListValue = "")
-	@Column(name = "sale_nbr", length =32  )
-	private String sale_nbr ;
+	@Column(name = "ware_nbr", length =32  )
+	private String ware_nbr ;
 
-	@FieldInfo("指送廠商")
+	@FieldInfo("發票號碼")
 	@FilterInfo(ListValue = "")
-	@Column(name = "ven_nbr1", length =32  )
-	private String ven_nbr1 ;
-
-	@FieldInfo("交易方式")
-	@FilterInfo(ListValue = "")
-	@Column(name = "pay_term", length =32  )
-	private String pay_term ;
+	@Column(name = "ivc_nbr", length =32  )
+	private String ivc_nbr ;
 
 	@FieldInfo("總金額")
 	@FilterInfo(ListValue = "")
 	@Column(name = "tot_amt")
 	private Double tot_amt;
 
+	@FieldInfo("稅別")
+	@FilterInfo(ListValue = "")
+	@Column(name = "tax_type", length =32  )
+	private String tax_type ;
+
 	@FieldInfo("幣別總金額")
 	@FilterInfo(ListValue = "")
 	@Column(name = "ctot_amt")
 	private Double ctot_amt;
+
+	@FieldInfo("幣別稅額")
+	@FilterInfo(ListValue = "")
+	@Column(name = "ctax_amt")
+	private Integer ctax_amt;
 
 	@FieldInfo("幣別")
 	@FilterInfo(ListValue = "")
@@ -90,84 +109,35 @@ public class Purbah extends BaseProperties {
 	@Column(name = "coin_per")
 	private Double coin_per;
 
-	@FieldInfo("預定到貨日")
+	@FieldInfo("稅額")
 	@FilterInfo(ListValue = "")
-	@Column(name = "plan_date")
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	private Date plan_date;
+	@Column(name = "tax_amt")
+	private Integer tax_amt;
 
 	@FieldInfo("備註")
 	@FilterInfo(ListValue = "")
 	@Column(name = "remark", length =128  )
 	private String remark ;
 
+	@FieldInfo("已沖帳金額")
+	@FilterInfo(ListValue = "")
+	@Column(name = "rec_amt")
+	private Double rec_amt;
+
 	@FieldInfo("狀態")
 	@FilterInfo(ListValue = "")
 	@Column(name = "status", length =32  )
 	private String status ;
-
-	@FieldInfo("嘜頭LOG圖形")
-	@FilterInfo(ListValue = "")
-	@Column(name = "logtype", length =32  )
-	private String logtype ;
-
-	@FieldInfo("嘜頭LOG文字")
-	@FilterInfo(ListValue = "")
-	@Column(name = "logtxt", length =128  )
-	private String logtxt ;
-
-	@FieldInfo("正嘜頭")
-	@FilterInfo(ListValue = "")
-	@Column(name = "fmiltle", length =32  )
-	private String fmiltle ;
-
-	@FieldInfo("側嘜頭")
-	@FilterInfo(ListValue = "")
-	@Column(name = "dmiltle", length =32  )
-	private String dmiltle ;
-
-	@FieldInfo("採購描述")
-	@FilterInfo(ListValue = "")
-	@Column(name = "itemdesc", columnDefinition = "TEXT")
-	private String itemdesc;
-
-//	@FieldInfo("")
-//	@FilterInfo(ListValue = "")
-//	@Column(name = "rec_date")
-//	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-//	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-//	private Date rec_date;
 
 	@FieldInfo("最后異動者代號")
 	@FilterInfo(ListValue = "")
 	@Column(name = "last_user", length =32  )
 	private String last_user ;
 
-	@FieldInfo("使用者代碼")
-	@FilterInfo(ListValue = "")
-	@Column(name = "user_code", length =32  )
-	private String user_code ;
-
-	@FieldInfo(" T核准回 復")
+	@FieldInfo(" T驗收回 復")
 	@FilterInfo(ListValue = "")
 	@Column(name = "sure")
 	private Integer sure;
-
-	@FieldInfo(" 是否轉單")
-	@FilterInfo(ListValue = "")
-	@Column(name = "isord", length =32  )
-	private String isord ;
-
-	@FieldInfo("麥頭圖檔")
-	@FilterInfo(ListValue = "")
-	@Column(name = "mttd", length =32  )
-	private String mttd ;
-
-	@FieldInfo("是否已列印")
-	@FilterInfo(ListValue = "")
-	@Column(name = "is_prn")
-	private Integer is_prn;
 
 	@FieldInfo("建檔日期")
 	@FilterInfo(ListValue = "")
@@ -208,13 +178,31 @@ public class Purbah extends BaseProperties {
 	@Column(name = "trancnt")
 	private Integer trancnt;
 
+	@FieldInfo("連絡人1")
+	@FilterInfo(ListValue = "")
+	@Column(name = "attname1", length =32  )
+	private String attname1 ;
 
-     /**
+	
+	@Transient
+	@JsonProperty("recbats") //宿主(要引用明細檔)(recbats要跟grid key值一樣)
+	private List<Recbat> recbats = new ArrayList<Recbat>();
+	
+
+     public List<Recbat> getRecbats() {
+		return recbats;
+	}
+
+	public void setRecbats(List<Recbat> recbats) {
+		this.recbats = recbats;
+	}
+
+	/**
 	 *
 	 * 构造函数
 	 *
 	 */
-	public Purbah() {
+	public Recbahv() {
 		super();
 	}
 	
@@ -222,14 +210,20 @@ public class Purbah extends BaseProperties {
 	 *
 	 * 构造函数
 	 *
-	 	 * @param ord_nbr
-	 *		  訂單單據號碼
+	 	 * @param acc_nbr
+	 *		  會計傳票
 	 * 
 	 	 * @param nbr
 	 *		  單據號碼
 	 * 
-	 	 * @param cus_ord
-	 *		  客戶訂單據號碼
+	 	 * @param io_p
+	 *		  進/退別
+	 * 
+	 	 * @param acr_mon
+	 *		  結帳月份
+	 * 
+	 	 * @param pay_term
+	 *		  交易方式
 	 * 
 	 	 * @param nbrdate
 	 *		  日期
@@ -237,20 +231,23 @@ public class Purbah extends BaseProperties {
 	 	 * @param ven_nbr
 	 *		  供應商代號
 	 * 
-	 	 * @param sale_nbr
-	 *		  業務員
+	 	 * @param ware_nbr
+	 *		  倉庫代號
 	 * 
-	 	 * @param ven_nbr1
-	 *		  指送廠商
-	 * 
-	 	 * @param pay_term
-	 *		  交易方式
+	 	 * @param ivc_nbr
+	 *		  發票號碼
 	 * 
 	 	 * @param tot_amt
 	 *		  總金額
 	 * 
+	 	 * @param tax_type
+	 *		  稅別
+	 * 
 	 	 * @param ctot_amt
 	 *		  幣別總金額
+	 * 
+	 	 * @param ctax_amt
+	 *		  幣別稅額
 	 * 
 	 	 * @param coin_nbr
 	 *		  幣別
@@ -258,50 +255,23 @@ public class Purbah extends BaseProperties {
 	 	 * @param coin_per
 	 *		  匯率
 	 * 
-	 	 * @param plan_date
-	 *		  預定到貨日
+	 	 * @param tax_amt
+	 *		  稅額
 	 * 
 	 	 * @param remark
 	 *		  備註
 	 * 
+	 	 * @param rec_amt
+	 *		  已沖帳金額
+	 * 
 	 	 * @param status
 	 *		  狀態
-	 * 
-	 	 * @param logtype
-	 *		  嘜頭LOG圖形
-	 * 
-	 	 * @param logtxt
-	 *		  嘜頭LOG文字
-	 * 
-	 	 * @param fmiltle
-	 *		  正嘜頭
-	 * 
-	 	 * @param dmiltle
-	 *		  側嘜頭
-	 * 
-	 	 * @param itemdesc
-	 *		  採購描述
-	 * 
-	 	 * @param rec_date
-	 *		  
 	 * 
 	 	 * @param last_user
 	 *		  最后異動者代號
 	 * 
-	 	 * @param user_code
-	 *		  使用者代碼
-	 * 
 	 	 * @param sure
-	 *		   T核准回 復
-	 * 
-	 	 * @param isord
-	 *		   是否轉單
-	 * 
-	 	 * @param mttd
-	 *		  麥頭圖檔
-	 * 
-	 	 * @param is_prn
-	 *		  是否已列印
+	 *		   T驗收回 復
 	 * 
 	 	 * @param crt_date
 	 *		  建檔日期
@@ -324,36 +294,33 @@ public class Purbah extends BaseProperties {
 	 	 * @param trancnt
 	 *		  轉出次數
 	 * 
+	 	 * @param attname1
+	 *		  連絡人1
+	 * 
 	 	 */
-    	public Purbah( String ord_nbr, String nbr, String cus_ord, Date nbrdate, String ven_nbr, String sale_nbr, String ven_nbr1, String pay_term, Double tot_amt, Double ctot_amt, String coin_nbr, Double coin_per, Date plan_date, String remark, String status, String logtype, String logtxt, String fmiltle, String dmiltle, String itemdesc, Date rec_date, String last_user, String user_code, Integer sure, String isord, String mttd, Integer is_prn, Date crt_date, String crt_user, Date edit_date, String edit_user, String tranok, String tranop, Integer trancnt ) {
+    	public Recbahv( String acc_nbr, String nbr, String io_p, String acr_mon, String pay_term, Date nbrdate, String ven_nbr, String ware_nbr, String ivc_nbr, Double tot_amt, String tax_type, Double ctot_amt, Integer ctax_amt, String coin_nbr, Double coin_per, Integer tax_amt, String remark, Double rec_amt, String status, String last_user, Integer sure, Date crt_date, String crt_user, Date edit_date, String edit_user, String tranok, String tranop, Integer trancnt, String attname1 ) {
 		super();
-				this.ord_nbr = ord_nbr;
+				this.acc_nbr = acc_nbr;
 				this.nbr = nbr;
-				this.cus_ord = cus_ord;
+				this.io_p = io_p;
+				this.acr_mon = acr_mon;
+				this.pay_term = pay_term;
 				this.nbrdate = nbrdate;
 				this.ven_nbr = ven_nbr;
-				this.sale_nbr = sale_nbr;
-				this.ven_nbr1 = ven_nbr1;
-				this.pay_term = pay_term;
+				this.ware_nbr = ware_nbr;
+				this.ivc_nbr = ivc_nbr;
 				this.tot_amt = tot_amt;
+				this.tax_type = tax_type;
 				this.ctot_amt = ctot_amt;
+				this.ctax_amt = ctax_amt;
 				this.coin_nbr = coin_nbr;
 				this.coin_per = coin_per;
-				this.plan_date = plan_date;
+				this.tax_amt = tax_amt;
 				this.remark = remark;
+				this.rec_amt = rec_amt;
 				this.status = status;
-				this.logtype = logtype;
-				this.logtxt = logtxt;
-				this.fmiltle = fmiltle;
-				this.dmiltle = dmiltle;
-				this.itemdesc = itemdesc;
-//				this.rec_date = rec_date;
 				this.last_user = last_user;
-				this.user_code = user_code;
 				this.sure = sure;
-				this.isord = isord;
-				this.mttd = mttd;
-				this.is_prn = is_prn;
 				this.crt_date = crt_date;
 				this.crt_user = crt_user;
 				this.edit_date = edit_date;
@@ -361,22 +328,23 @@ public class Purbah extends BaseProperties {
 				this.tranok = tranok;
 				this.tranop = tranop;
 				this.trancnt = trancnt;
+				this.attname1 = attname1;
 			}
 
 		/**
-	 * @return ord_nbr
-	 *			訂單單據號碼
+	 * @return acc_nbr
+	 *			會計傳票
 	 */
-	public String getOrd_nbr() {
-		return ord_nbr;
+	public String getAcc_nbr() {
+		return acc_nbr;
 	}
 
 	/**
-	 * @param ord_nbr
-	 *			訂單單據號碼
+	 * @param acc_nbr
+	 *			會計傳票
 	 */
-	public void setOrd_nbr(String Ord_nbr) {
-		this.ord_nbr = Ord_nbr;
+	public void setAcc_nbr(String Acc_nbr) {
+		this.acc_nbr = Acc_nbr;
 	}
 		/**
 	 * @return nbr
@@ -394,19 +362,49 @@ public class Purbah extends BaseProperties {
 		this.nbr = Nbr;
 	}
 		/**
-	 * @return cus_ord
-	 *			客戶訂單據號碼
+	 * @return io_p
+	 *			進/退別
 	 */
-	public String getCus_ord() {
-		return cus_ord;
+	public String getIo_p() {
+		return io_p;
 	}
 
 	/**
-	 * @param cus_ord
-	 *			客戶訂單據號碼
+	 * @param io_p
+	 *			進/退別
 	 */
-	public void setCus_ord(String Cus_ord) {
-		this.cus_ord = Cus_ord;
+	public void setIo_p(String Io_p) {
+		this.io_p = Io_p;
+	}
+		/**
+	 * @return acr_mon
+	 *			結帳月份
+	 */
+	public String getAcr_mon() {
+		return acr_mon;
+	}
+
+	/**
+	 * @param acr_mon
+	 *			結帳月份
+	 */
+	public void setAcr_mon(String Acr_mon) {
+		this.acr_mon = Acr_mon;
+	}
+		/**
+	 * @return pay_term
+	 *			交易方式
+	 */
+	public String getPay_term() {
+		return pay_term;
+	}
+
+	/**
+	 * @param pay_term
+	 *			交易方式
+	 */
+	public void setPay_term(String Pay_term) {
+		this.pay_term = Pay_term;
 	}
 		/**
 	 * @return nbrdate
@@ -439,49 +437,34 @@ public class Purbah extends BaseProperties {
 		this.ven_nbr = Ven_nbr;
 	}
 		/**
-	 * @return sale_nbr
-	 *			業務員
+	 * @return ware_nbr
+	 *			倉庫代號
 	 */
-	public String getSale_nbr() {
-		return sale_nbr;
+	public String getWare_nbr() {
+		return ware_nbr;
 	}
 
 	/**
-	 * @param sale_nbr
-	 *			業務員
+	 * @param ware_nbr
+	 *			倉庫代號
 	 */
-	public void setSale_nbr(String Sale_nbr) {
-		this.sale_nbr = Sale_nbr;
+	public void setWare_nbr(String Ware_nbr) {
+		this.ware_nbr = Ware_nbr;
 	}
 		/**
-	 * @return ven_nbr1
-	 *			指送廠商
+	 * @return ivc_nbr
+	 *			發票號碼
 	 */
-	public String getVen_nbr1() {
-		return ven_nbr1;
+	public String getIvc_nbr() {
+		return ivc_nbr;
 	}
 
 	/**
-	 * @param ven_nbr1
-	 *			指送廠商
+	 * @param ivc_nbr
+	 *			發票號碼
 	 */
-	public void setVen_nbr1(String Ven_nbr1) {
-		this.ven_nbr1 = Ven_nbr1;
-	}
-		/**
-	 * @return pay_term
-	 *			交易方式
-	 */
-	public String getPay_term() {
-		return pay_term;
-	}
-
-	/**
-	 * @param pay_term
-	 *			交易方式
-	 */
-	public void setPay_term(String Pay_term) {
-		this.pay_term = Pay_term;
+	public void setIvc_nbr(String Ivc_nbr) {
+		this.ivc_nbr = Ivc_nbr;
 	}
 		/**
 	 * @return tot_amt
@@ -499,6 +482,21 @@ public class Purbah extends BaseProperties {
 		this.tot_amt = Tot_amt;
 	}
 		/**
+	 * @return tax_type
+	 *			稅別
+	 */
+	public String getTax_type() {
+		return tax_type;
+	}
+
+	/**
+	 * @param tax_type
+	 *			稅別
+	 */
+	public void setTax_type(String Tax_type) {
+		this.tax_type = Tax_type;
+	}
+		/**
 	 * @return ctot_amt
 	 *			幣別總金額
 	 */
@@ -512,6 +510,21 @@ public class Purbah extends BaseProperties {
 	 */
 	public void setCtot_amt(Double Ctot_amt) {
 		this.ctot_amt = Ctot_amt;
+	}
+		/**
+	 * @return ctax_amt
+	 *			幣別稅額
+	 */
+	public Integer getCtax_amt() {
+		return ctax_amt;
+	}
+
+	/**
+	 * @param ctax_amt
+	 *			幣別稅額
+	 */
+	public void setCtax_amt(Integer Ctax_amt) {
+		this.ctax_amt = Ctax_amt;
 	}
 		/**
 	 * @return coin_nbr
@@ -544,19 +557,19 @@ public class Purbah extends BaseProperties {
 		this.coin_per = Coin_per;
 	}
 		/**
-	 * @return plan_date
-	 *			預定到貨日
+	 * @return tax_amt
+	 *			稅額
 	 */
-	public Date getPlan_date() {
-		return plan_date;
+	public Integer getTax_amt() {
+		return tax_amt;
 	}
 
 	/**
-	 * @param plan_date
-	 *			預定到貨日
+	 * @param tax_amt
+	 *			稅額
 	 */
-	public void setPlan_date(Date Plan_date) {
-		this.plan_date = Plan_date;
+	public void setTax_amt(Integer Tax_amt) {
+		this.tax_amt = Tax_amt;
 	}
 		/**
 	 * @return remark
@@ -574,6 +587,21 @@ public class Purbah extends BaseProperties {
 		this.remark = Remark;
 	}
 		/**
+	 * @return rec_amt
+	 *			已沖帳金額
+	 */
+	public Double getRec_amt() {
+		return rec_amt;
+	}
+
+	/**
+	 * @param rec_amt
+	 *			已沖帳金額
+	 */
+	public void setRec_amt(Double Rec_amt) {
+		this.rec_amt = Rec_amt;
+	}
+		/**
 	 * @return status
 	 *			狀態
 	 */
@@ -588,96 +616,6 @@ public class Purbah extends BaseProperties {
 	public void setStatus(String Status) {
 		this.status = Status;
 	}
-		/**
-	 * @return logtype
-	 *			嘜頭LOG圖形
-	 */
-	public String getLogtype() {
-		return logtype;
-	}
-
-	/**
-	 * @param logtype
-	 *			嘜頭LOG圖形
-	 */
-	public void setLogtype(String Logtype) {
-		this.logtype = Logtype;
-	}
-		/**
-	 * @return logtxt
-	 *			嘜頭LOG文字
-	 */
-	public String getLogtxt() {
-		return logtxt;
-	}
-
-	/**
-	 * @param logtxt
-	 *			嘜頭LOG文字
-	 */
-	public void setLogtxt(String Logtxt) {
-		this.logtxt = Logtxt;
-	}
-		/**
-	 * @return fmiltle
-	 *			正嘜頭
-	 */
-	public String getFmiltle() {
-		return fmiltle;
-	}
-
-	/**
-	 * @param fmiltle
-	 *			正嘜頭
-	 */
-	public void setFmiltle(String Fmiltle) {
-		this.fmiltle = Fmiltle;
-	}
-		/**
-	 * @return dmiltle
-	 *			側嘜頭
-	 */
-	public String getDmiltle() {
-		return dmiltle;
-	}
-
-	/**
-	 * @param dmiltle
-	 *			側嘜頭
-	 */
-	public void setDmiltle(String Dmiltle) {
-		this.dmiltle = Dmiltle;
-	}
-		/**
-	 * @return itemdesc
-	 *			採購描述
-	 */
-	public String getItemdesc() {
-		return itemdesc;
-	}
-
-	/**
-	 * @param itemdesc
-	 *			採購描述
-	 */
-	public void setItemdesc(String Itemdesc) {
-		this.itemdesc = Itemdesc;
-	}
-		/**
-	 * @return rec_date
-	 *			
-	 */
-//	public Date getRec_date() {
-//		return rec_date;
-//	}
-//
-//	/**
-//	 * @param rec_date
-//	 *			
-//	 */
-//	public void setRec_date(Date Rec_date) {
-//		this.rec_date = Rec_date;
-//	}
 		/**
 	 * @return last_user
 	 *			最后異動者代號
@@ -694,23 +632,8 @@ public class Purbah extends BaseProperties {
 		this.last_user = Last_user;
 	}
 		/**
-	 * @return user_code
-	 *			使用者代碼
-	 */
-	public String getUser_code() {
-		return user_code;
-	}
-
-	/**
-	 * @param user_code
-	 *			使用者代碼
-	 */
-	public void setUser_code(String User_code) {
-		this.user_code = User_code;
-	}
-		/**
 	 * @return sure
-	 *			 T核准回 復
+	 *			 T驗收回 復
 	 */
 	public Integer getSure() {
 		return sure;
@@ -718,55 +641,10 @@ public class Purbah extends BaseProperties {
 
 	/**
 	 * @param sure
-	 *			 T核准回 復
+	 *			 T驗收回 復
 	 */
 	public void setSure(Integer Sure) {
 		this.sure = Sure;
-	}
-		/**
-	 * @return isord
-	 *			 是否轉單
-	 */
-	public String getIsord() {
-		return isord;
-	}
-
-	/**
-	 * @param isord
-	 *			 是否轉單
-	 */
-	public void setIsord(String Isord) {
-		this.isord = Isord;
-	}
-		/**
-	 * @return mttd
-	 *			麥頭圖檔
-	 */
-	public String getMttd() {
-		return mttd;
-	}
-
-	/**
-	 * @param mttd
-	 *			麥頭圖檔
-	 */
-	public void setMttd(String Mttd) {
-		this.mttd = Mttd;
-	}
-		/**
-	 * @return is_prn
-	 *			是否已列印
-	 */
-	public Integer getIs_prn() {
-		return is_prn;
-	}
-
-	/**
-	 * @param is_prn
-	 *			是否已列印
-	 */
-	public void setIs_prn(Integer Is_prn) {
-		this.is_prn = Is_prn;
 	}
 		/**
 	 * @return crt_date
@@ -873,5 +751,22 @@ public class Purbah extends BaseProperties {
 	public void setTrancnt(Integer Trancnt) {
 		this.trancnt = Trancnt;
 	}
+		/**
+	 * @return attname1
+	 *			連絡人1
+	 */
+	public String getAttname1() {
+		return attname1;
+	}
+
+	/**
+	 * @param attname1
+	 *			連絡人1
+	 */
+	public void setAttname1(String Attname1) {
+		this.attname1 = Attname1;
+	}
+
+
 	
 }

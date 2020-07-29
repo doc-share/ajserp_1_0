@@ -1,4 +1,4 @@
-package org.esy.ord.entity.view;
+package org.esy.pur.entity.view;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,7 +16,7 @@ import java.util.List;
 import org.esy.base.annotation.EntityInfo;
 import org.esy.base.annotation.FieldInfo;
 import org.esy.base.core.BaseProperties;
-import org.esy.ord.entity.Ordbat;
+import org.esy.pur.entity.Purbat;
 import org.hibernate.annotations.Subselect;
 import org.hibernate.annotations.Synchronize;
 import org.esy.base.annotation.FilterInfo;
@@ -24,27 +24,34 @@ import org.esy.base.annotation.FilterInfo;
 
 
 @Entity
-@EntityInfo("訂單表頭檔")
-@Table(name = "Ordbahv")
-//@Subselect("select a.* from ord_bah a ")
-@Subselect("select a.*, b.cus_name, c.coin_desc, d.sale_name from ord_bah a "
-		+ "left join cus_cus b on b.cus_nbr=a.cus_nbr "
-		+ "left join bas_coin c on c.coin_nbr=a.coin_nbr "
-		+ "left join bas_sal d on d.sale_nbr=a.sale_nbr ")
-@Synchronize("ord_bah")
-public class Ordbahv extends BaseProperties {
+@EntityInfo("採購表頭檔")
+@Table(name = "Purbahv")
+@Subselect("select a.* from pur_bah a")
+//@Subselect("select a.*, b.ven_name, c.ven_name as ven_name1, d.coin_desc, e.sale_name from pur_bah a "
+//		+ "left join pur_ven b on b.ven_nbr=a.ven_nbr "
+//		+ "left join pur_ven c on c.ven_nbr=a.ven_nbr1 "
+//		+ "left join bas_coin d on d.coin_nbr=a.coin_nbr "
+//		+ "left join bas_sal e on e.sale_nbr=a.sale_nbr ")
+@Synchronize("pur_bah")
+
+public class Purbahv extends BaseProperties {
 
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo("報價單據號碼")
+	@FieldInfo("訂單單據號碼")
 	@FilterInfo(ListValue = "")
-	@Column(name = "quo_nbr", length =32  )
-	private String quo_nbr ;
+	@Column(name = "ord_nbr", length =32  )
+	private String ord_nbr ;
 
 	@FieldInfo("單據號碼")
 	@FilterInfo(ListValue = "")
 	@Column(name = "nbr", length =32  )
 	private String nbr ;
+
+	@FieldInfo("客戶訂單據號碼")
+	@FilterInfo(ListValue = "")
+	@Column(name = "cus_ord", length =32  )
+	private String cus_ord ;
 
 	@FieldInfo("日期")
 	@FilterInfo(ListValue = "")
@@ -53,30 +60,30 @@ public class Ordbahv extends BaseProperties {
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date nbrdate;
 
-	@FieldInfo("客戶代號")
+	@FieldInfo("供應商代號")
 	@FilterInfo(ListValue = "")
-	@Column(name = "cus_nbr", length =32  )
-	private String cus_nbr ;
+	@Column(name = "ven_nbr", length =32  )
+	private String ven_nbr ;
 
-	@FieldInfo("客戶訂單據號碼")
+	@FieldInfo("業務員")
 	@FilterInfo(ListValue = "")
-	@Column(name = "cus_ord", length =32  )
-	private String cus_ord ;
+	@Column(name = "sale_nbr", length =32  )
+	private String sale_nbr ;
 
-	@FieldInfo("總金額")
+	@FieldInfo("指送廠商")
 	@FilterInfo(ListValue = "")
-	@Column(name = "tot_amt")
-	private Double tot_amt;
-
-	@FieldInfo("總成本")
-	@FilterInfo(ListValue = "")
-	@Column(name = "cost_amt")
-	private Double cost_amt;
+	@Column(name = "ven_nbr1", length =32  )
+	private String ven_nbr1 ;
 
 	@FieldInfo("交易方式")
 	@FilterInfo(ListValue = "")
 	@Column(name = "pay_term", length =32  )
 	private String pay_term ;
+
+	@FieldInfo("總金額")
+	@FilterInfo(ListValue = "")
+	@Column(name = "tot_amt")
+	private Double tot_amt;
 
 	@FieldInfo("幣別總金額")
 	@FilterInfo(ListValue = "")
@@ -93,27 +100,22 @@ public class Ordbahv extends BaseProperties {
 	@Column(name = "coin_per")
 	private Double coin_per;
 
-	@FieldInfo("預計出貨日")
+	@FieldInfo("預定到貨日")
 	@FilterInfo(ListValue = "")
 	@Column(name = "plan_date")
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date plan_date;
 
-	@FieldInfo("業務員代號")
+	@FieldInfo("備註")
 	@FilterInfo(ListValue = "")
-	@Column(name = "sale_nbr", length =32  )
-	private String sale_nbr ;
+	@Column(name = "remark", length =128  )
+	private String remark ;
 
 	@FieldInfo("狀態")
 	@FilterInfo(ListValue = "")
 	@Column(name = "status", length =32  )
 	private String status ;
-
-	@FieldInfo("備註")
-	@FilterInfo(ListValue = "")
-	@Column(name = "remark", columnDefinition = "TEXT")
-	private String remark;
 
 	@FieldInfo("嘜頭LOG圖形")
 	@FilterInfo(ListValue = "")
@@ -135,90 +137,47 @@ public class Ordbahv extends BaseProperties {
 	@Column(name = "dmiltle", length =32  )
 	private String dmiltle ;
 
+	@FieldInfo("採購描述")
+	@FilterInfo(ListValue = "")
+	@Column(name = "itemdesc", columnDefinition = "TEXT")
+	private String itemdesc;
+
+//	@FieldInfo("")
+//	@FilterInfo(ListValue = "")
+//	@Column(name = "rec_date")
+//	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+//	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+//	private Date rec_date;
+
 	@FieldInfo("最后異動者代號")
 	@FilterInfo(ListValue = "")
 	@Column(name = "last_user", length =32  )
 	private String last_user ;
 
-	@FieldInfo("已轉命令單狀態")
-	@FilterInfo(ListValue = "")
-	@Column(name = "mstatus", length =32  )
-	private String mstatus ;
-
-	@FieldInfo("核准狀態")
-	@FilterInfo(ListValue = "")
-	@Column(name = "sure")
-	private String sure;
-
-	@FieldInfo("核準人")
+	@FieldInfo("使用者代碼")
 	@FilterInfo(ListValue = "")
 	@Column(name = "user_code", length =32  )
 	private String user_code ;
 
-	@FieldInfo("工程名稱")
+	@FieldInfo(" T核准回 復")
 	@FilterInfo(ListValue = "")
-	@Column(name = "work_desc", length =32  )
-	private String work_desc ;
+	@Column(name = "sure")
+	private Integer sure;
 
-	@FieldInfo("")
+	@FieldInfo(" 是否轉單")
 	@FilterInfo(ListValue = "")
-	@Column(name = "pi", length =128  )
-	private String pi ;
-
-	@FieldInfo("")
-	@FilterInfo(ListValue = "")
-	@Column(name = "attn", length =128  )
-	private String attn ;
-
-	@FieldInfo("")
-	@FilterInfo(ListValue = "")
-	@Column(name = "term", length =128  )
-	private String term ;
-
-	@FieldInfo("")
-	@FilterInfo(ListValue = "")
-	@Column(name = "packing", length =128  )
-	private String packing ;
-
-	@FieldInfo("")
-	@FilterInfo(ListValue = "")
-	@Column(name = "pay", length =128  )
-	private String pay ;
-
-	@FieldInfo("")
-	@FilterInfo(ListValue = "")
-	@Column(name = "delivery", length =128  )
-	private String delivery ;
-
-	@FieldInfo("折數")
-	@FilterInfo(ListValue = "")
-	@Column(name = "cut")
-	private Double cut;
-
-	@FieldInfo("備註")
-	@FilterInfo(ListValue = "")
-	@Column(name = "rmk", length =128  )
-	private String rmk ;
+	@Column(name = "isord", length =32  )
+	private String isord ;
 
 	@FieldInfo("麥頭圖檔")
 	@FilterInfo(ListValue = "")
 	@Column(name = "mttd", length =32  )
 	private String mttd ;
 
-	@FieldInfo("  轉入的公司代號")
+	@FieldInfo("是否已列印")
 	@FilterInfo(ListValue = "")
-	@Column(name = "sysno", length =32  )
-	private String sysno ;
-
-	@FieldInfo("採購單據號碼")
-	@FilterInfo(ListValue = "")
-	@Column(name = "pur_nbr", length =32  )
-	private String pur_nbr ;
-
-	@FieldInfo("連絡人1")
-	@FilterInfo(ListValue = "")
-	@Column(name = "attname1", length =32  )
-	private String attname1 ;
+	@Column(name = "is_prn")
+	private Integer is_prn;
 
 	@FieldInfo("建檔日期")
 	@FilterInfo(ListValue = "")
@@ -262,39 +221,43 @@ public class Ordbahv extends BaseProperties {
 
 	
 	//以下虛擬欄位皆須用語法關聯(SQL)
-		@FieldInfo("客戶名稱")  //虛擬欄位
-		@Column(name = "cus_name", length = 64)
-		private String cus_name;
+//	@FieldInfo("付款廠商名稱")  //虛擬欄位
+//	@Column(name = "ven_name", length = 64)		
+//	private String ven_name;
+//		
+//	@FieldInfo("指送廠商名稱")  //虛擬欄位
+//	@Column(name = "ven_name1", length = 64)
+//	private String ven_name1;
+//	
+//	@FieldInfo("幣別說明")  //虛擬欄位
+//	@Column(name = "coin_desc", length = 64)
+//	private String coin_desc;
+//			
+//	@FieldInfo("採購人員名稱")  //虛擬欄位
+//	@Column(name = "sale_name", length = 64)
+//	private String sale_name;
+	
 		
-		@FieldInfo("幣別說明")  //虛擬欄位
-		@Column(name = "coin_desc", length = 64)
-		private String coin_desc;
 		
-		@FieldInfo("業務員名稱")  //虛擬欄位
-		@Column(name = "sale_name", length = 64)
-		private String sale_name;
-		
-		
-		@Transient
-		@JsonProperty("ordbats") //宿主(要引用明細檔)(ordbats要跟grid key值一樣)
-		private List<Ordbat> ordbats = new ArrayList<Ordbat>();
-		
-		
-		
-		public List<Ordbat> getOrdbats() {
-			return ordbats;
-		}
+	@Transient
+	@JsonProperty("purbats") //宿主(要引用明細檔)(purbats要跟grid key值一樣)
+	private List<Purbat> purbats = new ArrayList<Purbat>();
+	
+	
+     public List<Purbat> getPurbats() {
+		return purbats;
+	}
 
-		public void setOrdbats(List<Ordbat> ordbats) {
-			this.ordbats = ordbats;
-		}
+	public void setPurbats(List<Purbat> purbats) {
+		this.purbats = purbats;
+	}
 
 	/**
 	 *
 	 * 构造函数
 	 *
 	 */
-	public Ordbahv() {
+	public Purbahv() {
 		super();
 	}
 	
@@ -302,29 +265,32 @@ public class Ordbahv extends BaseProperties {
 	 *
 	 * 构造函数
 	 *
-	 	 * @param quo_nbr
-	 *		  報價單據號碼
+	 	 * @param ord_nbr
+	 *		  訂單單據號碼
 	 * 
 	 	 * @param nbr
 	 *		  單據號碼
 	 * 
-	 	 * @param nbrdate
-	 *		  日期
-	 * 
-	 	 * @param cus_nbr
-	 *		  客戶代號
-	 * 
 	 	 * @param cus_ord
 	 *		  客戶訂單據號碼
 	 * 
-	 	 * @param tot_amt
-	 *		  總金額
+	 	 * @param nbrdate
+	 *		  日期
 	 * 
-	 	 * @param cost_amt
-	 *		  總成本
+	 	 * @param ven_nbr
+	 *		  供應商代號
+	 * 
+	 	 * @param sale_nbr
+	 *		  業務員
+	 * 
+	 	 * @param ven_nbr1
+	 *		  指送廠商
 	 * 
 	 	 * @param pay_term
 	 *		  交易方式
+	 * 
+	 	 * @param tot_amt
+	 *		  總金額
 	 * 
 	 	 * @param ctot_amt
 	 *		  幣別總金額
@@ -336,16 +302,13 @@ public class Ordbahv extends BaseProperties {
 	 *		  匯率
 	 * 
 	 	 * @param plan_date
-	 *		  預計出貨日
-	 * 
-	 	 * @param sale_nbr
-	 *		  業務員代號
-	 * 
-	 	 * @param status
-	 *		  狀態
+	 *		  預定到貨日
 	 * 
 	 	 * @param remark
 	 *		  備註
+	 * 
+	 	 * @param status
+	 *		  狀態
 	 * 
 	 	 * @param logtype
 	 *		  嘜頭LOG圖形
@@ -359,56 +322,29 @@ public class Ordbahv extends BaseProperties {
 	 	 * @param dmiltle
 	 *		  側嘜頭
 	 * 
+	 	 * @param itemdesc
+	 *		  採購描述
+	 * 
+	 	 * @param rec_date
+	 *		  
+	 * 
 	 	 * @param last_user
 	 *		  最后異動者代號
 	 * 
-	 	 * @param mstatus
-	 *		  已轉命令單狀態
+	 	 * @param user_code
+	 *		  使用者代碼
 	 * 
 	 	 * @param sure
-	 *		  核准狀態
+	 *		   T核准回 復
 	 * 
-	 	 * @param user_code
-	 *		  核準人
-	 * 
-	 	 * @param work_desc
-	 *		  工程名稱
-	 * 
-	 	 * @param pi
-	 *		  
-	 * 
-	 	 * @param attn
-	 *		  
-	 * 
-	 	 * @param term
-	 *		  
-	 * 
-	 	 * @param packing
-	 *		  
-	 * 
-	 	 * @param pay
-	 *		  
-	 * 
-	 	 * @param delivery
-	 *		  
-	 * 
-	 	 * @param cut
-	 *		  折數
-	 * 
-	 	 * @param rmk
-	 *		  備註
+	 	 * @param isord
+	 *		   是否轉單
 	 * 
 	 	 * @param mttd
 	 *		  麥頭圖檔
 	 * 
-	 	 * @param sysno
-	 *		    轉入的公司代號
-	 * 
-	 	 * @param pur_nbr
-	 *		  採購單據號碼
-	 * 
-	 	 * @param attname1
-	 *		  連絡人1
+	 	 * @param is_prn
+	 *		  是否已列印
 	 * 
 	 	 * @param crt_date
 	 *		  建檔日期
@@ -432,44 +368,35 @@ public class Ordbahv extends BaseProperties {
 	 *		  轉出次數
 	 * 
 	 	 */
-    	public Ordbahv( String quo_nbr, String nbr, Date nbrdate, String cus_nbr, String cus_ord, Double tot_amt, Double cost_amt, String pay_term, Double ctot_amt, String coin_nbr, Double coin_per, Date plan_date, String sale_nbr, String status, String remark, String logtype, String logtxt, String fmiltle, String dmiltle, String last_user, String mstatus, String sure, String user_code, String work_desc, String pi, String attn, String term, String packing, String pay, String delivery, Double cut, String rmk, String mttd, String sysno, String pur_nbr, String attname1, Date crt_date, String crt_user, Date edit_date, String edit_user, String tranok, String tranop, Integer trancnt ) {
+    	public Purbahv( String ord_nbr, String nbr, String cus_ord, Date nbrdate, String ven_nbr, String sale_nbr, String ven_nbr1, String pay_term, Double tot_amt, Double ctot_amt, String coin_nbr, Double coin_per, Date plan_date, String remark, String status, String logtype, String logtxt, String fmiltle, String dmiltle, String itemdesc, Date rec_date, String last_user, String user_code, Integer sure, String isord, String mttd, Integer is_prn, Date crt_date, String crt_user, Date edit_date, String edit_user, String tranok, String tranop, Integer trancnt ) {
 		super();
-				this.quo_nbr = quo_nbr;
+				this.ord_nbr = ord_nbr;
 				this.nbr = nbr;
-				this.nbrdate = nbrdate;
-				this.cus_nbr = cus_nbr;
 				this.cus_ord = cus_ord;
-				this.tot_amt = tot_amt;
-				this.cost_amt = cost_amt;
+				this.nbrdate = nbrdate;
+				this.ven_nbr = ven_nbr;
+				this.sale_nbr = sale_nbr;
+				this.ven_nbr1 = ven_nbr1;
 				this.pay_term = pay_term;
+				this.tot_amt = tot_amt;
 				this.ctot_amt = ctot_amt;
 				this.coin_nbr = coin_nbr;
 				this.coin_per = coin_per;
 				this.plan_date = plan_date;
-				this.sale_nbr = sale_nbr;
-				this.status = status;
 				this.remark = remark;
+				this.status = status;
 				this.logtype = logtype;
 				this.logtxt = logtxt;
 				this.fmiltle = fmiltle;
 				this.dmiltle = dmiltle;
+				this.itemdesc = itemdesc;
+//				this.rec_date = rec_date;
 				this.last_user = last_user;
-				this.mstatus = mstatus;
-				this.sure = sure;
 				this.user_code = user_code;
-				this.work_desc = work_desc;
-				this.pi = pi;
-				this.attn = attn;
-				this.term = term;
-				this.packing = packing;
-				this.pay = pay;
-				this.delivery = delivery;
-				this.cut = cut;
-				this.rmk = rmk;
+				this.sure = sure;
+				this.isord = isord;
 				this.mttd = mttd;
-				this.sysno = sysno;
-				this.pur_nbr = pur_nbr;
-				this.attname1 = attname1;
+				this.is_prn = is_prn;
 				this.crt_date = crt_date;
 				this.crt_user = crt_user;
 				this.edit_date = edit_date;
@@ -480,19 +407,19 @@ public class Ordbahv extends BaseProperties {
 			}
 
 		/**
-	 * @return quo_nbr
-	 *			報價單據號碼
+	 * @return ord_nbr
+	 *			訂單單據號碼
 	 */
-	public String getQuo_nbr() {
-		return quo_nbr;
+	public String getOrd_nbr() {
+		return ord_nbr;
 	}
 
 	/**
-	 * @param quo_nbr
-	 *			報價單據號碼
+	 * @param ord_nbr
+	 *			訂單單據號碼
 	 */
-	public void setQuo_nbr(String Quo_nbr) {
-		this.quo_nbr = Quo_nbr;
+	public void setOrd_nbr(String Ord_nbr) {
+		this.ord_nbr = Ord_nbr;
 	}
 		/**
 	 * @return nbr
@@ -510,36 +437,6 @@ public class Ordbahv extends BaseProperties {
 		this.nbr = Nbr;
 	}
 		/**
-	 * @return nbrdate
-	 *			日期
-	 */
-	public Date getNbrdate() {
-		return nbrdate;
-	}
-
-	/**
-	 * @param nbrdate
-	 *			日期
-	 */
-	public void setNbrdate(Date Nbrdate) {
-		this.nbrdate = Nbrdate;
-	}
-		/**
-	 * @return cus_nbr
-	 *			客戶代號
-	 */
-	public String getCus_nbr() {
-		return cus_nbr;
-	}
-
-	/**
-	 * @param cus_nbr
-	 *			客戶代號
-	 */
-	public void setCus_nbr(String Cus_nbr) {
-		this.cus_nbr = Cus_nbr;
-	}
-		/**
 	 * @return cus_ord
 	 *			客戶訂單據號碼
 	 */
@@ -555,34 +452,64 @@ public class Ordbahv extends BaseProperties {
 		this.cus_ord = Cus_ord;
 	}
 		/**
-	 * @return tot_amt
-	 *			總金額
+	 * @return nbrdate
+	 *			日期
 	 */
-	public Double getTot_amt() {
-		return tot_amt;
+	public Date getNbrdate() {
+		return nbrdate;
 	}
 
 	/**
-	 * @param tot_amt
-	 *			總金額
+	 * @param nbrdate
+	 *			日期
 	 */
-	public void setTot_amt(Double Tot_amt) {
-		this.tot_amt = Tot_amt;
+	public void setNbrdate(Date Nbrdate) {
+		this.nbrdate = Nbrdate;
 	}
 		/**
-	 * @return cost_amt
-	 *			總成本
+	 * @return ven_nbr
+	 *			供應商代號
 	 */
-	public Double getCost_amt() {
-		return cost_amt;
+	public String getVen_nbr() {
+		return ven_nbr;
 	}
 
 	/**
-	 * @param cost_amt
-	 *			總成本
+	 * @param ven_nbr
+	 *			供應商代號
 	 */
-	public void setCost_amt(Double Cost_amt) {
-		this.cost_amt = Cost_amt;
+	public void setVen_nbr(String Ven_nbr) {
+		this.ven_nbr = Ven_nbr;
+	}
+		/**
+	 * @return sale_nbr
+	 *			業務員
+	 */
+	public String getSale_nbr() {
+		return sale_nbr;
+	}
+
+	/**
+	 * @param sale_nbr
+	 *			業務員
+	 */
+	public void setSale_nbr(String Sale_nbr) {
+		this.sale_nbr = Sale_nbr;
+	}
+		/**
+	 * @return ven_nbr1
+	 *			指送廠商
+	 */
+	public String getVen_nbr1() {
+		return ven_nbr1;
+	}
+
+	/**
+	 * @param ven_nbr1
+	 *			指送廠商
+	 */
+	public void setVen_nbr1(String Ven_nbr1) {
+		this.ven_nbr1 = Ven_nbr1;
 	}
 		/**
 	 * @return pay_term
@@ -598,6 +525,21 @@ public class Ordbahv extends BaseProperties {
 	 */
 	public void setPay_term(String Pay_term) {
 		this.pay_term = Pay_term;
+	}
+		/**
+	 * @return tot_amt
+	 *			總金額
+	 */
+	public Double getTot_amt() {
+		return tot_amt;
+	}
+
+	/**
+	 * @param tot_amt
+	 *			總金額
+	 */
+	public void setTot_amt(Double Tot_amt) {
+		this.tot_amt = Tot_amt;
 	}
 		/**
 	 * @return ctot_amt
@@ -646,7 +588,7 @@ public class Ordbahv extends BaseProperties {
 	}
 		/**
 	 * @return plan_date
-	 *			預計出貨日
+	 *			預定到貨日
 	 */
 	public Date getPlan_date() {
 		return plan_date;
@@ -654,40 +596,10 @@ public class Ordbahv extends BaseProperties {
 
 	/**
 	 * @param plan_date
-	 *			預計出貨日
+	 *			預定到貨日
 	 */
 	public void setPlan_date(Date Plan_date) {
 		this.plan_date = Plan_date;
-	}
-		/**
-	 * @return sale_nbr
-	 *			業務員代號
-	 */
-	public String getSale_nbr() {
-		return sale_nbr;
-	}
-
-	/**
-	 * @param sale_nbr
-	 *			業務員代號
-	 */
-	public void setSale_nbr(String Sale_nbr) {
-		this.sale_nbr = Sale_nbr;
-	}
-		/**
-	 * @return status
-	 *			狀態
-	 */
-	public String getStatus() {
-		return status;
-	}
-
-	/**
-	 * @param status
-	 *			狀態
-	 */
-	public void setStatus(String Status) {
-		this.status = Status;
 	}
 		/**
 	 * @return remark
@@ -703,6 +615,21 @@ public class Ordbahv extends BaseProperties {
 	 */
 	public void setRemark(String Remark) {
 		this.remark = Remark;
+	}
+		/**
+	 * @return status
+	 *			狀態
+	 */
+	public String getStatus() {
+		return status;
+	}
+
+	/**
+	 * @param status
+	 *			狀態
+	 */
+	public void setStatus(String Status) {
+		this.status = Status;
 	}
 		/**
 	 * @return logtype
@@ -765,6 +692,36 @@ public class Ordbahv extends BaseProperties {
 		this.dmiltle = Dmiltle;
 	}
 		/**
+	 * @return itemdesc
+	 *			採購描述
+	 */
+	public String getItemdesc() {
+		return itemdesc;
+	}
+
+	/**
+	 * @param itemdesc
+	 *			採購描述
+	 */
+	public void setItemdesc(String Itemdesc) {
+		this.itemdesc = Itemdesc;
+	}
+		/**
+	 * @return rec_date
+	 *			
+	 */
+//	public Date getRec_date() {
+//		return rec_date;
+//	}
+//
+//	/**
+//	 * @param rec_date
+//	 *			
+//	 */
+//	public void setRec_date(Date Rec_date) {
+//		this.rec_date = Rec_date;
+//	}
+		/**
 	 * @return last_user
 	 *			最后異動者代號
 	 */
@@ -780,38 +737,8 @@ public class Ordbahv extends BaseProperties {
 		this.last_user = Last_user;
 	}
 		/**
-	 * @return mstatus
-	 *			已轉命令單狀態
-	 */
-	public String getMstatus() {
-		return mstatus;
-	}
-
-	/**
-	 * @param mstatus
-	 *			已轉命令單狀態
-	 */
-	public void setMstatus(String Mstatus) {
-		this.mstatus = Mstatus;
-	}
-		/**
-	 * @return sure
-	 *			核准狀態
-	 */
-	public String getSure() {
-		return sure;
-	}
-
-	/**
-	 * @param sure
-	 *			核准狀態
-	 */
-	public void setSure(String Sure) {
-		this.sure = Sure;
-	}
-		/**
 	 * @return user_code
-	 *			核準人
+	 *			使用者代碼
 	 */
 	public String getUser_code() {
 		return user_code;
@@ -819,145 +746,40 @@ public class Ordbahv extends BaseProperties {
 
 	/**
 	 * @param user_code
-	 *			核準人
+	 *			使用者代碼
 	 */
 	public void setUser_code(String User_code) {
 		this.user_code = User_code;
 	}
 		/**
-	 * @return work_desc
-	 *			工程名稱
+	 * @return sure
+	 *			 T核准回 復
 	 */
-	public String getWork_desc() {
-		return work_desc;
+	public Integer getSure() {
+		return sure;
 	}
 
 	/**
-	 * @param work_desc
-	 *			工程名稱
+	 * @param sure
+	 *			 T核准回 復
 	 */
-	public void setWork_desc(String Work_desc) {
-		this.work_desc = Work_desc;
+	public void setSure(Integer Sure) {
+		this.sure = Sure;
 	}
 		/**
-	 * @return pi
-	 *			
+	 * @return isord
+	 *			 是否轉單
 	 */
-	public String getPi() {
-		return pi;
+	public String getIsord() {
+		return isord;
 	}
 
 	/**
-	 * @param pi
-	 *			
+	 * @param isord
+	 *			 是否轉單
 	 */
-	public void setPi(String Pi) {
-		this.pi = Pi;
-	}
-		/**
-	 * @return attn
-	 *			
-	 */
-	public String getAttn() {
-		return attn;
-	}
-
-	/**
-	 * @param attn
-	 *			
-	 */
-	public void setAttn(String Attn) {
-		this.attn = Attn;
-	}
-		/**
-	 * @return term
-	 *			
-	 */
-	public String getTerm() {
-		return term;
-	}
-
-	/**
-	 * @param term
-	 *			
-	 */
-	public void setTerm(String Term) {
-		this.term = Term;
-	}
-		/**
-	 * @return packing
-	 *			
-	 */
-	public String getPacking() {
-		return packing;
-	}
-
-	/**
-	 * @param packing
-	 *			
-	 */
-	public void setPacking(String Packing) {
-		this.packing = Packing;
-	}
-		/**
-	 * @return pay
-	 *			
-	 */
-	public String getPay() {
-		return pay;
-	}
-
-	/**
-	 * @param pay
-	 *			
-	 */
-	public void setPay(String Pay) {
-		this.pay = Pay;
-	}
-		/**
-	 * @return delivery
-	 *			
-	 */
-	public String getDelivery() {
-		return delivery;
-	}
-
-	/**
-	 * @param delivery
-	 *			
-	 */
-	public void setDelivery(String Delivery) {
-		this.delivery = Delivery;
-	}
-		/**
-	 * @return cut
-	 *			折數
-	 */
-	public Double getCut() {
-		return cut;
-	}
-
-	/**
-	 * @param cut
-	 *			折數
-	 */
-	public void setCut(Double Cut) {
-		this.cut = Cut;
-	}
-		/**
-	 * @return rmk
-	 *			備註
-	 */
-	public String getRmk() {
-		return rmk;
-	}
-
-	/**
-	 * @param rmk
-	 *			備註
-	 */
-	public void setRmk(String Rmk) {
-		this.rmk = Rmk;
+	public void setIsord(String Isord) {
+		this.isord = Isord;
 	}
 		/**
 	 * @return mttd
@@ -975,49 +797,19 @@ public class Ordbahv extends BaseProperties {
 		this.mttd = Mttd;
 	}
 		/**
-	 * @return sysno
-	 *			  轉入的公司代號
+	 * @return is_prn
+	 *			是否已列印
 	 */
-	public String getSysno() {
-		return sysno;
+	public Integer getIs_prn() {
+		return is_prn;
 	}
 
 	/**
-	 * @param sysno
-	 *			  轉入的公司代號
+	 * @param is_prn
+	 *			是否已列印
 	 */
-	public void setSysno(String Sysno) {
-		this.sysno = Sysno;
-	}
-		/**
-	 * @return pur_nbr
-	 *			採購單據號碼
-	 */
-	public String getPur_nbr() {
-		return pur_nbr;
-	}
-
-	/**
-	 * @param pur_nbr
-	 *			採購單據號碼
-	 */
-	public void setPur_nbr(String Pur_nbr) {
-		this.pur_nbr = Pur_nbr;
-	}
-		/**
-	 * @return attname1
-	 *			連絡人1
-	 */
-	public String getAttname1() {
-		return attname1;
-	}
-
-	/**
-	 * @param attname1
-	 *			連絡人1
-	 */
-	public void setAttname1(String Attname1) {
-		this.attname1 = Attname1;
+	public void setIs_prn(Integer Is_prn) {
+		this.is_prn = Is_prn;
 	}
 		/**
 	 * @return crt_date
@@ -1125,30 +917,37 @@ public class Ordbahv extends BaseProperties {
 		this.trancnt = Trancnt;
 	}
 
-	public String getCus_name() {
-		return cus_name;
-	}
-
-	public void setCus_name(String cus_name) {
-		this.cus_name = cus_name;
-	}
-
-	public String getCoin_desc() {
-		return coin_desc;
-	}
-
-	public void setCoin_desc(String coin_desc) {
-		this.coin_desc = coin_desc;
-	}
-
-	public String getSale_name() {
-		return sale_name;
-	}
-
-	public void setSale_name(String sale_name) {
-		this.sale_name = sale_name;
-	}
-	
+//	public String getVen_name() {
+//		return ven_name;
+//	}
+//
+//	public void setVen_name(String ven_name) {
+//		this.ven_name = ven_name;
+//	}
+//
+//	public String getVen_name1() {
+//		return ven_name1;
+//	}
+//
+//	public void setVen_name1(String ven_name1) {
+//		this.ven_name1 = ven_name1;
+//	}
+//
+//	public String getCoin_desc() {
+//		return coin_desc;
+//	}
+//
+//	public void setCoin_desc(String coin_desc) {
+//		this.coin_desc = coin_desc;
+//	}
+//
+//	public String getSale_name() {
+//		return sale_name;
+//	}
+//
+//	public void setSale_name(String sale_name) {
+//		this.sale_name = sale_name;
+//	}
 	
 	
 	

@@ -392,7 +392,7 @@ define(function () {
                             tabs: [
                                 //下面為頁簽A
                                 {    //加了整個會無法存檔，要存檔看可以先註解掉
-                                    title: "明細",
+                                    title: "明細",    //quobat的表
                                     items:[{
                                         title: "明細行",
                                         key: 'quobats',
