@@ -28,13 +28,13 @@ import org.esy.acc.entity.Basfac;
  * 实体控制器
  *  @author <a href="mailto:ardui@163.com">ardui</a>
  *  @version v2.0
- * @date Tue Jun 23 10:59:23 CST 2020			
+ * @date Thu Jul 30 16:55:17 CST 2020			
  */
 @Controller
 @RequestMapping("/api/acc/basfac")
 public class BasfacController {
 
-    public static final String AUTHORITY = "acc_basfac";
+    public static final String AUTHORITY = "fac_mapfac11";
 
 	@Autowired
 	private ILoginService loginService;
@@ -49,7 +49,7 @@ public class BasfacController {
 	 * @param Basfac  o
 	 * @param BindingResult request
 	 * @return ResponseEntity<Response>
-	 * @date Tue Jun 23 10:59:23 CST 2020	
+	 * @date Thu Jul 30 16:55:17 CST 2020	
 	 */
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseBody
@@ -80,7 +80,7 @@ public class BasfacController {
 	 * @author <a href="mailto:ardui@163.com">ardui</a>
 	 * @param uid
 	 * @return ResponseEntity<Response> 
-	 * @date Tue Jun 23 10:59:23 CST 2020	
+	 * @date Thu Jul 30 16:55:17 CST 2020	
 	 */
 	@RequestMapping(value = "/{uids}", method = RequestMethod.DELETE)
 	@ResponseBody
@@ -112,7 +112,7 @@ public class BasfacController {
 	 * @author <a href="mailto:ardui@163.com">ardui</a>
 	 * @param uid
 	 * @return ResponseEntity<Response> 
-	 * @date Tue Jun 23 10:59:23 CST 2020	
+	 * @date Thu Jul 30 16:55:17 CST 2020	
 	 */
 	@RequestMapping(value = "/{uid}", method = RequestMethod.GET)
 	@ResponseBody
@@ -141,7 +141,7 @@ public class BasfacController {
 	 * @author <a href="mailto:ardui@163.com">ardui</a>
 	 * @param Basfac, pageable
 	 * @return HttpResult
-	 * @date Tue Jun 23 10:59:23 CST 2020	
+	 * @date Thu Jul 30 16:55:17 CST 2020	
 	 */
 	@RequestMapping(value = "query", method = RequestMethod.POST)
 	public HttpResult query(@Valid @RequestBody(required = false) Basfac basfac, Pageable pageable) {

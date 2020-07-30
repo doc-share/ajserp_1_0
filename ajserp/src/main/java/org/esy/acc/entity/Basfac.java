@@ -15,12 +15,12 @@ import org.esy.base.annotation.FilterInfo;
  *  实体类
  * 
  * @author <a href="mailto:ardui@163.com"ardui</a
- *  @date Tue Jun 23 10:59:23 CST 2020
+ *  @date Thu Jul 30 16:55:17 CST 2020
  */
 @Entity
 @Table(name = "bas_fac" ,indexes = { @Index(name = "created", columnList = "created"), 
 @Index(name = "updated", columnList = "updated")})
-@EntityInfo("會計介面")
+@EntityInfo("會計介面檔")
 public class Basfac extends BaseProperties {
 
 	private static final long serialVersionUID = 1L;
@@ -32,8 +32,8 @@ public class Basfac extends BaseProperties {
 
 	@FieldInfo("科目說明")
 	@FilterInfo(ListValue = "")
-	@Column(name = "items_desc", length =32  )
-	private String items_desc ;
+	@Column(name = "itemdesc", length =32  )
+	private String itemdesc ;
 
 	@FieldInfo("會計部門代號")
 	@FilterInfo(ListValue = "")
@@ -43,7 +43,22 @@ public class Basfac extends BaseProperties {
 	@FieldInfo("是否轉對象")
 	@FilterInfo(ListValue = "")
 	@Column(name = "is_tran")
-	private boolean is_tran ;
+	private Integer is_tran;
+
+	@FieldInfo("轉出狀態")
+	@FilterInfo(ListValue = "")
+	@Column(name = "tranok", length =32  )
+	private String tranok ;
+
+	@FieldInfo("操作類型")
+	@FilterInfo(ListValue = "")
+	@Column(name = "tranop", length =32  )
+	private String tranop ;
+
+	@FieldInfo("轉出次數")
+	@FilterInfo(ListValue = "")
+	@Column(name = "trancnt")
+	private Integer trancnt;
 
 
      /**
@@ -62,7 +77,7 @@ public class Basfac extends BaseProperties {
 	 	 * @param acc_id
 	 *		  會計科目
 	 * 
-	 	 * @param items_desc
+	 	 * @param itemdesc
 	 *		  科目說明
 	 * 
 	 	 * @param dept_id
@@ -71,13 +86,25 @@ public class Basfac extends BaseProperties {
 	 	 * @param is_tran
 	 *		  是否轉對象
 	 * 
+	 	 * @param tranok
+	 *		  轉出狀態
+	 * 
+	 	 * @param tranop
+	 *		  操作類型
+	 * 
+	 	 * @param trancnt
+	 *		  轉出次數
+	 * 
 	 	 */
-    	public Basfac( String acc_id, String items_desc, String dept_id, boolean is_tran ) {
+    	public Basfac( String acc_id, String itemdesc, String dept_id, Integer is_tran, String tranok, String tranop, Integer trancnt ) {
 		super();
 				this.acc_id = acc_id;
-				this.items_desc = items_desc;
+				this.itemdesc = itemdesc;
 				this.dept_id = dept_id;
 				this.is_tran = is_tran;
+				this.tranok = tranok;
+				this.tranop = tranop;
+				this.trancnt = trancnt;
 			}
 
 		/**
@@ -96,19 +123,19 @@ public class Basfac extends BaseProperties {
 		this.acc_id = Acc_id;
 	}
 		/**
-	 * @return items_desc
+	 * @return itemdesc
 	 *			科目說明
 	 */
-	public String getItems_desc() {
-		return items_desc;
+	public String getItemdesc() {
+		return itemdesc;
 	}
 
 	/**
-	 * @param items_desc
+	 * @param itemdesc
 	 *			科目說明
 	 */
-	public void setItems_desc(String Items_desc) {
-		this.items_desc = Items_desc;
+	public void setItemdesc(String Itemdesc) {
+		this.itemdesc = Itemdesc;
 	}
 		/**
 	 * @return dept_id
@@ -129,7 +156,7 @@ public class Basfac extends BaseProperties {
 	 * @return is_tran
 	 *			是否轉對象
 	 */
-	public boolean getIs_tran() {
+	public Integer getIs_tran() {
 		return is_tran;
 	}
 
@@ -137,8 +164,53 @@ public class Basfac extends BaseProperties {
 	 * @param is_tran
 	 *			是否轉對象
 	 */
-	public void setIs_tran(boolean Is_tran) {
+	public void setIs_tran(Integer Is_tran) {
 		this.is_tran = Is_tran;
+	}
+		/**
+	 * @return tranok
+	 *			轉出狀態
+	 */
+	public String getTranok() {
+		return tranok;
+	}
+
+	/**
+	 * @param tranok
+	 *			轉出狀態
+	 */
+	public void setTranok(String Tranok) {
+		this.tranok = Tranok;
+	}
+		/**
+	 * @return tranop
+	 *			操作類型
+	 */
+	public String getTranop() {
+		return tranop;
+	}
+
+	/**
+	 * @param tranop
+	 *			操作類型
+	 */
+	public void setTranop(String Tranop) {
+		this.tranop = Tranop;
+	}
+		/**
+	 * @return trancnt
+	 *			轉出次數
+	 */
+	public Integer getTrancnt() {
+		return trancnt;
+	}
+
+	/**
+	 * @param trancnt
+	 *			轉出次數
+	 */
+	public void setTrancnt(Integer Trancnt) {
+		this.trancnt = Trancnt;
 	}
 	
 }

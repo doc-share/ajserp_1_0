@@ -13,7 +13,7 @@ angular.module('app.core.proconfig', [])
                             nameField: "addr1no",
                             smallField: "addr1nm"
                         },
-                        dialog:"seladd1"
+                        dialogConfig:"seladd1"
                     },
                     get_war: {
                         title: "倉庫主檔",
@@ -35,7 +35,7 @@ angular.module('app.core.proconfig', [])
                             valueField: "unit1",
                             nameField: "factor1"
                         },
-                        dialog:"selunt"
+                        dialogConfig:"selunt"
                     },
                     get_un: {
                         title: "獲取單位",
@@ -58,7 +58,7 @@ angular.module('app.core.proconfig', [])
                             nameField: "pro_nbr",
                             smallField: "pro_desc"
                         },
-                        dialog:"selpro"
+                        dialogConfig:"selpro"
                     },
                     get_att: {
                         title: "連絡人",
@@ -70,7 +70,7 @@ angular.module('app.core.proconfig', [])
                             nameField: "cus_nbr",
                             smallField: "attname"
                         },
-                        dialog:"selcus_att"
+                        dialogConfig:"selcus_att"
                     },
                     get_word: {
                         title: "業務性質",
@@ -148,7 +148,7 @@ angular.module('app.core.proconfig', [])
                             nameField: "item_nbr",
                             smallField: "item_desc"
                         },
-                        dialog:"selitm1"
+                        dialogConfig:"selitm1"
                     },
                     get_ven: {
                         title: "廠商主檔",
@@ -160,7 +160,7 @@ angular.module('app.core.proconfig', [])
                             nameField: "ven_nbr",
                             smallField: "ven_name"
                         },
-                        dialog:"selpur_ven"
+                        dialogConfig:"selven"
                     },
                     get_cus: {
                         title: "客戶主檔",
@@ -220,7 +220,7 @@ angular.module('app.core.proconfig', [])
                             nameField: "emp_nbr",
                             smallField: "emp_name"
                         },
-                        dialog:"selstaff"
+                        dialogConfig:"selstaff"
                     },
                     get_mj: {
                         title: "模具資料",
@@ -232,7 +232,7 @@ angular.module('app.core.proconfig', [])
                             nameField: "mj_nbr",
                             smallField: "mj_name"
                         },
-                        dialog:"selmj"
+                        dialogConfig:"selmj"
                     },
                     get_oth: {
                         title: "產品參考號碼檔",
@@ -243,7 +243,7 @@ angular.module('app.core.proconfig', [])
                             valueField: "item_nbr",
                             nameField: "item_nbr",
                         },
-                        dialog:"seloth"
+                        dialogConfig:"seloth"
                     },
                     get_rem: {
                         title: "備註主檔",
@@ -254,7 +254,7 @@ angular.module('app.core.proconfig', [])
                             valueField: "rem_nbr",
                             nameField: "rem_desc",
                         },
-                        dialog:"selrem"
+                        dialogConfig:"selrem"
                     },
                     get_rep: {
                         title: "模具維修記錄",
@@ -605,7 +605,7 @@ angular.module('app.core.proconfig', [])
                         }
                         
                     },
-                    selpur_ven: {
+                    selven: {
                         title: "廠商主檔",
                         ngdialogSize: "ngdialog-md", //視窗大小 ngdialog-xs 特小 ngdialog-sm 小,ngdialog-md 大,ngdialog-lg特大
                         queryUrl: "bas/purven/query", //查詢地址

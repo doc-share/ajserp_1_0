@@ -821,7 +821,7 @@ define(function () {
                     dialog.confirm('确定删除当前数据?').then(function () {
                         scope.promise = utils.ajax({
                             method: 'DELETE',
-                            url: "shp/shpbah/" + scope.model.uid,
+                            url: "ord/shpbah/" + scope.model.uid,
                             mockUrl: "plugins/data/map44.detail.json"
                         }).then(function (res) {
                             toastr.info("数据删除成功!!!");
@@ -845,7 +845,7 @@ define(function () {
                     if (scope.uid) {
                         scope.promise = utils.ajax({
                             method: 'GET',
-                            url: "shp/shpbah" + scope.uid,
+                            url: "ord/shpbah/" + scope.uid,
                             mockUrl: "plugins/data/map44.detail.json"
                         }).then(function (res) {
                             var data = res.data;
@@ -879,7 +879,7 @@ define(function () {
                     scope.model.formstatus = "read";
                     scope.promise = utils.ajax({
                         method: "POST",
-                        url: "shp/shpbah",
+                        url: "ord/shpbah",
                         mockUrl: "plugins/data/map44.detail.json",
                         data: scope.model
                     }).then(function (res) {

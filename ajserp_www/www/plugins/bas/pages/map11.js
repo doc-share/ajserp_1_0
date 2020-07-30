@@ -82,8 +82,8 @@ define(function() {
                 },
                 filterItems: {
                     cus_nbr: {
-                        type: "basDefault",
-                        lovtype: "",
+                        type: "basLov",
+                        lovtype: "get_cus",
                         name: "cus_nbr",
                         label: "客戶編號"
                     },

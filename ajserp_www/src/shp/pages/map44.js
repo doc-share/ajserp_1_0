@@ -128,7 +128,7 @@ define(function () {
                 load: function () {
                     scope.promise = utils.ajax({
                         method: 'POST',
-                        url: "shp/shpbah/query?page=" + scope.datapage.page + "&size=" + scope.datapage.size + "&sort=" + scope.datapage.sort,
+                        url: "ord/shpbah/query?page=" + scope.datapage.page + "&size=" + scope.datapage.size + "&sort=" + scope.datapage.sort,
                         mockUrl: "plugins/base/data/orderlines.json",
                         data: scope.filter
                     }).then(function (res) {

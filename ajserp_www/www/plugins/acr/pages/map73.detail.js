@@ -358,9 +358,8 @@ define(function () {
                                             }
                                         }
                                     }]
-                                }
+                                },
                                 //下面为页签B
-                                ,
                                 {
                                     title: "沖款",
                                     items: [{
@@ -548,7 +547,7 @@ define(function () {
                 }, this);
                 // scope.model.tot_amt = rec_amt;
                 scope.model.amt = tot_amt;
-            }
+            };
             scope.action.load();
         });
 
