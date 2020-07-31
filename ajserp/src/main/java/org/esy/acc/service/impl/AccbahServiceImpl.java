@@ -1,6 +1,8 @@
 package org.esy.acc.service.impl;
 
 import org.esy.acc.entity.Accbah;
+import org.esy.acc.entity.Accbat;
+import org.esy.acc.entity.view.Accbahv;
 import org.esy.acc.service.IAccbahService;
 import org.esy.base.common.BaseUtil;
 import org.esy.base.dao.YSDao;
@@ -27,10 +29,10 @@ public class AccbahServiceImpl implements IAccbahService {
 	 */
 	@Override
 	@Transactional
-	public Accbah save(Accbah o) throws YesException {
+	public Accbahv save(Accbahv o) throws YesException {
 	    if (BaseUtil.isNotEmpty(o.getUid())) {
 	    
-			Accbah old = dao.getByUid(Accbah.class,o.getUid());
+			Accbahv old = dao.getByUid(Accbahv.class,o.getUid());
 			if (BaseUtil.isEmpty(old)) {
 				throw new YesException(HttpStatus.NOT_FOUND, "记录不存在，不可更新!!!");
 			}
@@ -49,8 +51,10 @@ public class AccbahServiceImpl implements IAccbahService {
 	 * 
 	 */
 	@Override
-	public Accbah getByUid(String uid) {
-		return dao.getByUid(Accbah.class,uid);
+	public Accbahv getByUid(String uid) {
+		Accbahv o = dao.getByUid(Accbahv.class, uid);
+		o.setAccbats(dao.getlist(Accbat.class, new Accbat(o.getUid())));
+		return o;
 	}
 
 	/**
@@ -61,9 +65,9 @@ public class AccbahServiceImpl implements IAccbahService {
 	 */
 	@Override
 	@Transactional
-	public boolean delete(Accbah o) throws YesException{
+	public boolean delete(Accbahv o) throws YesException{
 	
-	    Accbah old = dao.getByUid(Accbah.class,o.getUid());
+	    Accbahv old = dao.getByUid(Accbahv.class,o.getUid());
 		if (BaseUtil.isNotEmpty(old)) {
 			throw new YesException(HttpStatus.INTERNAL_SERVER_ERROR, "记录不存，不可删除!!!");
 		}
@@ -82,8 +86,8 @@ public class AccbahServiceImpl implements IAccbahService {
 	 * @ version v2.0 
 	 */
 	@Override
-	public PageResult<Accbah > query(Accbah  accbah, Pageable pageable){
-		return (PageResult<Accbah>) dao.query(Accbah.class,accbah,pageable);
+	public PageResult<Accbahv> query(Accbahv  accbahv, Pageable pageable){
+		return (PageResult<Accbahv>) dao.query(Accbahv.class,accbahv,pageable);
 	}
 	
 	@Override

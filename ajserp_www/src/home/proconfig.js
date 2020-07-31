@@ -299,6 +299,17 @@ angular.module('app.core.proconfig', [])
                             nameField: "term_nbr",
                             smallField: "term_desc"
                         }
+                    },
+                    get_acc:{
+                        title: "會計類別",
+                        queryUrl: "acc/acccd/query", //查詢地址
+                        initLoad: false, //加載時是否初始化數據
+                        small: true, //速查是否顯示編號
+                        showField: { //速查基本欄位
+                            valueField: "cd_type",
+                            nameField: "cd_type",
+                            smallField: "cd_desc"
+                        }
                     }
                 },
                 dialog: {

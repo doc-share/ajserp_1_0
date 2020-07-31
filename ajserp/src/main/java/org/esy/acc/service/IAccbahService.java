@@ -1,6 +1,6 @@
 package org.esy.acc.service;
 
-import org.esy.acc.entity.Accbah;
+import org.esy.acc.entity.view.Accbahv;
 import org.esy.base.dao.core.PageResult;
 import org.springframework.data.domain.Pageable;
 
@@ -12,13 +12,13 @@ import org.springframework.data.domain.Pageable;
  */
 public interface IAccbahService  {
     
-    Accbah save(Accbah o);
+    Accbahv save(Accbahv o);
 
-	Accbah getByUid(String uid);
+	Accbahv getByUid(String uid);
 
-	boolean delete(Accbah o);
+	boolean delete(Accbahv o);
 
-	PageResult<Accbah> query(Accbah accbah, Pageable pageable);
+	PageResult<Accbahv> query(Accbahv accbahv, Pageable pageable);
      
      void deletes(String uids);
 }

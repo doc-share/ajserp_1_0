@@ -31,7 +31,7 @@ import org.esy.ord.entity.view.Ordbahv;
 public class OrdbahController {
 
     public static final String AUTHORITY = "ord_map31";
-
+    
 	@Autowired
 	private ILoginService loginService;
 

@@ -74,39 +74,34 @@ define(function () {
                     },
                     io_nbr: {
                         type: "basLov",
-                        lovtype: "getcus",
+                        lovtype: "get_cus",
                         name: "io_nbr",
                         label: "客戶代號F"
                     },
                     io_nbrb: {
                         type: "basLov",
-                        lovtype: "getcus",
+                        lovtype: "get_cus",
                         name: "io_nbrb",
                         label: "客戶代號T"
                     },
                     acc_id: {
                         type: "basLov",
-                        lovtype: "getsubject",
+                        lovtype: "get_sub",
                         name: "acc_id",
                         label: "會計科目F"
                     },
                     acc_idb: {
                         type: "basLov",
-                        lovtype: "getsubject",
+                        lovtype: "get_sub",
                         name: "acc_idb",
                         label: "會計科目T"
                     },
                     status: {
                         type: "basLov",
                         lovtype: "select",
-                        titleMap: [{
-                            value: "NA",
-                            name: "未過帳"
-                        },
-                        {
-                            value: "CL",
-                            name: "已過帳"
-                        },
+                        titleMap: [
+                        { value: "NA",name: "未過帳"},
+                        { value: "CL", name: "已過帳"},
                     ],
                         name: "status",
                         label: "傳票狀態"
@@ -124,7 +119,7 @@ define(function () {
 
                     scope.promise = utils.ajax({
                         method: 'POST',
-                        url: "acc/accbat/query?page=" + scope.datapage.page + "&size=" + scope.datapage.size + "&sort=" + scope.datapage.sort,
+                        url: "acc/accbah/query?page=" + scope.datapage.page + "&size=" + scope.datapage.size + "&sort=" + scope.datapage.sort,
                         mockUrl: "plugins/base/data/orderlines.json",
                         data: scope.filter
                     }).then(function (res) {

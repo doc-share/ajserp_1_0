@@ -336,7 +336,7 @@ define(function () {
                                         ]
                                     },
                                     type: 'basLov',
-                                    lovtype: ''
+                                    lovtype: 'get_acc'
                                 },
                                 {
                                     title: "開帳金額",

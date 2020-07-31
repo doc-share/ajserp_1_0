@@ -353,6 +353,11 @@ angular.module('app').controller('app.master',
             }).then(
                 function(res) {
 
+                    let resu = res.data.body;
+                    resu.forEach(item=>{
+                        console.log(item.name);
+                    })
+
                     var temp = [];
                     var items = res.data.body.docs || res.data.body.items || res.data.body;
                     items.forEach(function(item) {

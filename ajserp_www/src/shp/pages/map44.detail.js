@@ -560,7 +560,6 @@ define(function () {
                                                 width: 110
                                             }
                                         }
-            
                                         },
                                     ]
                                 },

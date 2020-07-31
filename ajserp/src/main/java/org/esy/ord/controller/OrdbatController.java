@@ -34,7 +34,7 @@ import org.esy.ord.entity.Ordbat;
 @RequestMapping("/api/ord/ordbat")
 public class OrdbatController {
 
-    public static final String AUTHORITY = "ord_ordbat";
+    public static final String AUTHORITY = "ord_map39";
 
 	@Autowired
 	private ILoginService loginService;

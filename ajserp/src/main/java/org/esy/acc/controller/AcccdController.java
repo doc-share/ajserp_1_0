@@ -34,7 +34,7 @@ import org.esy.acc.entity.Acccd;
 @RequestMapping("/api/acc/acccd")
 public class AcccdController {
 
-    public static final String AUTHORITY = "acc_acccd";
+    public static final String AUTHORITY = "acc_mapacc11";
 
 	@Autowired
 	private ILoginService loginService;

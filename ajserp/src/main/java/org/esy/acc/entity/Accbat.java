@@ -265,6 +265,10 @@ public class Accbat extends BaseProperties {
 				this.chk_nbr = chk_nbr;
 			}
 
+		public Accbat(String uid) {
+		// TODO Auto-generated constructor stub
+	}
+
 		/**
 	 * @return nbr
 	 *			傳票號碼

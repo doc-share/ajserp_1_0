@@ -179,6 +179,7 @@ define(function () {
                                     title: "單據號碼",
                                     key: 'nbr',
                                     readonly:true,
+                                    placeholder:"單據號碼自動產生",
                                     type: 'basDefault',
                                 },
                                 {

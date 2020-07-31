@@ -298,6 +298,15 @@ define(function () {
                                             } //表单为新增，修改状态
                                         ]
                                     },
+                                    relationfield: [{
+                                        findfield: "ven_name",
+                                        tofield: "ven_name"
+                                    }],
+                                    additionalField: {
+                                        key: "ven_name",
+                                        readonly: true,
+                                        type: "basString"
+                                    },
                                     type: 'basLov',
                                     lovtype: 'get_ven'
                                 },
@@ -312,11 +321,20 @@ define(function () {
                                             } //表单为新增，修改状态
                                         ]
                                     },
+                                    relationfield: [{
+                                        findfield: "ware_desc",
+                                        tofield: "ware_desc"
+                                    }],
+                                    additionalField: {
+                                        key: "ware_desc",
+                                        readonly: true,
+                                        type: "basString"
+                                    },
                                     type: 'basLov',
                                     lovtype: 'get_war'
                                 },
                                 {
-                                    title: "預定到廠日",
+                                    title: "預計完工日",
                                     key: 'plan_date',
                                     editstatus: {
                                         relation: "and",
@@ -326,6 +344,7 @@ define(function () {
                                             } //表单为新增，修改状态
                                         ]
                                     },
+                                    
                                     type: 'basEsydatetime',
                                     lovtype: ''
                                 },
@@ -340,6 +359,15 @@ define(function () {
                                             } //表单为新增，修改状态
                                         ]
                                     },
+                                    relationfield: [{
+                                        findfield: "ven_name",
+                                        tofield: "ven_name1"  //這裡用ven_name1避免與加工廠商衝突
+                                    }],
+                                    additionalField: {
+                                        key: "ven_name1",
+                                        readonly: true,
+                                        type: "basString"
+                                    },
                                     type: 'basLov',
                                     lovtype: 'get_ven'
                                 },
@@ -353,12 +381,20 @@ define(function () {
                                                 status: "add,edit"
                                             } //表单为新增，修改状态
                                         ]
+                                    },relationfield: [{
+                                        findfield: "ware_desc",
+                                        tofield: "ware_desc1"  //這裡用ware_desc1避免與委外倉庫衝突
+                                    }],
+                                    additionalField: {
+                                        key: "ware_desc1",
+                                        readonly: true,
+                                        type: "basString"
                                     },
                                     type: 'basLov',
                                     lovtype: 'get_war'
                                 },
                                 {
-                                    title: "承辦員代號",
+                                    title: "承辦人員",
                                     key: 'sale_nbr',
                                     editstatus: {
                                         relation: "and",
@@ -405,11 +441,15 @@ define(function () {
                                             } //表单为新增，修改状态
                                         ]
                                     },
-                                    type: 'basLov',
-                                    lovtype: ''
+                                    type: 'basStatus',
+                                    titleMap: [
+                                        {value: "1",name: "本單收料中"},
+                                        {value: "2",name: "本單已結案"}
+                                    ],
+                                    
                                 },
                                 {
-                                    title: "核准",
+                                    title: "核准狀態",
                                     key: 'sure',
                                     editstatus: {
                                         relation: "and",
@@ -419,8 +459,11 @@ define(function () {
                                             } //表单为新增，修改状态
                                         ]
                                     },
-                                    type: 'basLov',
-                                    lovtype: ''
+                                    type: 'basStatus',
+                                    titleMap: [
+                                        {value: "1",name: "未核准"},
+                                        {value: "2",name: "已核准"}
+                                    ],
                                 },
                                 {
                                     title: "備註",
@@ -446,260 +489,198 @@ define(function () {
                                 //下面为页签A
                                 {
                                     title: "委外加工",
-                                    items: [{
-                                            title: "生產工號",
-                                            key: 'pps_nbr',
-                                            editstatus: {
-                                                relation: "and",
-                                                filedlist: [{
-                                                        field: "formstatus",
-                                                        status: "add,edit"
-                                                    } //表单为新增，修改状态
-                                                ]
-                                            },
-                                            type: 'basDefault'
-                                        },
+                                    items: [
                                         {
-                                            title: "產品編號",
-                                            key: 'item_nbr',
-                                            editstatus: {
-                                                relation: "and",
-                                                filedlist: [{
-                                                        field: "formstatus",
-                                                        status: "add,edit"
-                                                    } //表单为新增，修改状态
-                                                ]
+                                            key: 'subbats',
+                                            type: "basEditgrid",
+                                            gridkey: "bas.map44.detail",
+                                            css: "cell100",
+                                            action: {
+                                                add: {
+                                                    editstatus: {
+                                                        relation: "or",
+                                                        editstatus: {
+                                                            relation: "and",
+                                                            filedlist: [
+                                                                {field: "formstatus", status: "add,edit"}, //表單為新增，修改狀態
+                                                            ]
+                                                        },
+                                                        filedlist: [
+                                                            {field: "formstatus", status: "add,edit"}, //表單新增狀態
+                                                        ]
+                                                    },
+                                                    click: function () {
+                                                        var item = {
+                                                            isdel: false
+                                                        }
+                                                        scope.model.subbats.push(item);
+                                                    }
+                                                },
+                                                del: {
+                                                    editstatus: {
+                                                        relation: "or",
+                                                        filedlist: [
+                                                            {field: "formstatus", status: "add,edit"}, //表單新增狀態
+                                                        ]
+                                                    },
+                                                    click: function (item) {
+                                                        item.isdel = true;
+                                                        scope.model.subbats.splice();
+                                                    }
+                                                }
                                             },
-                                            type: 'basDefault'
+                                            headers: {
+                                                "seq":{
+                                                    displayName: "序號",
+                                                    type: "basDefault",
+                                                    width: 110
+                                                },
+                                                "pps_nbr": {
+                                                    displayName: "生產批號",
+                                                    type: "basDefault",
+                                                    width: 110
+                                                },
+                                                "item_nbr": {
+                                                    displayName: "料品代號",
+                                                    type: 'basDefault',
+                                                    width: 110
+                                                },
+                                                "nbr": {
+                                                    displayName: "訂單單號",
+                                                    type: 'basDefault',
+                                                    width: 110,
+                                                },
+                                                "item_desc": {
+                                                    displayName: "規格說明",
+                                                    type: 'basDefault',
+                                                    width: 110
+                                                },
+                                                "ots_nbr": {   
+                                                    displayName: "委外單號",
+                                                    type: 'basDefault',
+                                                    width: 110,
+                                                   
+                                                },
+                                                "unit": {
+                                                    displayName: "單位",
+                                                    type: 'basDefault',
+                                                    width: 110
+                                                },
+                                                "qty": {
+                                                    displayName: "數量",
+                                                    type: 'basDefault',
+                                                    width: 110
+                                                },
+                                                "ots_ioseq": {
+                                                    displayName: "委外序號",
+                                                    type: 'basDefault',
+                                                    width: 110
+                                                },
+                                                "price": {
+                                                    displayName: "單價",
+                                                    type: 'basDefault',
+                                                    width: 110
+                                                },
+                                                "amt": {
+                                                    displayName: "金額",
+                                                    type: 'basNumber',
+                                                    width: 110
+                                                },
+                                                "plan_date": {
+                                                    displayName: "預計完工日",
+                                                    type: 'basEsydatetime',
+                                                    width: 110
+                                                },
+                                                "remark": {
+                                                    displayName: "備註",
+                                                    type: 'basDefault',
+                                                    width: 180
+                                                }
+                                            }
                                         },
-                                        {
-                                            title: "單據號碼",
-                                            key: 'nbr',
-                                            editstatus: {
-                                                relation: "and",
-                                                filedlist: [{
-                                                        field: "formstatus",
-                                                        status: "add,edit"
-                                                    } //表单为新增，修改状态
-                                                ]
-                                            },
-                                            type: 'basDefault'
-                                        },
-                                        {
-                                            title: "產品規格",
-                                            key: 'item_desc',
-                                            editstatus: {
-                                                relation: "and",
-                                                filedlist: [{
-                                                        field: "formstatus",
-                                                        status: "add,edit"
-                                                    } //表单为新增，修改状态
-                                                ]
-                                            },
-                                            type: 'basDefault'
-                                        },
-                                        {
-                                            title: "單據號碼",
-                                            key: 'ots_nbr',
-                                            editstatus: {
-                                                relation: "and",
-                                                filedlist: [{
-                                                        field: "formstatus",
-                                                        status: "add,edit"
-                                                    } //表单为新增，修改状态
-                                                ]
-                                            },
-                                            type: 'basDefault'
-                                        },
-                                        {
-                                            title: "單位",
-                                            key: 'unit',
-                                            editstatus: {
-                                                relation: "and",
-                                                filedlist: [{
-                                                        field: "formstatus",
-                                                        status: "add,edit"
-                                                    } //表单为新增，修改状态
-                                                ]
-                                            },
-                                            type: 'basDefault'
-                                        },
-                                        {
-                                            title: "數量",
-                                            key: 'qty',
-                                            editstatus: {
-                                                relation: "and",
-                                                filedlist: [{
-                                                        field: "formstatus",
-                                                        status: "add,edit"
-                                                    } //表单为新增，修改状态
-                                                ]
-                                            },
-                                            type: 'basDefault'
-                                        },
-                                        {
-                                            title: "加工單序號",
-                                            key: 'ots_ioseq',
-                                            editstatus: {
-                                                relation: "and",
-                                                filedlist: [{
-                                                        field: "formstatus",
-                                                        status: "add,edit"
-                                                    } //表单为新增，修改状态
-                                                ]
-                                            },
-                                            type: 'basDefault'
-                                        },
-                                        {
-                                            title: "單價",
-                                            key: 'price',
-                                            editstatus: {
-                                                relation: "and",
-                                                filedlist: [{
-                                                        field: "formstatus",
-                                                        status: "add,edit"
-                                                    } //表单为新增，修改状态
-                                                ]
-                                            },
-                                            type: 'basNumber'
-                                        },
-                                        {
-                                            title: "金額",
-                                            key: 'amt',
-                                            editstatus: {
-                                                relation: "and",
-                                                filedlist: [{
-                                                        field: "formstatus",
-                                                        status: "add,edit"
-                                                    } //表单为新增，修改状态
-                                                ]
-                                            },
-                                            type: 'basNumber'
-                                        },
-                                        {
-                                            title: "預定到廠日",
-                                            key: 'plan_date',
-                                            editstatus: {
-                                                relation: "and",
-                                                filedlist: [{
-                                                        field: "formstatus",
-                                                        status: "add,edit"
-                                                    } //表单为新增，修改状态
-                                                ]
-                                            },
-                                            type: 'basEsydatetime'
-                                        },
-                                        {
-                                            title: "備註",
-                                            key: 'remark',
-                                            editstatus: {
-                                                relation: "and",
-                                                filedlist: [{
-                                                        field: "formstatus",
-                                                        status: "add,edit"
-                                                    } //表单为新增，修改状态
-                                                ]
-                                            },
-                                            type: 'basDefault'
-                                        }
                                     ]
-                                }
+                                },
                                 //下面为页签B
-                                ,
                                 {
                                     title: "委外撥料",
-                                    items: [{
-                                            title: "產品編號",
-                                            key: 'item_nbr',
-                                            editstatus: {
-                                                relation: "and",
-                                                filedlist: [{
-                                                        field: "formstatus",
-                                                        status: "add,edit"
-                                                    } //表单为新增，修改状态
-                                                ]
-                                            },
-                                            type: 'basDefault'
-                                        },
+                                    items: [
                                         {
-                                            title: "產品規格",
-                                            key: 'item_desc',
-                                            editstatus: {
-                                                relation: "and",
-                                                filedlist: [{
-                                                        field: "formstatus",
-                                                        status: "add,edit"
-                                                    } //表单为新增，修改状态
-                                                ]
+                                            key: 'subuseos',
+                                            type: "basEditgrid",
+                                            gridkey: "bas.map44.detail",
+                                            css: "cell100",
+                                            action: {
+                                                add: {
+                                                    editstatus: {
+                                                        relation: "or",
+                                                        editstatus: {
+                                                            relation: "and",
+                                                            filedlist: [
+                                                                {field: "formstatus", status: "add,edit"}, //表單為新增，修改狀態
+                                                            ]
+                                                        },
+                                                        filedlist: [
+                                                            {field: "formstatus", status: "add,edit"}, //表單新增狀態
+                                                        ]
+                                                    },
+                                                    click: function () {
+                                                        var item = {
+                                                            isdel: false
+                                                        }
+                                                        scope.model.subuseos.push(item);
+                                                    }
+                                                },
+                                                del: {
+                                                    editstatus: {
+                                                        relation: "or",
+                                                        filedlist: [
+                                                            {field: "formstatus", status: "add,edit"}, //表單新增狀態
+                                                        ]
+                                                    },
+                                                    click: function (item) {
+                                                        item.isdel = true;
+                                                        scope.model.subuseos.splice();
+                                                    }
+                                                }
                                             },
-                                            type: 'basDefault'
-                                        },
-                                        {
-                                            title: "製程代號",
-                                            key: 'pro_nbr',
-                                            editstatus: {
-                                                relation: "and",
-                                                filedlist: [{
-                                                        field: "formstatus",
-                                                        status: "add,edit"
-                                                    } //表单为新增，修改状态
-                                                ]
-                                            },
-                                            type: 'basLov',
-                                            lovtype: 'get_pro'
-                                        },
-                                        {
-                                            title: "單位",
-                                            key: 'unit',
-                                            editstatus: {
-                                                relation: "and",
-                                                filedlist: [{
-                                                        field: "formstatus",
-                                                        status: "add,edit"
-                                                    } //表单为新增，修改状态
-                                                ]
-                                            },
-                                            type: 'basDefault'
-                                        },
-                                        {
-                                            title: "倉庫代號",
-                                            key: 'ware_nbr',
-                                            editstatus: {
-                                                relation: "and",
-                                                filedlist: [{
-                                                        field: "formstatus",
-                                                        status: "add,edit"
-                                                    } //表单为新增，修改状态
-                                                ]
-                                            },
-                                            type: 'basLov',
-                                            lovtype: 'get_war'
-                                        },
-                                        {
-                                            title: "數量",
-                                            key: 'qty',
-                                            editstatus: {
-                                                relation: "and",
-                                                filedlist: [{
-                                                        field: "formstatus",
-                                                        status: "add,edit"
-                                                    } //表单为新增，修改状态
-                                                ]
-                                            },
-                                            type: 'basDefault'
-                                        },
-                                        {
-                                            title: "備註",
-                                            key: 'remark',
-                                            editstatus: {
-                                                relation: "and",
-                                                filedlist: [{
-                                                        field: "formstatus",
-                                                        status: "add,edit"
-                                                    } //表单为新增，修改状态
-                                                ]
-                                            },
-                                            type: 'basDefault'
+                                            headers: {
+                                                "item_nbr": {
+                                                    displayName: "料品代號",
+                                                    type: 'basDefault',
+                                                    width: 110
+                                                },
+                                                "item_desc": {
+                                                    displayName: "規格說明",
+                                                    type: 'basDefault',
+                                                    width: 110
+                                                },
+                                                "pro_nbr": {   
+                                                    displayName: "製程",
+                                                    type: 'basDefault',
+                                                    width: 110,
+                                                   
+                                                },
+                                                "unit": {
+                                                    displayName: "單位",
+                                                    type: 'basDefault',
+                                                    width: 110
+                                                },
+                                                "ware_nbr": {
+                                                    displayName: "倉庫",
+                                                    type: 'basDefault',
+                                                    width: 110
+                                                },
+                                                "qty": {
+                                                    displayName: "數量",
+                                                    type: 'basDefault',
+                                                    width: 110
+                                                },
+                                                "remark": {
+                                                    displayName: "備註",
+                                                    type: 'basDefault',
+                                                    width: 180
+                                                }
+                                            }
                                         }
                                     ]
                                 }

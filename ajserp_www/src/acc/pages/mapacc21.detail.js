@@ -280,7 +280,7 @@ define(function () {
                         },
                         {
                             title: "",
-                            key: 'mapacc21',
+                            key: 'accbats',
                             type: "basEditgrid",
                             gridkey: "acc.mapacc21.detail",
                             css: "cell100",
@@ -301,7 +301,7 @@ define(function () {
                                         var item = {
                                             isdel: false
                                         }
-                                        scope.model.mapacc21.push(item);
+                                        scope.model.accbats.push(item);
                                     }
                                 },
                                 del: {
@@ -370,14 +370,9 @@ define(function () {
                                     },
                                     type: 'basLov',
                                     lovtype: 'select',
-                                    titleMap: [{
-                                        value: "D",
-                                        name: "借方"
-                                    },
-                                    {
-                                        value: "C",
-                                        name: "貸方"
-                                    },
+                                    titleMap: [
+                                    {value: "D",name: "借方"},
+                                    {value: "C",name: "貸方"},
                                 ],
                                     width: 110
                                 },
