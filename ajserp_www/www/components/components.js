@@ -85,660 +85,6 @@ angular.module('app').directive('jqMarquee', ['$timeout', function ($timeout) {
         }
     };
 }]);
-"use strict";
-angular.module('app')
-    .directive('departmentTree', function ($compile, $templateCache, $http) {
-        return {
-            restrict: 'A',
-            replace: true,
-            scope: {
-                items: '=',
-                isChild: '=',
-                openLevel: '=',
-                hide: '=',
-                onSelect: '=',
-                onOperate: '=',
-                onFooterbuttonclick:'='
-            },
-            link: function (scope, element, attr) {
-                $http.get("plugins/base/directives/department.tree.html", { cache: $templateCache })
-                    .success(function (html) {
-                        element.html('').append($compile(html)(scope));
-                    });
-            },
-            controller: ["$scope", 'utils', function ($scope, utils) {
-                $scope.treeSelect = function (item, $event) {
-                    $scope.onSelect(item);
-                    $event.stopPropagation();
-                    $scope.onFooterbuttonclick('selector_col_1','buttonSection');
-                };
-                if ($scope.openLevel) {
-                    $scope.$watch("items", function () {
-                        if ($scope.items) {
-                            autoOpen(1, $scope.openLevel, $scope.items);
-                        }
-                    });
-                }
-                function autoOpen(nowLevel, openLevel, items) {
-                    if (nowLevel <= openLevel) {
-                        items.forEach(function (it) {
-                            if (it.children) {
-                                it.opened = true;
-                                autoOpen(nowLevel + 1, openLevel, it.children);
-                            }
-                        });
-                    }
-                }
-
-                $scope.open = function (item) {
-                    item.opened = !item.opened;
-                };
-            }]
-        }
-    });
-(function () {
-    'use strict';
-    angular.module('app')
-        .directive('yesGallery', ['$location', 'utils', '$log', 'FileUploader', 'settings',
-            function ($location, utils, $log, FileUploader, settings) {
-
-                return {
-                    restrict: 'EA',
-                    templateUrl: 'plugins/base/directives/gallery.html',
-                    replace: true,
-                    scope: {
-                        options: "=",
-                        readonly: "="
-                    },
-                    require: 'ngModel',
-                    link: function link(scope, element, attrs, ngModelController) {
-                        setTimeout(function () {
-                            scope.attachmentId = ngModelController.$viewValue;
-                            scope.options = angular.extend({
-                                maxMB: 100,
-                                multiple: 10
-                            }, scope.options);
-                            if (scope.options.multiple == false) {
-                                scope.options.multiple = 1;
-                            }
-                            scope.init();
-                            scope.$watch("attachmentId", function () {
-                                if (scope.attachmentId && !ngModelController.$viewValue) {
-                                    ngModelController.$setViewValue(scope.attachmentId);
-                                }
-                            });
-                        }, 200);
-
-                    },
-                    controller: ['$scope', '$attrs', '$element',
-                        function ($scope, $attrs, $element) {
-                            var url = (settings.host == "self" ? "" : settings.host) + "/" + settings.apiPrefix + settings.uploadUrl;
-                            $scope.downUrl = settings.host + "/" + settings.apiPrefix + settings.downloadUrl;
-                            var uploader = $scope.uploader = new FileUploader({
-                                url: url,
-                                autoUpload: true
-                            });
-                            $scope.sumSize = 0;
-                            $scope.init = function () {
-                                $scope.apiPrefix = settings.apiPrefix;
-                                if (!$scope.attachmentId) {
-                                    utils.async("GET", settings.getUuid).then(function (attId) {
-                                        $scope.attachmentId = attId.data;
-                                        uploader.formData = [{'attachmentId': $scope.attachmentId}, {'isImage': true}];
-                                    });
-                                } else {
-                                	uploader.formData = [{'attachmentId': $scope.attachmentId}, {'isImage': true}];
-                                    utils.async("GET", settings.getByAttIdUrl, {"attId": $scope.attachmentId}).then(function (res) {
-                                        $scope.items = res.data.body;
-                                        if($scope.items){
-                                            $scope.items.forEach(function(item){
-                                                item.thumbUrl = "/"+$scope.apiPrefix+"/base/attachment/showthumb?uid="+item.uid;
-                                            });
-                                        }
-                                    });
-                                }
-                                uploader.onSuccessItem = function (item, res, status, headers) {
-                                    item.uid = res.body.data[0].uid;
-                                    item.thumbUrl = "/"+$scope.apiPrefix+"/base/attachment/showthumb?uid="+item.uid;
-                                    $scope.message = res.message;
-                                };
-                            };
-
-                            $scope.remove = function (item) {
-                                utils.async("DELETE", settings.delByUid + "/" + item.uid).then(function (res) {
-                                    if (res.data.body) {
-                                        if ($scope.items) {
-                                            for (var i = 0, size = $scope.items.length; i < size; i++) {
-                                                if ($scope.items[i] == item) {
-                                                    $scope.items.splice(i, 1);
-                                                }
-                                            }
-                                        }
-                                    } else {
-                                        console.log("后台删除出错!");
-                                    }
-                                });
-                            };
-
-                            uploader.filters.push({
-                                name: 'sizeFilter',
-                                fn: function (item /*{File|FileLikeObject}*/, options) {
-                                    var tsum = 0;
-                                    if ($scope.items) {
-                                        $scope.items.forEach(function (item) {
-                                            tsum += item.fileSize ? item.fileSize : 0;
-                                        });
-                                    }
-                                    uploader.queue.forEach(function (item) {
-                                        tsum += item.size;
-                                    });
-                                    tsum += item.size;
-                                    if (tsum > $scope.options.maxMB * 1048576) {
-                                        alert("大小不能超过" + $scope.options.maxMB + "M!");
-                                        return false;
-                                    } else if (((uploader.queue ? uploader.queue.length : 0) + ($scope.items ? $scope.items.length : 0)) >= $scope.options.multiple) {
-                                        alert("最多只能上传" + $scope.options.multiple + "个文件!");
-                                        return false;
-                                    } else {
-                                        return true;
-                                    }
-                                }
-                            });
-
-                            //if (angular.isFunction(options.resolve)) {
-                            //    options.resolve.apply(uploader);
-                            //}
-                        }]
-                };
-            }]);
-})();
-angular.module('app')
-    .directive('getPerson', function ($compile, $templateCache, $http) {
-    return {
-        restrict: 'E',
-        replace: true,
-        scope: {
-            ngModel: "=",
-            form: "="
-        },
-        require: '^ngModel',
-        templateUrl: 'plugins/base/components/getperson.html',
-        controller: ['$rootScope', '$scope', '$location', '$templateCache', '$interpolate', '$translate', 'utils', 'ngDialog', '$filter',
-            function ($rootScope, $scope, $location, $templateCache, $interpolate, $translate, utils, ngDialog, $filter) {
-                var scope = $scope;
-                if (!scope.form.ngModelOptions) {
-                    scope.form.ngModelOptions = {};
-                }
-                scope.model = {
-                    field: scope.ngModel
-                };
-                scope.$watch('model.field', function (newValue, oldValue) {
-                    scope.ngModel = newValue;
-                }, true); ///
-                scope.$watch('ngModel', function (newValue, oldValue) {
-                    scope.model.field = newValue;
-                }, true); ///
-                scope.$watch('$parent.model.formstatus', function (newValue, oldValue) {
-                    var formstatus = "00"; //初始状态
-                    if (newValue) {
-                        formstatus = newValue;
-                    }
-                    if (formstatus == "99") {
-                        scope.form.readonly = true;
-                    }
-                    else {
-                        if (scope.form.readonlystatus) {
-                            var readonlystatus = scope.form.readonlystatus.split(",");
-                            var readonly = false;
-                            readonlystatus.forEach(function (element) {
-                                if (element == formstatus) {
-                                    readonly = true;
-                                }
-                            });
-                            scope.form.readonly = readonly;
-                        }
-                    }
-                }, true); ///
-                scope.form.titleMap = [];
-                scope.form.small = false;
-                scope.form.fieldAddonRight = 'fa-search-minus';
-                scope.form.refresh = function (options, search) {
-                    if (!search) {
-                        return;
-                    }
-                    var params = {
-                        count: 10,
-                        oid$eq: "203500010799",
-                        cname$match: search
-                    };
-                    utils.ajax({
-                        method: 'GET',
-                        url: 'base/person',
-                        mockUrl: "plugins/vehicle/data/vehicleInfo.json",
-                        params: params
-                    }).then(function (res) {
-                        scope.form.titleMap = [];
-                        res.data.body.items.forEach(function (e) {
-                            var item = {
-                                value: e.pid,
-                                name: e.cname
-                            };
-                            if (scope.form.relationfield) {
-                                scope.form.relationfield.forEach(function (element) {
-                                    item[element.findfield] = e[element.findfield];
-                                });
-                            }
-                            scope.form.titleMap.push(item);
-                        });
-                    });
-                };
-                scope.onChange = function (selected) {
-                    if (scope.form.relationfield) {
-                        scope.form.relationfield.forEach(function (element) {
-                            if (scope.$parent.model) {
-                                scope.$parent.model[element.tofield] = selected[element.findfield];
-                            }
-                            else {
-                                scope.$parent.row.entity[element.tofield] = selected[element.findfield];
-                            }
-                        });
-                    }
-                };
-                var init = function () {
-                    if (scope.ngModel) {
-                        var params = {
-                            count: 10,
-                            oid$eq: "203500010799",
-                            pid$eq: scope.ngModel
-                        };
-                        utils.ajax({
-                            method: 'GET',
-                            url: 'base/person',
-                            mockUrl: "plugins/vehicle/data/vehicleInfo.json",
-                            params: params
-                        }).then(function (res) {
-                            scope.form.titleMap = [];
-                            res.data.body.items.forEach(function (e) {
-                                var item = {
-                                    value: e.pid,
-                                    name: e.cname
-                                };
-                                if (scope.form.relationfield) {
-                                    scope.form.relationfield.forEach(function (element) {
-                                        item[element.findfield] = e[element.findfield];
-                                    });
-                                }
-                                scope.form.titleMap.push(item);
-                            });
-                        });
-                    }
-                };
-                init();
-                $scope.form.dialog = function () {
-                    ngDialog.open({
-                        className: 'ngdialog-theme-default dialog-people-selector',
-                        template: 'plugins/base/pages/people.selector.html',
-                        controller: function ($scope) {
-                            $scope.callback = function (justPersons, selects) {
-                                if (justPersons.length > 0) {
-                                    justPersons.forEach(function (person) {
-                                        if (person.pid && person.cname) {
-                                            scope.ngModel = person.pid;
-                                            var item = {
-                                                value: person.pid,
-                                                name: person.cname
-                                            };
-                                            if (scope.form.relationfield) {
-                                                scope.form.relationfield.forEach(function (element) {
-                                                    if (scope.$parent.model) {
-                                                        scope.$parent.model[element.tofield] = person[element.findfield];
-                                                    }
-                                                    else {
-                                                        scope.$parent.row.entity[element.tofield] = person[element.findfield];
-                                                    }
-                                                });
-                                            }
-                                            scope.form.titleMap.push(item);
-                                            scope.ngModel = person.pid;
-                                        }
-                                    });
-                                    ngDialog.closeAll();
-                                }
-                                else {
-                                    ngDialog.closeAll();
-                                }
-                            };
-                        }
-                    });
-                };
-            }]
-    };
-});
-
-//# sourceMappingURL=getperson.js.map
-
-angular.module('app')
-    .directive('importUploader', ['$location', 'utils', '$log', 'FileUploader',
-        function ($location, utils, $log, FileUploader) {
-            return {
-                restrict: 'EA',
-                templateUrl: 'base/directives/import.html',
-                replace: true,
-                scope: {
-                    options: "="
-                },
-                controller: ['$scope', '$attrs', '$element',
-                    function ($scope, $attrs, $element) {
-                        var options = $scope.options || {};
-
-                        $scope.title = options.title;
-
-                        var url = options.url || "/upload";
-
-                        var uploader = $scope.uploader = new FileUploader({
-                            url: url
-                        });
-
-                        uploader.filters.push({
-                            name: 'customFilter',
-                            fn: function (item, options) {
-                                return this.queue.length < 10;
-                            }
-                        });
-
-                        uploader.onSuccessItem = function (item, res, status, headers) {
-                            $scope.message = res.message;
-                            if (angular.isFunction(options.resolve)) {
-                                options.resolve.apply();
-                            }
-                        };
-                    }]
-            };
-        }]);
-'use strict';
-(function () {
-    angular.module('app')
-        .run(function ($templateCache) {
-
-        }).directive('yesApplicationTree', function ($compile, $templateCache, $http) {
-
-            var walkChildren = function (tree, state) {
-                angular.forEach(tree, function (node) {
-                    node.selected = state;
-                    if (node.children) {
-                        walkChildren(node.children, state);
-                    }
-                });
-            };
-            
-            return {
-                restrict: 'EA',
-                scope: {
-                    nodes: "=",
-                    root: "=",
-                    hide: "=",
-                    initial: "=",
-                    onSelect: "="
-                },
-                //templateUrl: 'plugins/base/templates/role-tree.html',
-                //replace: true,
-                link: function (scope, element, attrs) {
-                    $http.get("plugins/base/directives/tree.application.html", {cache: $templateCache})
-                        .success(function (html) {
-                            scope.selectChanged = function (node, pd) {
-                            		if(pd || !node.children || !node.children.length){
-	                            		walkChildren(scope.initial,false);
-	                        			node.selected = true;
-	                        			scope.onSelect(node);
-                            		}
-                                };
-                            element.html('').append($compile(html)(scope));
-                        });
-                }
-            };
-        })
-})();
-'use strict';
-(function () {
-    angular.module('app')
-        .run(function ($templateCache) {
-
-        }).directive('yesOrganizationTree', function ($compile, $templateCache, $http) {
-
-            var walkChildren = function (tree, state) {
-                angular.forEach(tree, function (node) {
-                    node.selected = state;
-                    if (node.children) {
-                        walkChildren(node.children, state);
-                    }
-                });
-            };
-            
-            return {
-                restrict: 'EA',
-                scope: {
-                    nodes: "=",
-                    root: "=",
-                    hide: "=",
-                    initial: "=",
-                    onSelect: "=",
-                    multiple: "=",
-                    sortable: "=",
-                    sortOption: "="
-                },
-                //templateUrl: 'plugins/base/templates/role-tree.html',
-                //replace: true,
-                link: function (scope, element, attrs) {
-                	var template = "tree.organization.html";
-                	if(scope.sortable){
-                		template = "tree.organization.sortable.html";
-                	}
-                    $http.get("plugins/base/directives/"+template, {cache: $templateCache})
-                        .success(function (html) {
-                            scope.selectChanged = function (node, pd) {
-                            		if(pd || !node.children || !node.children.length){
-                            			if(scope.multiple){
-                            				node.selected = !node.selected;
-                            			}else{
-		                            		walkChildren(scope.initial,false);
-		                        			node.selected = true;
-                            			}
-	                        			scope.onSelect(node);
-                            		}
-                                };
-                            element.html('').append($compile(html)(scope));
-                            scope.showMoveIco = function(brothers){
-                            	brothers.forEach(function(item){
-                            		item.showMove = true;
-                            	});
-                            };
-                            scope.hideMoveIco = function(brothers){
-                            	brothers.forEach(function(item){
-                            		item.showMove = false;
-                            	});
-                            };
-                        });
-                }
-            };
-        })
-})();
-'use strict';
-(function () {
-    angular.module('app')
-        .run(function ($templateCache) {
-
-        }).directive('yesRoleTree', function ($compile, $templateCache, $http) {
-
-            var walkChildren = function (tree, state) {
-                angular.forEach(tree, function (node) {
-                    node.selected = state;
-                    if (node.children) {
-                        walkChildren(node.children, state);
-                    }
-                });
-            };
-
-            var walkParent = function (node, state) {
-                if (node && node.parentNode && state) {
-                    node.parentNode.selected = state;
-                    walkParent(node.parentNode, state);
-                }
-            };
-
-            return {
-                restrict: 'EA',
-                scope: {
-                    nodes: "=",
-                    root: "=",
-                    hide: "=",
-                    cantSelected: "="
-                },
-                //templateUrl: 'plugins/base/templates/role-tree.html',
-                //replace: true,
-                link: function (scope, element, attrs) {
-                    $http.get("plugins/base/directives/tree.roles.html", {cache: $templateCache})
-                        .success(function (html) {
-                            scope.selectChanged = scope.selectChanged || function (node) {
-                            		if(scope.cantSelected){
-	                                    node.selected = !node.selected; 
-                            		}else{
-                            			walkChildren(node.children, node.selected);
-	                                    walkParent(node, node.selected);
-                            		}
-                                };
-                            element.html('').append($compile(html)(scope));
-                        });
-                }
-            };
-        })
-})();
-(function () {
-    'use strict';
-    angular.module('app')
-        .directive('yesUploader', ['$location', 'utils', '$log', 'FileUploader',
-            function ($location, utils, $log, FileUploader) {
-
-                return {
-                    restrict: 'EA',
-                    templateUrl: 'plugins/base/directives/uploader.html',
-                    replace: true,
-                    scope: {
-                        options: "=",
-                        readonly: "="
-                    },
-                    require: 'ngModel',
-                    link: function link(scope, element, attrs, ngModelController) {
-                        setTimeout(function () {
-                            scope.attachmentId = ngModelController.$viewValue;
-                            scope.options = angular.extend({
-                                maxMB: 10,
-                                multiple: 10
-                            }, scope.options);
-                            if (scope.options.multiple == false) {
-                                scope.options.multiple = 1;
-                            }
-                            scope.init();
-                            scope.$watch("attachmentId", function () {
-                                if (scope.attachmentId && !ngModelController.$viewValue) {
-                                    ngModelController.$setViewValue(scope.attachmentId);
-                                }
-                            });
-                        }, 200);
-
-                    },
-                    controller: ['$scope', '$attrs', '$element', 'utils', 'settings',
-                        function ($scope, $attrs, $element, utils, settings) {
-                            var host = settings.host == "self" ? "" : settings.host;
-                            var rootUrl = [host, settings.apiPrefix].join('/');
-                            function getApiUrl(relativeUrl) {
-                                if (relativeUrl && relativeUrl.indexOf('http') === 0)
-                                    return relativeUrl;
-                                return [rootUrl, relativeUrl].join('/');
-                            }
-
-
-                            var url = getApiUrl( settings.uploadUrl);
-                            $scope.downUrl = getApiUrl( settings.downloadUrl);
-                            var uploader = $scope.uploader = new FileUploader({
-                                url: url,
-                                autoUpload: true
-                            });
-                            $scope.sumSize = 0;
-                            $scope.init = function () {
-                                $scope.apiPath = settings.apiPath;
-                                if (!$scope.attachmentId) {
-                                    utils.async("GET", settings.getUuid).then(function (attId) {
-                                        $scope.attachmentId = attId.data;
-                                        uploader.formData = [{'attachmentId': $scope.attachmentId}];
-                                    });
-                                } else {
-                                	uploader.formData = [{'attachmentId': $scope.attachmentId}];
-                                    utils.async("GET", settings.getByAttIdUrl, {"attId": $scope.attachmentId}).then(function (res) {
-                                        $scope.items = res.data.body;
-                                    });
-                                }
-                                uploader.onSuccessItem = function (item, res, status, headers) {
-                                    item.uid = res.body.data[0].uid;
-                                    $scope.message = res.message;
-                                };
-                            };
-
-                            $scope.remove = function (item) {
-                                utils.async("DELETE", settings.delByUid + "/" + item.uid).then(function (res) {
-                                    if (res.data.body) {
-                                        if ($scope.items) {
-                                            for (var i = 0, size = $scope.items.length; i < size; i++) {
-                                                if ($scope.items[i] == item) {
-                                                    $scope.items.splice(i, 1);
-                                                }
-                                            }
-                                        }
-                                    } else {
-                                        console.log("后台删除出错!");
-                                    }
-                                });
-                            };
-
-                            uploader.filters.push({
-                                name: 'sizeFilter',
-                                fn: function (item /*{File|FileLikeObject}*/, options) {
-                                    var tsum = 0;
-                                    if ($scope.items) {
-                                        $scope.items.forEach(function (item) {
-                                            tsum += item.fileSize ? item.fileSize : 0;
-                                        });
-                                    }
-                                    uploader.queue.forEach(function (item) {
-                                        tsum += item.size;
-                                    });
-                                    tsum += item.size;
-                                    if (tsum > $scope.options.maxMB * 1048576) {
-                                        alert("大小不能超过" + $scope.options.maxMB + "M!");
-                                        return false;
-                                    } else if (((uploader.queue ? uploader.queue.length : 0) + ($scope.items ? $scope.items.length : 0)) >= $scope.options.multiple) {
-                                        alert("最多只能上传" + $scope.options.multiple + "个文件!");
-                                        return false;
-                                    } else {
-                                        return true;
-                                    }
-                                }
-                            });
-
-                            //
-                            //uploader.filters.push({
-                            //    name: 'customFilter',
-                            //    fn: function (item /*{File|FileLikeObject}*/, options) {
-                            //        return this.queue.length < 10;
-                            //    }
-                            //});
-                            //
-                            //if (angular.isFunction(options.resolve)) {
-                            //    options.resolve.apply(uploader);
-                            //}
-                        }]
-                };
-            }]);
-})();
 var yes;
 (function (yes) {
     (function () {
@@ -5553,6 +4899,660 @@ angular.module('app')
 
 //# sourceMappingURL=viewsinglegrid.js.map
 
+"use strict";
+angular.module('app')
+    .directive('departmentTree', function ($compile, $templateCache, $http) {
+        return {
+            restrict: 'A',
+            replace: true,
+            scope: {
+                items: '=',
+                isChild: '=',
+                openLevel: '=',
+                hide: '=',
+                onSelect: '=',
+                onOperate: '=',
+                onFooterbuttonclick:'='
+            },
+            link: function (scope, element, attr) {
+                $http.get("plugins/base/directives/department.tree.html", { cache: $templateCache })
+                    .success(function (html) {
+                        element.html('').append($compile(html)(scope));
+                    });
+            },
+            controller: ["$scope", 'utils', function ($scope, utils) {
+                $scope.treeSelect = function (item, $event) {
+                    $scope.onSelect(item);
+                    $event.stopPropagation();
+                    $scope.onFooterbuttonclick('selector_col_1','buttonSection');
+                };
+                if ($scope.openLevel) {
+                    $scope.$watch("items", function () {
+                        if ($scope.items) {
+                            autoOpen(1, $scope.openLevel, $scope.items);
+                        }
+                    });
+                }
+                function autoOpen(nowLevel, openLevel, items) {
+                    if (nowLevel <= openLevel) {
+                        items.forEach(function (it) {
+                            if (it.children) {
+                                it.opened = true;
+                                autoOpen(nowLevel + 1, openLevel, it.children);
+                            }
+                        });
+                    }
+                }
+
+                $scope.open = function (item) {
+                    item.opened = !item.opened;
+                };
+            }]
+        }
+    });
+(function () {
+    'use strict';
+    angular.module('app')
+        .directive('yesGallery', ['$location', 'utils', '$log', 'FileUploader', 'settings',
+            function ($location, utils, $log, FileUploader, settings) {
+
+                return {
+                    restrict: 'EA',
+                    templateUrl: 'plugins/base/directives/gallery.html',
+                    replace: true,
+                    scope: {
+                        options: "=",
+                        readonly: "="
+                    },
+                    require: 'ngModel',
+                    link: function link(scope, element, attrs, ngModelController) {
+                        setTimeout(function () {
+                            scope.attachmentId = ngModelController.$viewValue;
+                            scope.options = angular.extend({
+                                maxMB: 100,
+                                multiple: 10
+                            }, scope.options);
+                            if (scope.options.multiple == false) {
+                                scope.options.multiple = 1;
+                            }
+                            scope.init();
+                            scope.$watch("attachmentId", function () {
+                                if (scope.attachmentId && !ngModelController.$viewValue) {
+                                    ngModelController.$setViewValue(scope.attachmentId);
+                                }
+                            });
+                        }, 200);
+
+                    },
+                    controller: ['$scope', '$attrs', '$element',
+                        function ($scope, $attrs, $element) {
+                            var url = (settings.host == "self" ? "" : settings.host) + "/" + settings.apiPrefix + settings.uploadUrl;
+                            $scope.downUrl = settings.host + "/" + settings.apiPrefix + settings.downloadUrl;
+                            var uploader = $scope.uploader = new FileUploader({
+                                url: url,
+                                autoUpload: true
+                            });
+                            $scope.sumSize = 0;
+                            $scope.init = function () {
+                                $scope.apiPrefix = settings.apiPrefix;
+                                if (!$scope.attachmentId) {
+                                    utils.async("GET", settings.getUuid).then(function (attId) {
+                                        $scope.attachmentId = attId.data;
+                                        uploader.formData = [{'attachmentId': $scope.attachmentId}, {'isImage': true}];
+                                    });
+                                } else {
+                                	uploader.formData = [{'attachmentId': $scope.attachmentId}, {'isImage': true}];
+                                    utils.async("GET", settings.getByAttIdUrl, {"attId": $scope.attachmentId}).then(function (res) {
+                                        $scope.items = res.data.body;
+                                        if($scope.items){
+                                            $scope.items.forEach(function(item){
+                                                item.thumbUrl = "/"+$scope.apiPrefix+"/base/attachment/showthumb?uid="+item.uid;
+                                            });
+                                        }
+                                    });
+                                }
+                                uploader.onSuccessItem = function (item, res, status, headers) {
+                                    item.uid = res.body.data[0].uid;
+                                    item.thumbUrl = "/"+$scope.apiPrefix+"/base/attachment/showthumb?uid="+item.uid;
+                                    $scope.message = res.message;
+                                };
+                            };
+
+                            $scope.remove = function (item) {
+                                utils.async("DELETE", settings.delByUid + "/" + item.uid).then(function (res) {
+                                    if (res.data.body) {
+                                        if ($scope.items) {
+                                            for (var i = 0, size = $scope.items.length; i < size; i++) {
+                                                if ($scope.items[i] == item) {
+                                                    $scope.items.splice(i, 1);
+                                                }
+                                            }
+                                        }
+                                    } else {
+                                        console.log("后台删除出错!");
+                                    }
+                                });
+                            };
+
+                            uploader.filters.push({
+                                name: 'sizeFilter',
+                                fn: function (item /*{File|FileLikeObject}*/, options) {
+                                    var tsum = 0;
+                                    if ($scope.items) {
+                                        $scope.items.forEach(function (item) {
+                                            tsum += item.fileSize ? item.fileSize : 0;
+                                        });
+                                    }
+                                    uploader.queue.forEach(function (item) {
+                                        tsum += item.size;
+                                    });
+                                    tsum += item.size;
+                                    if (tsum > $scope.options.maxMB * 1048576) {
+                                        alert("大小不能超过" + $scope.options.maxMB + "M!");
+                                        return false;
+                                    } else if (((uploader.queue ? uploader.queue.length : 0) + ($scope.items ? $scope.items.length : 0)) >= $scope.options.multiple) {
+                                        alert("最多只能上传" + $scope.options.multiple + "个文件!");
+                                        return false;
+                                    } else {
+                                        return true;
+                                    }
+                                }
+                            });
+
+                            //if (angular.isFunction(options.resolve)) {
+                            //    options.resolve.apply(uploader);
+                            //}
+                        }]
+                };
+            }]);
+})();
+angular.module('app')
+    .directive('getPerson', function ($compile, $templateCache, $http) {
+    return {
+        restrict: 'E',
+        replace: true,
+        scope: {
+            ngModel: "=",
+            form: "="
+        },
+        require: '^ngModel',
+        templateUrl: 'plugins/base/components/getperson.html',
+        controller: ['$rootScope', '$scope', '$location', '$templateCache', '$interpolate', '$translate', 'utils', 'ngDialog', '$filter',
+            function ($rootScope, $scope, $location, $templateCache, $interpolate, $translate, utils, ngDialog, $filter) {
+                var scope = $scope;
+                if (!scope.form.ngModelOptions) {
+                    scope.form.ngModelOptions = {};
+                }
+                scope.model = {
+                    field: scope.ngModel
+                };
+                scope.$watch('model.field', function (newValue, oldValue) {
+                    scope.ngModel = newValue;
+                }, true); ///
+                scope.$watch('ngModel', function (newValue, oldValue) {
+                    scope.model.field = newValue;
+                }, true); ///
+                scope.$watch('$parent.model.formstatus', function (newValue, oldValue) {
+                    var formstatus = "00"; //初始状态
+                    if (newValue) {
+                        formstatus = newValue;
+                    }
+                    if (formstatus == "99") {
+                        scope.form.readonly = true;
+                    }
+                    else {
+                        if (scope.form.readonlystatus) {
+                            var readonlystatus = scope.form.readonlystatus.split(",");
+                            var readonly = false;
+                            readonlystatus.forEach(function (element) {
+                                if (element == formstatus) {
+                                    readonly = true;
+                                }
+                            });
+                            scope.form.readonly = readonly;
+                        }
+                    }
+                }, true); ///
+                scope.form.titleMap = [];
+                scope.form.small = false;
+                scope.form.fieldAddonRight = 'fa-search-minus';
+                scope.form.refresh = function (options, search) {
+                    if (!search) {
+                        return;
+                    }
+                    var params = {
+                        count: 10,
+                        oid$eq: "203500010799",
+                        cname$match: search
+                    };
+                    utils.ajax({
+                        method: 'GET',
+                        url: 'base/person',
+                        mockUrl: "plugins/vehicle/data/vehicleInfo.json",
+                        params: params
+                    }).then(function (res) {
+                        scope.form.titleMap = [];
+                        res.data.body.items.forEach(function (e) {
+                            var item = {
+                                value: e.pid,
+                                name: e.cname
+                            };
+                            if (scope.form.relationfield) {
+                                scope.form.relationfield.forEach(function (element) {
+                                    item[element.findfield] = e[element.findfield];
+                                });
+                            }
+                            scope.form.titleMap.push(item);
+                        });
+                    });
+                };
+                scope.onChange = function (selected) {
+                    if (scope.form.relationfield) {
+                        scope.form.relationfield.forEach(function (element) {
+                            if (scope.$parent.model) {
+                                scope.$parent.model[element.tofield] = selected[element.findfield];
+                            }
+                            else {
+                                scope.$parent.row.entity[element.tofield] = selected[element.findfield];
+                            }
+                        });
+                    }
+                };
+                var init = function () {
+                    if (scope.ngModel) {
+                        var params = {
+                            count: 10,
+                            oid$eq: "203500010799",
+                            pid$eq: scope.ngModel
+                        };
+                        utils.ajax({
+                            method: 'GET',
+                            url: 'base/person',
+                            mockUrl: "plugins/vehicle/data/vehicleInfo.json",
+                            params: params
+                        }).then(function (res) {
+                            scope.form.titleMap = [];
+                            res.data.body.items.forEach(function (e) {
+                                var item = {
+                                    value: e.pid,
+                                    name: e.cname
+                                };
+                                if (scope.form.relationfield) {
+                                    scope.form.relationfield.forEach(function (element) {
+                                        item[element.findfield] = e[element.findfield];
+                                    });
+                                }
+                                scope.form.titleMap.push(item);
+                            });
+                        });
+                    }
+                };
+                init();
+                $scope.form.dialog = function () {
+                    ngDialog.open({
+                        className: 'ngdialog-theme-default dialog-people-selector',
+                        template: 'plugins/base/pages/people.selector.html',
+                        controller: function ($scope) {
+                            $scope.callback = function (justPersons, selects) {
+                                if (justPersons.length > 0) {
+                                    justPersons.forEach(function (person) {
+                                        if (person.pid && person.cname) {
+                                            scope.ngModel = person.pid;
+                                            var item = {
+                                                value: person.pid,
+                                                name: person.cname
+                                            };
+                                            if (scope.form.relationfield) {
+                                                scope.form.relationfield.forEach(function (element) {
+                                                    if (scope.$parent.model) {
+                                                        scope.$parent.model[element.tofield] = person[element.findfield];
+                                                    }
+                                                    else {
+                                                        scope.$parent.row.entity[element.tofield] = person[element.findfield];
+                                                    }
+                                                });
+                                            }
+                                            scope.form.titleMap.push(item);
+                                            scope.ngModel = person.pid;
+                                        }
+                                    });
+                                    ngDialog.closeAll();
+                                }
+                                else {
+                                    ngDialog.closeAll();
+                                }
+                            };
+                        }
+                    });
+                };
+            }]
+    };
+});
+
+//# sourceMappingURL=getperson.js.map
+
+angular.module('app')
+    .directive('importUploader', ['$location', 'utils', '$log', 'FileUploader',
+        function ($location, utils, $log, FileUploader) {
+            return {
+                restrict: 'EA',
+                templateUrl: 'base/directives/import.html',
+                replace: true,
+                scope: {
+                    options: "="
+                },
+                controller: ['$scope', '$attrs', '$element',
+                    function ($scope, $attrs, $element) {
+                        var options = $scope.options || {};
+
+                        $scope.title = options.title;
+
+                        var url = options.url || "/upload";
+
+                        var uploader = $scope.uploader = new FileUploader({
+                            url: url
+                        });
+
+                        uploader.filters.push({
+                            name: 'customFilter',
+                            fn: function (item, options) {
+                                return this.queue.length < 10;
+                            }
+                        });
+
+                        uploader.onSuccessItem = function (item, res, status, headers) {
+                            $scope.message = res.message;
+                            if (angular.isFunction(options.resolve)) {
+                                options.resolve.apply();
+                            }
+                        };
+                    }]
+            };
+        }]);
+'use strict';
+(function () {
+    angular.module('app')
+        .run(function ($templateCache) {
+
+        }).directive('yesApplicationTree', function ($compile, $templateCache, $http) {
+
+            var walkChildren = function (tree, state) {
+                angular.forEach(tree, function (node) {
+                    node.selected = state;
+                    if (node.children) {
+                        walkChildren(node.children, state);
+                    }
+                });
+            };
+            
+            return {
+                restrict: 'EA',
+                scope: {
+                    nodes: "=",
+                    root: "=",
+                    hide: "=",
+                    initial: "=",
+                    onSelect: "="
+                },
+                //templateUrl: 'plugins/base/templates/role-tree.html',
+                //replace: true,
+                link: function (scope, element, attrs) {
+                    $http.get("plugins/base/directives/tree.application.html", {cache: $templateCache})
+                        .success(function (html) {
+                            scope.selectChanged = function (node, pd) {
+                            		if(pd || !node.children || !node.children.length){
+	                            		walkChildren(scope.initial,false);
+	                        			node.selected = true;
+	                        			scope.onSelect(node);
+                            		}
+                                };
+                            element.html('').append($compile(html)(scope));
+                        });
+                }
+            };
+        })
+})();
+'use strict';
+(function () {
+    angular.module('app')
+        .run(function ($templateCache) {
+
+        }).directive('yesOrganizationTree', function ($compile, $templateCache, $http) {
+
+            var walkChildren = function (tree, state) {
+                angular.forEach(tree, function (node) {
+                    node.selected = state;
+                    if (node.children) {
+                        walkChildren(node.children, state);
+                    }
+                });
+            };
+            
+            return {
+                restrict: 'EA',
+                scope: {
+                    nodes: "=",
+                    root: "=",
+                    hide: "=",
+                    initial: "=",
+                    onSelect: "=",
+                    multiple: "=",
+                    sortable: "=",
+                    sortOption: "="
+                },
+                //templateUrl: 'plugins/base/templates/role-tree.html',
+                //replace: true,
+                link: function (scope, element, attrs) {
+                	var template = "tree.organization.html";
+                	if(scope.sortable){
+                		template = "tree.organization.sortable.html";
+                	}
+                    $http.get("plugins/base/directives/"+template, {cache: $templateCache})
+                        .success(function (html) {
+                            scope.selectChanged = function (node, pd) {
+                            		if(pd || !node.children || !node.children.length){
+                            			if(scope.multiple){
+                            				node.selected = !node.selected;
+                            			}else{
+		                            		walkChildren(scope.initial,false);
+		                        			node.selected = true;
+                            			}
+	                        			scope.onSelect(node);
+                            		}
+                                };
+                            element.html('').append($compile(html)(scope));
+                            scope.showMoveIco = function(brothers){
+                            	brothers.forEach(function(item){
+                            		item.showMove = true;
+                            	});
+                            };
+                            scope.hideMoveIco = function(brothers){
+                            	brothers.forEach(function(item){
+                            		item.showMove = false;
+                            	});
+                            };
+                        });
+                }
+            };
+        })
+})();
+'use strict';
+(function () {
+    angular.module('app')
+        .run(function ($templateCache) {
+
+        }).directive('yesRoleTree', function ($compile, $templateCache, $http) {
+
+            var walkChildren = function (tree, state) {
+                angular.forEach(tree, function (node) {
+                    node.selected = state;
+                    if (node.children) {
+                        walkChildren(node.children, state);
+                    }
+                });
+            };
+
+            var walkParent = function (node, state) {
+                if (node && node.parentNode && state) {
+                    node.parentNode.selected = state;
+                    walkParent(node.parentNode, state);
+                }
+            };
+
+            return {
+                restrict: 'EA',
+                scope: {
+                    nodes: "=",
+                    root: "=",
+                    hide: "=",
+                    cantSelected: "="
+                },
+                //templateUrl: 'plugins/base/templates/role-tree.html',
+                //replace: true,
+                link: function (scope, element, attrs) {
+                    $http.get("plugins/base/directives/tree.roles.html", {cache: $templateCache})
+                        .success(function (html) {
+                            scope.selectChanged = scope.selectChanged || function (node) {
+                            		if(scope.cantSelected){
+	                                    node.selected = !node.selected; 
+                            		}else{
+                            			walkChildren(node.children, node.selected);
+	                                    walkParent(node, node.selected);
+                            		}
+                                };
+                            element.html('').append($compile(html)(scope));
+                        });
+                }
+            };
+        })
+})();
+(function () {
+    'use strict';
+    angular.module('app')
+        .directive('yesUploader', ['$location', 'utils', '$log', 'FileUploader',
+            function ($location, utils, $log, FileUploader) {
+
+                return {
+                    restrict: 'EA',
+                    templateUrl: 'plugins/base/directives/uploader.html',
+                    replace: true,
+                    scope: {
+                        options: "=",
+                        readonly: "="
+                    },
+                    require: 'ngModel',
+                    link: function link(scope, element, attrs, ngModelController) {
+                        setTimeout(function () {
+                            scope.attachmentId = ngModelController.$viewValue;
+                            scope.options = angular.extend({
+                                maxMB: 10,
+                                multiple: 10
+                            }, scope.options);
+                            if (scope.options.multiple == false) {
+                                scope.options.multiple = 1;
+                            }
+                            scope.init();
+                            scope.$watch("attachmentId", function () {
+                                if (scope.attachmentId && !ngModelController.$viewValue) {
+                                    ngModelController.$setViewValue(scope.attachmentId);
+                                }
+                            });
+                        }, 200);
+
+                    },
+                    controller: ['$scope', '$attrs', '$element', 'utils', 'settings',
+                        function ($scope, $attrs, $element, utils, settings) {
+                            var host = settings.host == "self" ? "" : settings.host;
+                            var rootUrl = [host, settings.apiPrefix].join('/');
+                            function getApiUrl(relativeUrl) {
+                                if (relativeUrl && relativeUrl.indexOf('http') === 0)
+                                    return relativeUrl;
+                                return [rootUrl, relativeUrl].join('/');
+                            }
+
+
+                            var url = getApiUrl( settings.uploadUrl);
+                            $scope.downUrl = getApiUrl( settings.downloadUrl);
+                            var uploader = $scope.uploader = new FileUploader({
+                                url: url,
+                                autoUpload: true
+                            });
+                            $scope.sumSize = 0;
+                            $scope.init = function () {
+                                $scope.apiPath = settings.apiPath;
+                                if (!$scope.attachmentId) {
+                                    utils.async("GET", settings.getUuid).then(function (attId) {
+                                        $scope.attachmentId = attId.data;
+                                        uploader.formData = [{'attachmentId': $scope.attachmentId}];
+                                    });
+                                } else {
+                                	uploader.formData = [{'attachmentId': $scope.attachmentId}];
+                                    utils.async("GET", settings.getByAttIdUrl, {"attId": $scope.attachmentId}).then(function (res) {
+                                        $scope.items = res.data.body;
+                                    });
+                                }
+                                uploader.onSuccessItem = function (item, res, status, headers) {
+                                    item.uid = res.body.data[0].uid;
+                                    $scope.message = res.message;
+                                };
+                            };
+
+                            $scope.remove = function (item) {
+                                utils.async("DELETE", settings.delByUid + "/" + item.uid).then(function (res) {
+                                    if (res.data.body) {
+                                        if ($scope.items) {
+                                            for (var i = 0, size = $scope.items.length; i < size; i++) {
+                                                if ($scope.items[i] == item) {
+                                                    $scope.items.splice(i, 1);
+                                                }
+                                            }
+                                        }
+                                    } else {
+                                        console.log("后台删除出错!");
+                                    }
+                                });
+                            };
+
+                            uploader.filters.push({
+                                name: 'sizeFilter',
+                                fn: function (item /*{File|FileLikeObject}*/, options) {
+                                    var tsum = 0;
+                                    if ($scope.items) {
+                                        $scope.items.forEach(function (item) {
+                                            tsum += item.fileSize ? item.fileSize : 0;
+                                        });
+                                    }
+                                    uploader.queue.forEach(function (item) {
+                                        tsum += item.size;
+                                    });
+                                    tsum += item.size;
+                                    if (tsum > $scope.options.maxMB * 1048576) {
+                                        alert("大小不能超过" + $scope.options.maxMB + "M!");
+                                        return false;
+                                    } else if (((uploader.queue ? uploader.queue.length : 0) + ($scope.items ? $scope.items.length : 0)) >= $scope.options.multiple) {
+                                        alert("最多只能上传" + $scope.options.multiple + "个文件!");
+                                        return false;
+                                    } else {
+                                        return true;
+                                    }
+                                }
+                            });
+
+                            //
+                            //uploader.filters.push({
+                            //    name: 'customFilter',
+                            //    fn: function (item /*{File|FileLikeObject}*/, options) {
+                            //        return this.queue.length < 10;
+                            //    }
+                            //});
+                            //
+                            //if (angular.isFunction(options.resolve)) {
+                            //    options.resolve.apply(uploader);
+                            //}
+                        }]
+                };
+            }]);
+})();
 /*! bootstrap-timepicker v0.2.3 
 * http://jdewit.github.com/bootstrap-timepicker 
 * Copyright (c) 2013 Joris de Wit 

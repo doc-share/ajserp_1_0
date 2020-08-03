@@ -1,5 +1,5 @@
 define(function () {
-    angular.module('app').controller('inv.map61.detail',
+    angular.module('app').controller('inv.map64.detail',
         function ($rootScope, $scope, $location, utils, path, getSingleView, settings,
             $timeout, dialog, toastr, ngDialog, uiGridConstants, qwsys, sysconstant) {
             var scope = $scope;
@@ -112,21 +112,20 @@ define(function () {
                     schema: {
                         "type": "object",
                         "properties": {
-                            "io_p": {
-                                "title": "單據類別",
+                            "nbr": {
+                                "title": "單據編號",
                                 "type": "String"
                             },
                             "nbrdate": {
                                 "title": "日期",
                                 "type": "Date"
                             },
-                            "nbr": {
-                                "title": "單據號碼",
+                            "ware_nbro": {
+                                "title": "調出倉庫",
                                 "type": "String"
                             },
-                            
-                            "ware_nbr": {
-                                "title": "倉庫",
+                            "ware_nbri": {
+                                "title": "調入倉庫",
                                 "type": "String"
                             },
                             "remark": {
@@ -137,18 +136,50 @@ define(function () {
                                 "title": "狀態",
                                 "type": "String"
                             },
-                            "remark": {
-                                "title": "備註",
+                            "seq": {
+                                "title": "序號",
+                                "type": "integer"
+                            },
+                            "item_nbr": {
+                                "title": "產品編號",
+                                "type": "String"
+                            },
+                            "item_desc": {
+                                "title": "規格說明",
+                                "type": "String"
+                            },
+                            "pro_nbr": {
+                                "title": "製程",
+                                "type": "String"
+                            },
+                            "unit": {
+                                "title": "單位",
+                                "type": "String"
+                            },
+                            "ware_nbro": {
+                                "title": "調出倉庫",
+                                "type": "String"
+                            },
+                            "ware_nbri": {
+                                "title": "調入倉庫",
+                                "type": "String"
+                            },
+                            "qty": {
+                                "title": "數量",
+                                "type": "Double"
+                            },
+                            "stock_desc": {
+                                "title": "儲位",
                                 "type": "String"
                             }
                         }
                     },
                     form: [{
                             type: "group",
-                            title: "",
+                            title: "基本訊息",
                             items: [{
-                                    title: "單據類別",
-                                    key: 'io_p',
+                                    title: "單據編號",
+                                    key: 'nbr',
                                     editstatus: {
                                         relation: "and",
                                         filedlist: [{
@@ -157,17 +188,6 @@ define(function () {
                                             } //表单为新增，修改状态
                                         ]
                                     },
-                                    type: 'basLov',
-                                    lovtype: 'select',
-                                    titleMap:[
-                                        {value:"1",name:"入庫單"},
-                                        {value:"2",name:"出庫單"},
-                                    ]
-                                },
-                                {
-                                    title: "單據號碼",
-                                    key: 'nbr',
-                                    readonly:true,
                                     type: 'basDefault',
                                 },
                                 {
@@ -184,8 +204,8 @@ define(function () {
                                     type: 'basEsydatetime',
                                 },
                                 {
-                                    title: "倉庫",
-                                    key: 'ware_nbr',
+                                    title: "調出倉庫",
+                                    key: 'ware_nbro',
                                     editstatus: {
                                         relation: "and",
                                         filedlist: [{
@@ -200,6 +220,29 @@ define(function () {
                                     }],
                                     additionalField: {
                                         key: "ware_desc",
+                                        readonly: true,
+                                        type: "basString"
+                                    },
+                                    type: 'basLov',
+                                    lovtype: 'get_war'
+                                },
+                                {
+                                    title: "調入倉庫",
+                                    key: 'ware_nbri',
+                                    editstatus: {
+                                        relation: "and",
+                                        filedlist: [{
+                                                field: "formstatus",
+                                                status: "add,edit"
+                                            } //表单为新增，修改状态
+                                        ]
+                                    },
+                                    relationfield: [{
+                                        findfield: "ware_desc",
+                                        tofield: "ware_desc1"  //這裡用ware_desc1避免與調出倉庫衝突
+                                    }],
+                                    additionalField: {
+                                        key: "ware_desc1",
                                         readonly: true,
                                         type: "basString"
                                     },
@@ -235,111 +278,181 @@ define(function () {
                                 }
                             ]
                         },
-                        //下面为页签
+                        //下面为行明细
                         {
-                            type: "basTabs",
-                            css: "max-4",
-                            tabs: [
-                                //下面为页签A
-                                {    //加了整個會無法存檔，要存檔看可以先註解掉
-                                    title: "明細",  
-                                    items:[ //invbat的表
-                                        {
-                                        title: "明細行",
-                                        key: 'invbats',
-                                        type: "basEditgrid",
-                                        gridkey: "bas.map54.detail",
-                                        css: "cell100",
-                                        action: {
-                                            add: {
-                                                editstatus: {
-                                                    relation: "or",
-                                                    editstatus: {
-                                                        relation: "and",
-                                                        filedlist: [
-                                                            {field: "formstatus", status: "add,edit"}, //表單為新增，修改狀態
-                                                        ]
-                                                    },
-                                                    filedlist: [
-                                                        {field: "formstatus", status: "add,edit"}, //表單新增狀態
-                                                    ]
-                                                },
-                                                click: function () {
-                                                    var item = {
-                                                        isdel: false
-                                                    }
-                                                    scope.model.invbats.push(item);
-                                                }
-                                            },
-                                            del: {
-                                                editstatus: {
-                                                    relation: "or",
-                                                    filedlist: [
-                                                        {field: "formstatus", status: "add,edit"}, //表單新增狀態
-                                                    ]
-                                                },
-                                                click: function (item) {
-                                                    item.isdel = true;
-                                                    scope.model.invbats.splice();
-                                                }
-                                            }
-                                        },
-                                        headers: {
-                                            "item_nbr": {   
-                                                displayName: "產品編號",
-                                                type: 'basDefault',
-                                                width: 110,
-                                            },
-                                            "item_desc": {
-                                                displayName: "規格說明",
-                                                type: 'basDefault',
-                                                width: 110
-                                            },
-                                            "pro_nbr": {
-                                                displayName: "製程",
-                                                type: "basDefault",
-                                                width: 110
-                                            },
-                                            
-                                            "unit": {
-                                                displayName: "單位",
-                                                type: 'basDefault',
-                                                width: 110
-                                            },
-                                            "ware_nbr": {
-                                                displayName: "倉庫",
-                                                type: 'basEsydatetime',
-                                                width: 110
-                                            },
-                                            "to_qty":{
-                                                displayName: "庫存數量",
-                                                type: 'basDefault',
-                                                width: 110
-                                            },
-                                            "qty": {
-                                                displayName: "數量",
-                                                type: 'basDefault',
-                                                width: 110
-                                            },
-                                            "remark": {
-                                                displayName: "備註",
-                                                type: 'basDefault',
-                                                width: 180
-                                            },
-                                            "stock_desc": {   
-                                                displayName: "儲位",
-                                                type: 'basDefault',
-                                                width: 110,
-                                               
-                                            },
-                                            
+                            type: 'basLine',
+                            css: "cell100 ",
+                            title: ""
+                        },
+                        {
+                            title: "",
+                            key: 'trnbats',
+                            type: "basEditgrid",
+                            gridkey: "inv.map64.detail",
+                            css: "cell100",
+                            action: {
+                                add: {
+                                    editstatus: {
+                                        relation: "or",
+                                        editstatus: {
+                                            relation: "and",
+                                            filedlist: [{
+                                                    field: "formstatus",
+                                                    status: "add,edit"
+                                                }, //表单为新增，修改状态
+                                            ]
                                         }
-            
-                                    }]
+                                    },
+                                    click: function () {
+                                        var item = {
+                                            isdel: false
+                                        }
+                                        scope.model.trnbats.push(item);
+                                    }
                                 },
-                                //下面为页签B
+                                del: {
+                                    editstatus: {
+                                        relation: "or",
+                                        filedlist: [{
+                                                field: "formstatus",
+                                                status: "add,edit"
+                                            }, //表单新增状态
+                                        ]
+                                    },
+                                    click: function (item) {
+                                        item.isdel = true;
+                                    }
+                                }
+                            },
+                            headers: {
+                                "seq": {
+                                    displayName: "序號",
+                                    readonlystatus: {
+                                        relation: "and",
+                                        filedlist: [{
+                                                field: "formstatus",
+                                                status: "view"
+                                            }, //表单新增状态
+                                        ]
+                                    },
+                                    type: 'basDefault',
+                                    lovtype: '',
+                                    width: 110
+                                },
+                                "item_nbr": {
+                                    displayName: "產品編號",
+                                    readonlystatus: {
+                                        relation: "and",
+                                        filedlist: [{
+                                                field: "formstatus",
+                                                status: "view"
+                                            }, //表单新增状态
+                                        ]
+                                    },
+                                    type: 'basDefault',
+                                    lovtype: '',
+                                    width: 110
+                                },
+                                "item_desc": {
+                                    displayName: "規格說明",
+                                    readonlystatus: {
+                                        relation: "and",
+                                        filedlist: [{
+                                                field: "formstatus",
+                                                status: "view"
+                                            }, //表单新增状态
+                                        ]
+                                    },
+                                    type: 'basDefault',
+                                    lovtype: '',
+                                    width: 110
+                                },
+                                "pro_nbr": {
+                                    displayName: "製程",
+                                    readonlystatus: {
+                                        relation: "and",
+                                        filedlist: [{
+                                                field: "formstatus",
+                                                status: "view"
+                                            }, //表单新增状态
+                                        ]
+                                    },
+                                    type: 'basLov',
+                                    lovtype: 'get_pro',
+                                    width: 110
+                                },
+                                "unit": {
+                                    displayName: "單位",
+                                    readonlystatus: {
+                                        relation: "and",
+                                        filedlist: [{
+                                                field: "formstatus",
+                                                status: "view"
+                                            }, //表单新增状态
+                                        ]
+                                    },
+                                    type: 'basDefault',
+                                    lovtype: '',
+                                    width: 110
+                                },
+                                "ware_nbro": {
+                                    displayName: "調出倉庫",
+                                    readonlystatus: {
+                                        relation: "and",
+                                        filedlist: [{
+                                                field: "formstatus",
+                                                status: "view"
+                                            }, //表单新增状态
+                                        ]
+                                    },
+                                    type: 'basLov',
+                                    lovtype: 'get_war',
+                                    width: 110
+                                },
+                                "ware_nbri": {
+                                    displayName: "調入倉庫",
+                                    readonlystatus: {
+                                        relation: "and",
+                                        filedlist: [{
+                                                field: "formstatus",
+                                                status: "view"
+                                            }, //表单新增状态
+                                        ]
+                                    },
+                                    type: 'basLov',
+                                    lovtype: 'get_war',
+                                    width: 110
+                                },
+                                "qty": {
+                                    displayName: "數量",
+                                    readonlystatus: {
+                                        relation: "and",
+                                        filedlist: [{
+                                                field: "formstatus",
+                                                status: "view"
+                                            }, //表单新增状态
+                                        ]
+                                    },
+                                    type: 'basNumber',
+                                    lovtype: '',
+                                    width: 110
+                                },
+                                "stock_desc": {
+                                    displayName: "儲位",
+                                    readonlystatus: {
+                                        relation: "and",
+                                        filedlist: [{
+                                                field: "formstatus",
+                                                status: "view"
+                                            }, //表单新增状态
+                                        ]
+                                    },
+                                    type: 'basNumber',
+                                    lovtype: '',
+                                    width: 110
+                                }
+                            }
 
-                            ]
                         }
 
 
@@ -361,13 +474,13 @@ define(function () {
                     dialog.confirm('确定删除当前数据?').then(function () {
                         scope.promise = utils.ajax({
                             method: 'DELETE',
-                            url: "inv/invbah/" + scope.model.uid,
-                            mockUrl: "plugins/data/map61.detail.json"
+                            url: "inv/trnbah/" + scope.model.uid,
+                            mockUrl: "plugins/data/map64.detail.json"
                         }).then(function (res) {
                             toastr.info("数据删除成功!!!");
                             scope.uid = "";
                             scope.action.add();
-                            scope.refreshtab("refreshinvbah", {});
+                            scope.refreshtab("refreshtrnbah", {});
 
                         });
                     });
@@ -385,8 +498,8 @@ define(function () {
                     if (scope.uid) {
                         scope.promise = utils.ajax({
                             method: 'GET',
-                            url: "inv/invbah/" + scope.uid,
-                            mockUrl: "plugins/data/map61.detail.json"
+                            url: "inv/trnbah/" + scope.uid,
+                            mockUrl: "plugins/data/map64.detail.json"
                         }).then(function (res) {
                             var data = res.data;
                             scope.model = data.body;
@@ -419,8 +532,8 @@ define(function () {
                     scope.model.formstatus = "read";
                     scope.promise = utils.ajax({
                         method: "POST",
-                        url: "inv/invbah",
-                        mockUrl: "plugins/data/map61.detail.json",
+                        url: "inv/trnbah",
+                        mockUrl: "plugins/data/map64.detail.json",
                         data: scope.model
                     }).then(function (res) {
                         scope.uid = res.data.body.uid
@@ -431,7 +544,7 @@ define(function () {
                         }
                         scope.action.load();
                         $scope.$broadcast('schemaFormRedraw');
-                        scope.refreshtab("refreshinvbah", {});
+                        scope.refreshtab("refreshtrnbah", {});
 
                     }, function (error) {
                         $timeout(function () {

@@ -383,6 +383,15 @@ define(function () {
                                             }, //表单新增状态
                                         ]
                                     },
+                                    relationfield: [{
+                                        findfield: "ware_desc",
+                                        tofield: "ware_desc"
+                                    }],
+                                    additionalField: {
+                                        key: "ware_desc",
+                                        readonly: true,
+                                        type: "basString"
+                                    },
                                     type: 'basLov',
                                     lovtype: 'get_war',
                                     width: 110

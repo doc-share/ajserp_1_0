@@ -231,7 +231,7 @@ define(function () {
                                             } //表单为新增，修改状态
                                         ]
                                     },
-                                    type: 'basDefault',
+                                    type: 'basStatus',
                                 }
                             ]
                         },
