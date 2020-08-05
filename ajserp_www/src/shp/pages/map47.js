@@ -1,5 +1,5 @@
 define(function () {
-    angular.module('app').controller('ord.map33',
+    angular.module('app').controller('shp.map47',
         function ($rootScope, $scope, $location, uiGridConstants, utils, path, settings,
             $timeout, dialog, toastr, ngDialog, qwsys, $http) {
             var scope = $scope;
@@ -16,31 +16,32 @@ define(function () {
             scope.promise = null;
             scope.listUrl = "plugins/bas/templates/list.html";
             scope.config = {
-                gridkey: "map33",
-                title: "訂單查詢",
+                gridkey: "map47",
+                title: "出貨彙總查詢",
                 listoperation: {
-                    // add: {
-                    //     name: "新增",
-                    //     icon: "fa-calendar-check-o",
-                    //     action: function (event, scope) {
-                    //         scope.action.add();
-                    //     }
-                    // },
-                    export: {
-                        name: "列印",
-                        icon: "fa-share",
-                        action: function(event, scope) {
-                            scope.action.export();
+                    add: {
+                        name: "新增",
+                        icon: "fa-calendar-check-o",
+                        action: function (event, scope) {
+                            scope.action.add();
                         }
-                    },
+                    }
                 },
                 headers: {
                     "nbrdate": {
-                        displayName: "訂單日期",
+                        displayName: "出貨日期",
                         width: 120
                     },
                     "nbr": {
                         displayName: "單據號碼",
+                        width: 120
+                    },
+                    "io_p": {
+                        displayName: "出/退別",
+                        width: 120
+                    },
+                    "acr_mon": {
+                        displayName: "結帳月份",
                         width: 120
                     },
                     "cus_nbr": {
@@ -51,8 +52,8 @@ define(function () {
                         displayName: "客戶簡稱",
                         width: 120
                     },
-                    "cus_ord": {
-                        displayName: "客戶訂單號碼",
+                    "ivc_nbr": {
+                        displayName: "發票號碼",
                         width: 120
                     },
                     "sale_nbr": {
@@ -67,16 +68,37 @@ define(function () {
                         displayName: "預計出貨日",
                         width: 120
                     },
-                    "amt": {
-                        displayName: "訂單總額",
+                    "coin_nbr": {
+                        displayName: "幣別",
                         width: 120
                     },
+                    "c_amt": {
+                        displayName: "幣別合計",
+                        width: 120
+                    },
+                    "ctax_amt": {
+                        displayName: "幣別稅額",
+                        width: 120
+                    },
+                    "ctot_amt": {
+                        displayName: "幣別總額",
+                        width: 120
+                    },
+                    
                     "tot_amt": {
+                        displayName: "合計金額",
+                        width: 120
+                    },
+                    "tax_amt": {
+                        displayName: "稅額",
+                        width: 120
+                    },
+                    "shp_amt": {
                         displayName: "出貨總額",
                         width: 120
                     },
-                    "pay_term": {
-                        displayName: "交易條件",
+                    "rec_amt": {
+                        displayName: "收款總額",
                         width: 120
                     },
                     "remark": {
@@ -113,23 +135,32 @@ define(function () {
                         type: "basEsydatetime",
                         lovtype: "",
                         name: "nbrdate",
-                        label: "訂單日期F"
+                        label: "出貨日期F"
                     },
                     nbrdateb: {
                         type: "basEsydatetime",
                         lovtype: "",
                         name: "nbrdateb",
-                        label: "訂單日期T"
+                        label: "出貨日期T"
+                    },
+                    space:{ css:"cell100"},
+                    content1:{   //欄位名稱暫定
+                        type:"basDefault",
+                        name:"content1"
+                    },
+                    content2:{   //欄位名稱暫定
+                        type:"basDefault",
+                        name:"content2"
                     }
                 },
                 filtermoreItems: {
-                    nbr:{
+                    nbr: {
                         type: "basDefault",
                         lovtype: "",
                         name: "nbr",
                         label: "單據號碼F"
                     },
-                    nbrb:{
+                    nbrb: {
                         type: "basDefault",
                         lovtype: "",
                         name: "nbrb",
@@ -148,63 +179,90 @@ define(function () {
                         label: "客戶代號T"
                     },
                     sale_nbr: {
-                        type: "basEsydatetime",
-                        lovtype: "",
+                        type: "basLov",
+                        lovtype: "get_sal",
                         name: "sale_nbr",
-                        label: "業務員F"
+                        label: "業務員編號F"
                     },
                     sale_nbrb: {
-                        type: "basEsydatetime",
-                        lovtype: "",
+                        type: "basLov",
+                        lovtype: "get_sal",
                         name: "sale_nbrb",
-                        label: "業務員T"
+                        label: "業務員編號T"
                     },
                     nbrdate: {
                         type: "basEsydatetime",
                         lovtype: "",
                         name: "nbrdate",
-                        label: "訂單日期F"
+                        label: "出貨日期F"
                     },
                     nbrdateb: {
                         type: "basEsydatetime",
                         lovtype: "",
                         name: "nbrdateb",
-                        label: "訂單日期T"
+                        label: "出貨日期T"
                     },
-                    plan_date: {
+                    acr_mon: {
                         type: "basEsydatetime",
-                        lovtype: "",
-                        name: "plan_date",
-                        label: "預計出貨日F"
+                        format:"YYYYMM",
+                        name: "acr_mon",
+                        label: "結帳月份F"
                     },
-                    plan_dateb: {
+                    acr_monb: {
                         type: "basEsydatetime",
-                        lovtype: "",
-                        name: "plan_dateb",
-                        label: "預計出貨日T"
+                        format:"YYYYMM",
+                        name: "acr_monb",
+                        label: "結帳月份T"
                     },
-                    status:{
+                    coin_nbr: {
+                        type: "basLov",
+                        lovtype: "get_coin",
+                        name: "coin_nbr",
+                        label: "幣別F"
+                    },
+                    coin_nbrb: {
+                        type: "basLov",
+                        lovtype: "get_coin",
+                        name: "coin_nbrb",
+                        label: "幣別T"
+                    },
+                    io_p:{
                         type: "basRadiosinline",
                         titleMap:[
-                            {value:"1",name:"未出貨"},
-                            {value:"2",name:"含部分出貨"},
-                            {value:"3",name:"已結案"},
-                            {value:"4",name:"全部"},
+                            {value:"1",name:"全部"},
+                            {value:"2",name:"出貨單"},
+                            {value:"3",name:"退貨單"}
                         ],
                         css:"cell2",
-                        name:"status",
-                        label:"出貨狀況"
+                        name:"io_p",
+                        label:"出貨類別"
                     },
                     ord_data:{   //欄位名稱暫定
                         type: "basRadiosinline",
                         titleMap:[
-                            {value:"1",name:"全部訂單"},
-                            {value:"2",name:"僅顯示個人管理的訂單"}
+                            {value:"1",name:"全部出貨單"},
+                            {value:"2",name:"僅顯示個人管理的出貨單"}
                         ],
                         css:"cell2",
                         name:"ord_data",
-                        label:"訂單資料"
+                        label:"單據資料"
                     }
+                },
+                filterPrint:{
+                    print:{
+                        type: "basRadiosinline",
+                        titleMap:[
+                            {value:"1",name:"依客戶排序"},
+                            {value:"2",name:"依單據"},
+                            {value:"3",name:"依日期"},
+                            {value:"4",name:"依結帳月份"},
+                            {value:"5",name:"依業務員"},
+                            {value:"6",name:"依客戶+月份"},
+                            {value:"7",name:"依月份+發票"},
+                        ],
+                        css:"cell2",
+                        name:"print",
+                    },
                 }
             }
 
@@ -218,7 +276,7 @@ define(function () {
 
                     scope.promise = utils.ajax({
                         method: 'POST',
-                        url: "ord/ordbah/query?page=" + scope.datapage.page + "&size=" + scope.datapage.size + "&sort=" + scope.datapage.sort,
+                        url: "ord/shpbah/query?page=" + scope.datapage.page + "&size=" + scope.datapage.size + "&sort=" + scope.datapage.sort,
                         mockUrl: "plugins/base/data/orderlines.json",
                         data: scope.filter
                     }).then(function (res) {
@@ -230,17 +288,6 @@ define(function () {
                     scope.filter = {
 
                     };
-
-                },
-                export: function() {
-                    var page = {
-                        size: 60000,
-                        page: 0,
-                        sort: scope.datapage.sort,
-                        
-                    }
-                    scope.loadmessage = "EXCEL生成中....";
-                    scope.promise = qwsys.exportExcel("ord/ordbah/export", scope.config.headers, scope.filter, page, "訂單")
 
                 },
                 changepage: function (page, size, sort) {
@@ -258,12 +305,12 @@ define(function () {
                 opendetail: function () {
                     var node = {
                         name: "",
-                        url: 'ord/map33.detail'
+                        url: 'shp/map47.detail'
                     }
                     $scope.$emit('opencusdetail', node);
                 }
             }
-            $scope.$on('refreshordbah', function (event, message) {
+            $scope.$on('refreshshpbah', function (event, message) {
                 scope.action.load()
             });
             scope.action.load();

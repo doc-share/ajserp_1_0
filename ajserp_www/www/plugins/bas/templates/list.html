@@ -6,6 +6,8 @@
             <button class="btn btn-primary querybutton" type="button" ng-click="action.reset();"><i class="fa fa-undo"></i> 重置</button>
             <button ng-show="config.filtermoreItems" ng-init="findmore=false" ng-click="findmore=!findmore" class="btn btn-primary querybutton" type="button" ng-click="action.load();"><i class="fa fa-indent"></i> 更多</button>
             <button type="button" ng-click="isCollapsed=!isCollapsed" style=" border: none; background: none;"><i class="fa fa-chevron-up click" ng-class="{'fa-chevron-down':isCollapsed}"></i></button>
+            <!-- <button ng-show="config.filterPrint" ng-init="findprint=false" ng-click="findprint=!findprint" class="btn btn-primary querybutton" type="button" ng-click="action.load();"><i class="fa fa-share"></i> 列印</button>
+            <button type="button" ng-click="isCollapsed=!isCollapsed" style=" border: none; background: none;"><i class="fa fa-chevron-up click" ng-class="{'fa-chevron-down':isCollapsed}"></i></button> -->
         </div>
 
         <div ng-show="!config.listoperation" class="operation" style="text-align: left;">
@@ -14,6 +16,8 @@
             <button class="btn btn-primary querybutton" type="button" ng-click="action.reset();"><i class="fa fa-undo"></i> 重置</button>
             <button ng-show="config.filtermoreItems" ng-init="findmore=false" ng-click="findmore=!findmore" class="btn btn-primary querybutton" type="button" ng-click="action.load();"><i class="fa fa-indent"></i> 更多</button>
             <button type="button" ng-click="isCollapsed=!isCollapsed" style="float:right; border: none; background: none;"><i class="fa fa-chevron-up click" ng-class="{'fa-chevron-down':isCollapsed}"></i></button>
+            <!-- <button ng-show="config.filterPrint" ng-init="findprint=false" ng-click="findprint=!findprint" class="btn btn-primary querybutton" type="button" ng-click="action.load();"><i class="fa fa-share"></i> 列印</button>
+            <button type="button" ng-click="isCollapsed=!isCollapsed" style="float:right; border: none; background: none;"><i class="fa fa-chevron-up click" ng-class="{'fa-chevron-down':isCollapsed}"></i></button> -->
         </div>
 
 
@@ -50,9 +54,32 @@
                     </div>
                 </div>
 
+                
             </form>
         </div>
+        <!--列印-->
+        <!-- <div ng-init="isCollapsed=true" ng-show="isCollapsed" style="background-color: #FFFFCC;">
+            <form name="query" ng-submit="action.load();findprint=false;" class="list-queries query-form base-form "></form>
 
+                <div ng-show="config.filterPrint" class="find-print" ng-class="{'show-print':findprint} " style="width: 370px;height: 420px;    padding: 10px;    padding-bottom: 0px;">
+                    <div class="printTitle">
+                        <div class="printTitlel">
+                            <a>列印選項</a>
+                        </div>
+                        <div class="printTitler">
+                            <div class="operation">
+                                <button class="myprintbutton" type="button" ng-click="findprint=!findprint" style="margin-right: 0;"><i class="fa fa-remove"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="printContent">
+                        <layout-responsive class="max-6 printpr">
+                            <ui-query ng-keypress="($event.which === 13)?action.load():0" ng-repeat="cf in config.filterPrint " ng-model="filter" option="cf" class="query-item form-cells cell {{cf.css}}"></ui-query>
+                        </layout-responsive>
+                    </div>
+                </div>
+            </form>
+        </div> -->
         <!--
         </div>-->
         <div id='cgbusy' cg-busy="{promise:promise,templateUrl:'',message:loadmessage?loadmessage:'页面加载中..',backdrop:true,delay:0,minDuration:0}">

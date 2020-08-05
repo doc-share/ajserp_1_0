@@ -45,7 +45,7 @@ angular.module('app.core.qwsys', ["app.core.prosys"])
                     toastr.info("EXCEL下载中....");
                     url += "?page=" + (page.page ? page.page : 0) + "&size=" + (page.size ? page.size : 20) + "&sort=" + (page.sort ? page.sort : "");
                     return utils.ajax({
-                        method: 'POST',
+                        method: 'GET',
                         responseType: "arraybuffer",
                         url: url,
                         data: filter,
@@ -104,7 +104,7 @@ angular.module('app.core.qwsys', ["app.core.prosys"])
                         var objectUrl = URL.createObjectURL(blob);
                         var aForExcel = $("<a><span class='forExcel'>下载excel</span></a>").attr("href", objectUrl);
                         if (filename) {
-                            aForExcel.attr("download", filename);
+                            aForExcel.attr("download", filename + ".xlsx");
                         }
                         $("body").append(aForExcel);
                         $(".forExcel").click();

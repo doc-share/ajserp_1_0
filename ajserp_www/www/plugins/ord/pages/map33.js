@@ -27,7 +27,7 @@ define(function () {
                     //     }
                     // },
                     export: {
-                        name: "導出",
+                        name: "列印",
                         icon: "fa-share",
                         action: function(event, scope) {
                             scope.action.export();

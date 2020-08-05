@@ -26,11 +26,12 @@ import org.esy.base.annotation.FilterInfo;
 @Entity
 @EntityInfo("報價單表頭檔")
 @Table(name = "Quobahv")
-@Subselect("select a.*, b.cus_name, c.tax_desc, d.coin_desc, e.sale_name from quo_bah a "
-		+ "left join cus_cus b on b.cus_nbr=a.cus_nbr "
-		+ "left join bas_tax c on c.tax_type=a.tax_type "
-		+ "left join bas_coin d on d.coin_nbr=a.coin_nbr "
-		+ "left join bas_sal e on e.sale_nbr=a.sale_nbr ")
+@Subselect("select a.* from quo_bah a")
+//@Subselect("select a.*, b.cus_name, c.tax_desc, d.coin_desc, e.sale_name from quo_bah a "
+//		+ "left join cus_cus b on b.cus_nbr=a.cus_nbr "
+//		+ "left join bas_tax c on c.tax_type=a.tax_type "
+//		+ "left join bas_coin d on d.coin_nbr=a.coin_nbr "
+//		+ "left join bas_sal e on e.sale_nbr=a.sale_nbr ")
 @Synchronize("quo_bah")
 public class Quobahv extends BaseProperties {
 

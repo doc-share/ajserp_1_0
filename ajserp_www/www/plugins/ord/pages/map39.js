@@ -27,7 +27,7 @@ define(function () {
                     //     }
                     // },
                     export: {
-                        name: "導出",
+                        name: "列印",
                         icon: "fa-share",
                         action: function(event, scope) {
                             scope.action.export();
@@ -97,7 +97,7 @@ define(function () {
                     }
                 },
                 filterItems: {
-                    seq: {
+                    sort_method: {
                         type: "basRadiosinline",
                         titleMap:[
                             {value:"1",name:"依預計出貨日+客戶"},
@@ -105,10 +105,10 @@ define(function () {
                             {value:"3",name:"依產品+預設出貨日"}
                         ],
                         css: "cell100",
-                        name: "seq",
+                        name: "sort_method",
                         label: "排序方式"
                     },
-                    ioseq: {
+                    date_scope: {
                         type: "basRadiosinline",
                         titleMap:[
                             {value:"1",name:"全部"},
@@ -118,18 +118,18 @@ define(function () {
                             {value:"5",name:"近二周"}
                         ],
                         css: "cell100",
-                        name: "ioseq",
+                        name: "date_scope",
                         label: "預計出貨"
                     },
-                    test1:{   //欄位名稱暫定
+                    content1:{   //欄位名稱暫定
                         type:"basString", 
                         placeholder:"請輸入主要關鍵字",
-                        name:"test1"
+                        name:"content1"
                     },
-                    test2:{   //欄位名稱暫定
+                    content2:{   //欄位名稱暫定
                         type:"basDefault",
                         placeholder:"請輸入次要關鍵字",
-                        name:"test2"
+                        name:"content2"
                     },
                 },
                 filtermoreItems: {
@@ -220,6 +220,7 @@ define(function () {
                         mockUrl: "plugins/base/data/orderlines.json",
                         data: scope.filter
                     }).then(function (res) {
+                        console.log(res.data);
                         scope.model = res.data.body;
                     });
 
@@ -237,7 +238,7 @@ define(function () {
                         sort: scope.datapage.sort
                     }
                     scope.loadmessage = "EXCEL生成中....";
-                    scope.promise = qwsys.exportExcel("ord/ordbat/export", scope.config.headers, scope.filter, page, "销售订单")
+                    scope.promise = qwsys.exportExcel("ord/ordbat/export", scope.config.headers, scope.filter, page, "訂單跟催")
 
                 },
                 changepage: function (page, size, sort) {
@@ -248,17 +249,17 @@ define(function () {
                     }
                     scope.action.load();
                 },
-                rowclick: function (entity) {
-                    $rootScope.uid = entity.uid;
-                    scope.action.opendetail();
-                },
-                opendetail: function () {
-                    var node = {
-                        name: "",
-                        url: 'ord/map39.detail'
-                    }
-                    $scope.$emit('opencusdetail', node);
-                }
+                // rowclick: function (entity) {
+                //     $rootScope.uid = entity.uid;
+                //     scope.action.opendetail();
+                // },
+                // opendetail: function () {
+                //     var node = {
+                //         name: "",
+                //         url: 'ord/map39.detail'
+                //     }
+                //     $scope.$emit('opencusdetail', node);
+                // }
             }
             $scope.$on('refreshordbat', function (event, message) {
                 scope.action.load()
